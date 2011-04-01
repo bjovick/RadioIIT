@@ -30,8 +30,13 @@
 	</header>
 	<div id="main">
 		<div id="mainbar">
+			tirando weba
 		</div>
 		<div id="sidebar">
+			<?php
+			$v = new Vista('blocks/login')->set('nombre','marco');
+			echo $v->presentar();
+			?>
 		</div>
 		<br class="clear" />
 	</div>

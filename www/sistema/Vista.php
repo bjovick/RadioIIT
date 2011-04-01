@@ -7,9 +7,7 @@ class Vista {
 	// Methodos Magicos //
 	public function __construct($vista, array $params = null) {
 		$this->set_filename($vista);
-		if ($params != null) {
-			$this->_vars = $params + $this->_vars;
-		}
+		$this->_vars = ($params != null) ? $params : array();
 	}
 
 	public function __set($key, $value) {
@@ -25,22 +23,18 @@ class Vista {
 	}
 
 	public function __toString() {
+		return $this->presentar();
+		/*
 		try {
 			return $this->presentar();
 		} catch (Exception $e) {
 			echo 'Error al intepretart vista: '.$e;
 			return '';
-		}
+		}*/
 	}
 
 	public function set($key, $value = NULL) {
-		if (is_array($key)) {
-			foreach ($key as $name => $value) {
-				$this->_vars[$name] = $value;
-			}
-		} else {
-			$this->_vars[$key] = $value;
-		}
+		$this->_vars[$key] = $value;
 
 		return $this;
 	}
@@ -57,11 +51,7 @@ class Vista {
 		return $this;
 	}
 
-	public function presentar($file = NULL) {
-		if ($file !== NULL) {
-			$this->set_filename($file);
-		}
-
+	public function presentar() {
 		if (empty($this->_archivo)) {
 			throw new Exception('You must set the file to use within your view before rendering');
 		}
@@ -69,7 +59,7 @@ class Vista {
 		return $this->capturar();
 	}
 
-	protected static function capturar() {
+	protected function capturar() {
 		// importar las variables de la vista al contexto local
 		extract($this->_vars, EXTR_SKIP);
 
