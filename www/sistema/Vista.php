@@ -4,10 +4,14 @@ class Vista {
 	private $_vars;
 	private $_archivo;
 
+	public function crear($vista, array $params = array()) {
+		return new Vista($vista, $params);
+	}
+
 	// Methodos Magicos //
-	public function __construct($vista, array $params = null) {
+	protected function __construct($vista, array $params) {
 		$this->set_filename($vista);
-		$this->_vars = ($params != null) ? $params : array();
+		$this->_vars = $params;
 	}
 
 	public function __set($key, $value) {

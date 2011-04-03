@@ -34,8 +34,9 @@
 		</div>
 		<div id="sidebar">
 			<?php
-			$v = new Vista('blocks/login')->set('nombre','marco');
-			echo $v->presentar();
+			//$v = View::factory('blocks/login');
+			$v = Vista::crear('blocks/login', array('n'=>'tonyl'));
+			echo $v;
 			?>
 		</div>
 		<br class="clear" />

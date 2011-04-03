@@ -7,7 +7,7 @@
 class Nucleo {
 	public static function auto_load($class) {
 		//TODO extendible a que trabaje con namespaces
-		$file = SISPATH.$class.'.php';
+		$file = str_replace('-','_',SISPATH.$class).'.php';
 		if(is_file($file)) {
 			require $file;
 			return class_exists($class, false);
