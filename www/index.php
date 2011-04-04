@@ -1,49 +1,21 @@
-<?php require_once 'sistema/config.php' ?>
-<!DOCTYPE html>
-<html lang="es-mx">
-<head>
-	<title>Programacion Musical | RadioIIT - Ingenium Rado</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-</head>
-<body>
-	<header>
-		<nav>
-			<ul>
-				<li><a href="">Inicio</a></li>
-				<li><a href="">Quienes Somos</a></li>
-				<li><a href="">prueba</a></li>
-				<li><a href="">1 2 3</a></li>
-			</ul>
-		</nav>
-		<h1><em>Radio</em>IIT<small>ingenium radio</small></h1>
-		<ul id="social_links">
-			<li>
-				<a href="http://facebook.com/radioiit" target="_blank" alt="Siguenos en facebook" >
-					<img src="/assets/imagenes/facebook-icon.png"/></a></li>
-			<li>
-				<a href="http://twitter.com/radioiit" target="_blank" alt="Siguenos en twitter" >
-					<img src="/assets/imagenes/twitter_icons_256.png"/></a></li>
-			<li>
-				<a href="http://myspace.com/iitradio" target="_blank" alt="Siguenos en myspace" >
-					<img src="/assets/imagenes/myspace_icon.png"/></a></li>
-		</ul>
-	</header>
-	<div id="main">
-		<div id="mainbar">
-			tirando weba
-		</div>
-		<div id="sidebar">
-			<?php
-			//$v = View::factory('blocks/login');
-			$v = Vista::crear('blocks/login', array('n'=>'tonyl'));
-			echo $v;
-			?>
-		</div>
-		<br class="clear" />
-	</div>
-	<footer>
-		<p>&copy; Copyright 2011 RadioIIT</p>
-	</footer>
-</body>
-</html>
+<?php
+require_once 'sistema/bootstrap.php';
+
+/**
+ * Este index solo es llamado una vez y es el controlador principal.
+ * es basado de esta mandera index.php/<control>/<accion>/qualquier/otro/parametro?
+ * Por default control y accion es index.
+ *
+ * Para configurar un control tiene que estar en el CONTROLESPATH
+ * y por cada accion hacer un metodo publico con el nombre accion_index
+ * y tienen que tener de perdida un metodo llamado accion_index.
+ * Una opcion que tiene, es que el sistema antes de llamar la accion llama
+ * un metodo llamado anterior y despues de la accion un metodo llamado posterior.
+ * Si un metodo no se encuentra con el nombre, por ejemplo si el usuario accede
+ * index.php/canciones/explorar entonces el sistema va mas o menos por esta sequencia:
+ * $control = new Canciones;
+ * $control->anterior();
+ * $control->accion_explorar($params);
+ * $control->posterior();
+ */
 
