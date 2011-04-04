@@ -1,5 +1,5 @@
 <?php
-require_once 'sistema/bootstrap.php';
+//require_once 'sistema/bootstrap.php';
 
 /**
  * Este index solo es llamado una vez y es el controlador principal.
@@ -19,3 +19,8 @@ require_once 'sistema/bootstrap.php';
  * $control->posterior();
  */
 
+echo "<pre>";
+print_r($_SERVER);
+echo "</pre>";
+
+?>

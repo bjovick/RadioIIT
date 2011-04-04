@@ -1,4 +1,4 @@
-<?php defined('SISPATH') or die('No direct script access.');
+<?php defined('SISPATH') or die('No se permite accesso directo al archivo.');
 
 class Vista { 
 	private $_vars;
