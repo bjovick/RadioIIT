@@ -1,5 +1,5 @@
 <?php
-//require_once 'sistema/bootstrap.php';
+require_once 'sistema/config.php';
 
 /**
  * Este index solo es llamado una vez y es el controlador principal.
@@ -19,8 +19,9 @@
  * $control->posterior();
  */
 
-echo "<pre>";
-print_r($_SERVER);
-echo "</pre>";
+$url = URL::obtener();
+$ctrl_clase = Utils::nomen($url['controlador'], 'clase');
+$accion_metodo = Utils::nomen($url['controlador'], 'metodo');
 
+$ctrl = new $ctrl_clase;
 ?>
