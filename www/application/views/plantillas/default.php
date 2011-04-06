@@ -1,0 +1,86 @@
+<?php
+/**
+ * Variables:
+ * $esta_auth => true o false esta autenticado
+ * $es_admin => true o false si es admin
+ * $titulo => titulo de la pagina
+ * $cont_principal => contenido en la columna principal
+ * $cont_auxiliar => contenido en la columna auxiliar
+ * $estilos => arreglo con los paths de los estilos
+ * $scripts => arreglo con los paths de los scripts
+ * $usarjquery => si se agrega jquery a la pagina
+ * $pagina => id del la etiqueta body definiendo la pagina (usado para css)
+ */
+// senales //
+$es_admin = isset($es_admin) ? $es_admin : false;
+$esta_auth = isset($esta_auth)
+						? $esta_auth
+						: ($es_admin
+							? true
+							: false);
+// contenidos //
+$titulo = isset($titulo) ? $titulo : 'Programacion Musical | RadioIIT - Ingenium Radio';
+$contenido = isset($contenido) ? $contenido : '';
+// estilos y scripts
+$estilos = isset($estilos) ? $estilos : array();
+$scripts = isset($scripts) ? $scripts : array();
+$usarjquery = isset($usarjquery) ? true : false;
+$pagina = isset($pagina) ? $pagina : Request::current()->controller();
+?>
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+	<title><?php echo $titulo ?></title>
+	<link rel="shortcut icon" href="<?php echo URL::site('media/img/favicon.ico'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo URL::site('media/css/style.css'); ?>" />
+	<?php
+	echo HTML::style('media/css/estilo.css', array('rel' => 'stylesheet'));
+
+	foreach($estilos as $archivo) {
+		echo HTML::style($archivo,array('rel', 'stylesheet')),PHP_EOL;
+	}
+	?>
+</head>
+<body id="<?php echo $pagina; ?>">
+	<header>
+		<nav>
+			<ul>
+			<li><a href="<?php echo URL::base();?>">Inicio</a></li>
+				<li><a href="<?php echo URL::site('acerca');?>">Quienes Somos</a></li>
+				<li><a href="<?php echo URL::site('musica');?>">Musica</a></li>
+				<li><a href="<?php echo URL::site('cuenta');?>">Tu Cuenta</a></li>
+			</ul>
+		</nav>
+		<h1><em>Radio</em>IIT<small>ingenium radio</small></h1>
+		<ul id="social_links">
+			<li>
+				<a href="http://facebook.com/radioiit" target="_blank" alt="Siguenos en facebook" >
+					<img src="/media/img/facebook-icon.png"/></a></li>
+			<li>
+				<a href="http://twitter.com/radioiit" target="_blank" alt="Siguenos en twitter" >
+					<img src="/media/img/twitter_icons_256.png"/></a></li>
+			<li>
+				<a href="http://myspace.com/iitradio" target="_blank" alt="Siguenos en myspace" >
+					<img src="/media/img/myspace_icon.png"/></a></li>
+		</ul>
+	</header>
+	<div id="main">
+		<?php echo $contenido; ?>
+		<br class="clear" />
+	</div>
+	<footer>
+		<p>&copy; Copyright 2011 RadioIIT</p>
+	</footer>
+
+	<!-- JAVASCRIPT -->
+	<?php
+	if($usarjquery) {
+		echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>';
+	}
+	foreach($scripts as $archivo) {
+		echo HTML::script($archivo, NULL, TRUE),PHP_EOL;
+	}
+	?>
+</body>
+</html>
+

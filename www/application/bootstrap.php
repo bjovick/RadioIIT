@@ -61,10 +61,18 @@ I18n::lang('en-us');
  * Note: If you supply an invalid environment name, a PHP warning will be thrown
  * saying "Couldn't find constant Kohana::<INVALID_ENV_NAME>"
  */
+Kohana::$environment = Kohana::DEVELOPMENT;
+if (strpos($_SERVER['HTTP_HOST'], 'radioiit.co.cc') !== FALSE
+	 OR strpos($_SERVER['HTTP_HOST'], 'radioiit.tonylara.net') !== FALSE) {
+	Kohana::$environment = Kohana::PRODUCTION;
+	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+}
+/*
 if (isset($_SERVER['KOHANA_ENV']))
 {
 	Kohana::$environment = constant('Kohana::'.strtoupper($_SERVER['KOHANA_ENV']));
 }
+ */
 
 /**
  * Initialize Kohana, setting the default options.
@@ -100,7 +108,7 @@ Kohana::modules(array(
 	// 'auth'       => MODPATH.'auth',       // Basic authentication
 	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
-	// 'database'   => MODPATH.'database',   // Database access
+	'database'   => MODPATH.'database',   // Database access
 	// 'image'      => MODPATH.'image',      // Image manipulation
 	// 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
@@ -113,6 +121,6 @@ Kohana::modules(array(
  */
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
-		'controller' => 'welcome',
+		'controller' => 'inicio',
 		'action'     => 'index',
 	));
