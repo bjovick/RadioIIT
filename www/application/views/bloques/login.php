@@ -3,7 +3,6 @@
   * Variables:
 	*
 	*/
-//if(no esta logeado) {
 ?>
 
 <form id="login" name="login" method="POST" action="<?php echo URL::site('login'); ?>">
@@ -17,8 +16,3 @@ echo '<h4>Entra a tu cuenta</h4>',
 ?>
 </form>
 <p>O <?php echo HTML::anchor('registrate','registrate');?></p>
-<?
-//} else {
-//estas logeado entra a tu cuenta
-//}
-?>

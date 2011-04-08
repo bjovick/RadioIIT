@@ -2,8 +2,7 @@
 
 class Controller_Acerca extends Controller {
 
-	public function action_index()
-	{
+	public function action_index() {
 		$this->response->body('quienes somos');
 	}
 

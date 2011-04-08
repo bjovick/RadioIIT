@@ -62,8 +62,9 @@ I18n::lang('en-us');
  * saying "Couldn't find constant Kohana::<INVALID_ENV_NAME>"
  */
 Kohana::$environment = Kohana::DEVELOPMENT;
-if (strpos($_SERVER['HTTP_HOST'], 'radioiit.co.cc') !== FALSE
-	 OR strpos($_SERVER['HTTP_HOST'], 'radioiit.tonylara.net') !== FALSE) {
+error_reporting(E_ALL | E_STRICT);
+if (strpos($_SERVER['HTTP_HOST'], 'radioiit.co.cc') != false
+	 || strpos($_SERVER['HTTP_HOST'], 'radioiit.tonylara.net') != false) {
 	Kohana::$environment = Kohana::PRODUCTION;
 	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 }
@@ -124,3 +125,12 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'controller' => 'inicio',
 		'action'     => 'index',
 	));
+
+/** HTTP Exceptions **/
+if (Kohana::$environment == Kohana::PRODUCTION) {
+	//TODO arreglar la clase adecuada a este proyecto
+	//set_exception_handler(array(new PageErrorsHandler(),'handle'));
+}
+
+/** Include vendor libraries that are constantly used **/
+require Kohana::find_file('vendors', 'php-markdown/markdown');
