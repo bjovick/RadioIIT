@@ -1,6 +1,8 @@
-Options +FollowSymlinks
-# prender el modulo rewrite
+# Turn on URL rewriting
 RewriteEngine On
+
+# Installation directory
+#RewriteBase /
 
 # Protect hidden files from being viewed
 <Files .*>
@@ -9,11 +11,13 @@ RewriteEngine On
 </Files>
 
 # Protect application and system files from being viewed
-RewriteRule ^(sistema|controles|vistas)/ [F,L]
+#RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
+RewriteRule ^(application|modules|system)/ [F,L]
 
 # Allow any files or directories that exist to be displayed directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Rewrite all other URLs to index.php/URL
-RewriteRule .* index.php/$0 [PT]
+#RewriteRule .* index.php/$0 [PT]
+RewriteRule .* index.php [PT]
