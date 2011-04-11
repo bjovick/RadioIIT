@@ -7,14 +7,14 @@ class Model_Usuarios extends Model {
 	}
 	public static function leer($idonombre, $campos = '*') {
 		if (is_string($idonombre)) { //es nombre
-			return self::seleccionar(array(array('nombre','=','"'.$idonombre.'"')), $campos);
+			return self::seleccionar(array(array('usuario','=',$idonombre)), $campos);
 		} elseif (is_int($idonombre)) { //es id
-			return self::(array(array('id','=',$idonombre)), $campos);
+			return self::seleccionar(array(array('id','=',$idonombre)), $campos);
 		}
 
 		return false;
 	}
-	public static function seleccionar($filtros, $campos) {
+	public static function seleccionar($filtros, $campos='*') {
 		$select = DB::select($campos)->from(self::$_tabla);
 		foreach ($filtros as $filtro) {
 			$select->where($filtro[0],$filtro[1],$filtro[2]);
@@ -27,22 +27,22 @@ class Model_Usuarios extends Model {
 			return false;
 		}
 		$cont = self::leer($id)->current();
-		$nombre = $cont['nombre'];
+		$nombre = $cont['usuario'];
 		$delta = array_diff($cambios, $cont);
-		unset($delta['nombre']);
+		unset($delta['usuario']);
 		if (empty($delta)) {
 			return true;
 		}
 
 		$res = DB::update(self::$_tabla)
 						->set($delta)
-						->where('nombre','LIKE',$nombre);
+						->where('usuario','LIKE',$nombre);
 		
 		return !!$res->execute();
 	}
 	public static function agregar(array $datos) {
 		//valores basicos
-		if (empty($datos['nombre']) || empty($datos['contrasena'])) {
+		if (empty($datos['usuario']) || empty($datos['contrasena'])) {
 			return false;
 		}
 
