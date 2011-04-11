@@ -5,9 +5,7 @@ class Controller_Inicio extends Controller {
 	public function action_index() {
 		$anuncio = Markdown(Model_Contenidos::leer('inicio.anuncio')->get('texto_md'));
 		$intro = Markdown(Model_Contenidos::leer('inicio.intro')->get('texto_md'));
-		$aux = (Auth::esta_auth())
-					? Markdown(Model_contenidos::leer('inicio.identificado')->get('texto_md'))
-					: View::factory('bloques/login');
+		$aux = View::factory('bloques/login');
 		$inicio_v = View::factory('paginas/inicio')
 								->set('anuncio', $anuncio)
 								->set('intro', $intro)
