@@ -1,0 +1,16 @@
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
+
+2011-04-11 08:43:20 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/css/style.css ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 08:43:20 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 08:50:58 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/css/style.css ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 08:50:58 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:21:26 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:27:19 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/css/style.css ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:27:19 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:27:24 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:28:45 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/css/style.css ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:28:45 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:28:50 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:28:50 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/css/style.css ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:28:50 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-04-11 09:29:00 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: media/img/favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
