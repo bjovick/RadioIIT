@@ -3,11 +3,18 @@
 class Model_Contenidos extends Model {
 	protected static $_tabla = 'contenidos_estaticos';
 
-	public static function navegar($campos = '*', $limite = null) {
-		$select = DB::select($campos)->from(self::$_tabla);
+	/**
+	 * funciones basicas BREAD de almacenamiento presistente
+	 */
+	public static function navegar($limite = null, array $filtros = array()) {
+		$select = DB::select('*')->from(self::$_tabla);
 		if(!is_null($limite)) {
 			$select->limit($limite);
 		}
+		foreach($filtro as $filtro) {
+			$select->where($filtro[0],$filtro[1],$filtro[2]);
+		}
+
 		$select->order_by('nombre','asc');
 
 		return $select->execute();

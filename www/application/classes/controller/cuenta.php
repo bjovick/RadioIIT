@@ -55,6 +55,9 @@ class Controller_Cuenta extends Controller {
 		}
 	}
 
+	public function action_registrate() {
+	}
+
 	public function action_logout() {
 		if (Auth::cerrar_sesion()) { //redireccionar a donde estaban
 			$this->request->redirect($this->request->referrer());
