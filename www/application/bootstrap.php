@@ -22,7 +22,7 @@ else
  * @see  http://kohanaframework.org/guide/using.configuration
  * @see  http://php.net/timezones
  */
-date_default_timezone_set('America/Chiuahua');
+date_default_timezone_set('America/Chihuahua');
 
 /**
  * Set the default locale.
@@ -62,9 +62,8 @@ I18n::lang('en-us');
  * saying "Couldn't find constant Kohana::<INVALID_ENV_NAME>"
  */
 Kohana::$environment = Kohana::DEVELOPMENT;
-error_reporting(E_ALL | E_STRICT);
-if (strpos($_SERVER['HTTP_HOST'], 'radioiit.co.cc') != false
-	 || strpos($_SERVER['HTTP_HOST'], 'radioiit.tonylara.net') != false) {
+if (strpos($_SERVER['HTTP_HOST'], 'radioiit.co.cc') !== false
+	 || strpos($_SERVER['HTTP_HOST'], 'radioiit.tonylara.net') !== false) {
 	Kohana::$environment = Kohana::PRODUCTION;
 	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 }

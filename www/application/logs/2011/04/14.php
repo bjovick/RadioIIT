@@ -23,3 +23,5 @@
 2011-04-14 00:38:17 --- DEBUG: Agregar validando contrasena contra2:7
 2011-04-14 00:38:17 --- DEBUG: Agregar datos validos.
 2011-04-14 00:38:17 --- DEBUG: Agregar usuarios sql: INSERT INTO `usuarios` (`usuario`, `contrasena`) VALUES ('prueba2', 'contra2')
+2011-04-14 00:03:39 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected T_VARIABLE ~ APPPATH/classes/controller/musica.php [ 20 ]
+2011-04-14 06:59:29 --- ERROR: Database_Exception [ 0 ]: [1045] Access denied for user 'tonylar1_iitbd'@'localhost' (using password: YES) ~ MODPATH/database/classes/kohana/database/mysql.php [ 67 ]
