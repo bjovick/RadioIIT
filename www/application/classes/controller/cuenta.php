@@ -56,6 +56,68 @@ class Controller_Cuenta extends Controller {
 	}
 
 	public function action_registrate() {
+		require Kohana::find_file('vendors', 'recaptcha-php/recaptchalib');
+		$hay_errores = false;
+		$msg = '';
+		$post = $this->request->post();
+		$mini_msg = View::factory('bloques/mini-msg');
+		$basico_v = View::factory('paginas/basica')
+								->set('cont_principal', '')
+								->set('cont_auxiliar', '');
+		if(!empty($post)) { //si quieren registrarse
+			//filtramos datos de entrada
+			$post['usuario'] = filter_var($post['usuario'],
+																		FILTER_SANITIZE_SPECIAL_CHARS
+																		|FILTER_SANITIZE_STRING);
+			$post['contrasena'] = filter_var($post['contrasena'], FILTER_SANITIZE_STRING);
+			$post['recaptcha_response_field'] = filter_var($post['recaptcha_response_field'],
+																											FILTER_SANITIZE_STRING);
+					
+			//datos son validos
+			if(strlen($post['usuario']) < 4 || empty($post['usuario'])) {
+				$msg .= $mini_msg->set('contenido', 'Usuario necesita tener por lo menos 4 caracteres.');
+				$hay_errores = true;
+			}
+			if(strlen($post['contrasena']) < 6 || empty($post['contrasena'])) {
+				$msg .= $mini_msg->set('contenido', 'La contrase&ntilde;a necesita por lo menos tener 6 caracteres');
+				$hay_errores = true;
+			}
+			if (!isset($post['recaptcha_response_field'])
+				 || empty($post['recaptcha_response_field'])) {
+				$msg .= $mini_msg->set('contenido','Se necesita una respuesta en el captcha.');
+				$post['recaptcha_response_field'] = '';
+				$hay_errores = true;
+			}
+
+			//check captcha
+			$resp = recaptcha_check_answer(Sitio::recaptcha_llave_privada(),
+																		 $_SERVER['REMOTE_ADDR'],
+																		 $post['recaptcha_challenge_field'],
+																		 $post['recaptcha_response_field']);
+			if(!$resp->is_valid) {
+				$msg .= $mini_msg->set('contenido','Se necesita una respuesta en el captcha.');
+				$hay_errores = true;
+			}
+
+			if(!$hay_errores) {
+				if(Auth::registrar($post['usuario'], $post['contrasena'])) {
+					$msg .= $mini_msg->set('contenido','Usuario '.$post['usuario'].' fue registrado.')
+									->set('clase','nada');
+				} else {
+					$msg .= $mini_msg->set('contenido','Usuario '.$post['usuario'].' ya existe. Trate de nuevo.');
+				}
+			}
+		
+		}
+		//no han mandado el los datos de registro
+		//ha ensenar el formulario
+		$msg .= View::factory('bloques/pre-recaptcha');
+		$msg .= View::factory('bloques/registro')
+						->set('recaptcha', recaptcha_get_html(Sitio::recaptcha_llave_publica()));
+	
+		$basico_v->set('cont_principal', $msg);
+		$this->_V->set('contenido', $basico_v);
+		$this->response->body($this->_V);
 	}
 
 	public function action_logout() {
@@ -66,9 +128,8 @@ class Controller_Cuenta extends Controller {
 			$basico_v = View::factory('paginas/basica')
 									->set('cont_principal', $msg)
 									->set('cont_auxiliar', View::factory('bloques/login'));
-			$_V = View::factory('plantillas/default')
-						->set('contenido', $basico_v);
-			$this->response->body($_V);
+			$this->_V->set('contenido', $basico_v);
+			$this->response->body($this->_V);
 		}
 	}
 }

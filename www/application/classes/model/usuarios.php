@@ -67,21 +67,15 @@ class Model_Usuarios extends Model {
 			return false;
 		}
 
-		//filtrar email
-		if(!empty($datos['email'])) {
-			if(($datos['email'] = filter_var($datos['email'], FILTER_VALIDATE_EMAIL)) == FALSE) {
-				return false;
-			}
-		}
-
 		//checar que la contra sea de 6 o mas caracteres
-		if(count($datos['contrasena']) < 6) {
+		if(strlen($datos['contrasena']) < 40) {
 			return false;
 		}
 
 		$insert = DB::insert(self::$_tabla)
 							->columns(array_keys($datos))
-							->values($array_values($datos));
+							->values(array_values($datos));
+
 		return !!$insert->execute();
 	}
 

@@ -23,5 +23,5 @@ echo '<h4>Entra a tu cuenta</h4>',
 		 '<p>',Form::submit('enviar','Enviar'),'</p>';
 ?>
 </form>
-<p>O <?php echo HTML::anchor('registrate','/cuenta/registrate');?></p>
+<p>O <?php echo HTML::anchor(URL::site('/cuenta/registrate'),'registrate');?></p>
 <?php } ?>

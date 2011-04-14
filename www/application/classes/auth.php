@@ -57,9 +57,14 @@ class Auth {
 		return true;
 	}
 
-	public static function registrar($usuario, $contra) {
+	public static function registrar($usuario, $contra, $rol = 'normal') {
 		$u = Model_Usuarios::leer($usuario);
+		$datos = array(
+			'usuario'=>$usuario,
+			'contrasena'=>sha1($contra),
+			'rol'=>$rol,
+		);
 
-		return (count($u) > 0) ? false : Model_Usuarios::agregar($usuario, $contra);
+		return (count($u) > 0) ? false : Model_Usuarios::agregar($datos);
 	}
 }
