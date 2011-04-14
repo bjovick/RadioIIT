@@ -31,7 +31,7 @@ $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 <html lang="es-mx" id="<?php echo 'pagina_',$pagina; ?>">
 <head>
 	<title><?php echo $titulo ?></title>
-	<!-- <link rel="shortcut icon" href="<?php echo URL::site('media/img/favicon.ico'); ?>" /> -->
+	<link rel="shortcut icon" href="/media/img/favicon.ico" />
 	<?php
 	echo HTML::style('media/css/estilo.css', array('rel' => 'stylesheet'));
 

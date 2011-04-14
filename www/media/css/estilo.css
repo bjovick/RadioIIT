@@ -48,28 +48,6 @@ h6 {font-size: 1.2em;}
 p {margin: 0px; padding: .4em;}
 
 /**
- * Generics
- */
-.float_left {float:left;}
-.float_right {float:right;}
-.clear {
-	clear:both;
-	display: block;
-	height:0;
-	margin:0;
-	padding:0;
-}
-.error_msg {
-	display: block;
-	border: 1px dashed #f00;
-	color: #FF1E00;
-}
-.central {
-	display: block;
-	margin: 0 auto;
-}
-
-/**
  * Layout
  */
 html {
@@ -206,16 +184,22 @@ body>header>nav>ul>li>a:hover {
 	width: 448px;
 }
 .playlist {
-	margin: 0;
+	margin: 0 .5em;
 	padding: 1em .5em;
 	list-style: none;
-	background: #254fa2;
+	background: #76A0B0;
 	font-size: .8em;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 .playlist > li {
 	margin: 0 0 .7em 0;
 	padding: .3em .5em;
 	background: #e6e6d6;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 .playlist > li > form {
 	display: inline;
@@ -229,3 +213,30 @@ body>header>nav>ul>li>a:hover {
 	background: #e7e7d7 url('/media/img/volumen.png') right center no-repeat;
 	color: black;
 }
+
+/**
+ * Generales
+ */
+.float_left {float:left;}
+.float_right {float:right;}
+.clear {
+	clear:both;
+	display: block;
+	height:0;
+	margin:0;
+	padding:0;
+}
+.error_msg {
+	display: block;
+	border: 1px dashed #f00;
+	color: #FF1E00;
+}
+.central {
+	display: block;
+	margin: 0 auto;
+}
+.resalte_azul {
+	background: #254fa2;
+}
+
+

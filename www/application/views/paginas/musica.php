@@ -8,23 +8,32 @@
 ?>
 <div id="mainbar">
 	<?php
-	echo $descripcion;
 	if (Auth::esta_auth()) {
 		//ensenar la lista dispoible de canciones
-		echo View::factory('bloques/playlist')
+		$desc = Model_Contenidos::leer('peticion.descripcion')->get('texto_md');
+		$desc = str_replace('::num_pet::',Sitio::config('peticiones_por_usuario'),$desc);
+		$desc = str_replace('::lapso::',Sitio::config('lapso_peticiones_limite'),$desc);
+		echo Markdown($desc),PHP_EOL,
+				 View::factory('bloques/playlist')
 					->set('con_peticiones', true)
 					->set('con_titulo', false)
-					->set('playlist', $lista),
-				 View::factory('bloques/recomendar_form');
+					->set('clases', ' resalte_azul')
+					->set('playlist', $canciones_dispo),PHP_EOL;
+	} else {
+		echo Markdown(str_replace('::link-registracion::',URL::site('/cuenta/registrate'),
+															Model_Contenidos::leer('musica.descripcion')->get('texto_md')));
 	}
 	?>
 </div>
 <div id="sidebar">
 	<?php
-	echo View::factory('bloques/login'),
+	echo View::factory('bloques/login'),PHP_EOL,
 			 View::factory('bloques/playlist')
 			 ->set('playlist', $playlist_actual)
+				->set('con_cancion_actual', true)
 			 ->set('titulo', 'Tocando: '.(empty($playlist_actual['nombre'])
 																	? $playlist_actual['genero'] : $playlist_actual['nombre']));
+	echo Markdown(Model_Contenidos::leer('recomendaciones.desc')->get('texto_md')),PHP_EOL,
+			 View::factory('bloques/recomendar_form');
 	?>
 </div>

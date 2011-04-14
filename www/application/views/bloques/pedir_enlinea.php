@@ -6,9 +6,9 @@
  */
 $accion = isset($accion) ? $accion : URL::site('/musica/peticion');
 ?>
-<form name="peticion_form" action="<?php echo $action; ?>" method="POST">
+<form name="peticion_form" action="<?php echo $accion; ?>" method="POST">
 	<input type="hidden" name="cancion_id" value="<?php echo $id; ?>" />
-	<?php echo Form::image(null,null,array('src'=>'/media/img/agregar/png',
+	<?php echo Form::image(null,null,array('src'=>'media/img/agregar.png',
 																				 'alt'=>'pedir cancion')); ?>
 </form>
 

@@ -20,17 +20,22 @@ class Model_Horarios extends Model {
 		return $select->execute();
 	}
 
-	public static function leer($id) {
+	public static function seleccionar($filtros, $campos = '*') {
+	}
+
+	public static function leer($idoruta) {
 	}
 
 
-	public static function editar($id) {
+	public static function editar($ido_ruta) {
 	}
 
 	public static function agregar($datos) {
+		//asegurarse que los datos basicos existen
+		//asegurarse que no exista la cancion en la bd
 	}
 
-	public static function eliminar($id) {
+	public static function eliminar($idoruta) {
 		$filtro = is_int($idnombre)
 						? array('id','=',$idnombre)
 						: array('nombre','=',$idnombre);
