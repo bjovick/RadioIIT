@@ -25,3 +25,9 @@
 2011-04-14 00:38:17 --- DEBUG: Agregar usuarios sql: INSERT INTO `usuarios` (`usuario`, `contrasena`) VALUES ('prueba2', 'contra2')
 2011-04-14 00:03:39 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected T_VARIABLE ~ APPPATH/classes/controller/musica.php [ 20 ]
 2011-04-14 06:59:29 --- ERROR: Database_Exception [ 0 ]: [1045] Access denied for user 'tonylar1_iitbd'@'localhost' (using password: YES) ~ MODPATH/database/classes/kohana/database/mysql.php [ 67 ]
+2011-04-14 08:31:19 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected T_VARIABLE ~ APPPATH/classes/controller/musica.php [ 23 ]
+2011-04-14 08:41:11 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected T_VARIABLE ~ APPPATH/classes/controller/musica.php [ 25 ]
+2011-04-14 08:41:33 --- ERROR: ErrorException [ 1 ]: Class 'Modelo_Contenidos' not found ~ APPPATH/classes/controller/musica.php [ 12 ]
+2011-04-14 08:42:03 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected '!' ~ APPPATH/views/bloques/playlist.php [ 7 ]
+2011-04-14 08:42:34 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected '$', expecting ',' or ';' ~ APPPATH/views/bloques/playlist.php [ 10 ]
+2011-04-14 09:54:12 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected T_VARIABLE, expecting ',' or ';' ~ APPPATH/views/plantillas/default.php [ 31 ]

@@ -28,7 +28,7 @@ $usarjquery = isset($usarjquery) ? true : false;
 $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 ?>
 <!DOCTYPE html>
-<html lang="es-mx" id="<?php echo $pagina,'_page'; ?>">
+<html lang="es-mx" id="<?php echo 'pagina_',$pagina; ?>">
 <head>
 	<title><?php echo $titulo ?></title>
 	<!-- <link rel="shortcut icon" href="<?php echo URL::site('media/img/favicon.ico'); ?>" /> -->

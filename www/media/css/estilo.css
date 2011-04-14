@@ -135,13 +135,13 @@ body>header>h1>small{
 }
 /*body>div#main>#mainbar*/
 #mainbar {
-	width: 648px;
+	width: 600px;
 	margin: 0 10px;
 	float: left;
 }
 /*body>div#main>#sidebar*/
 #sidebar {
-	width: 300px;
+	width: 348px;
 	float: right;
 }
 body>footer {
@@ -195,4 +195,37 @@ body>header>nav>ul>li>a:hover {
  */
 #cuenta_page {
 	background-color: #e6e6d6;
+}
+/**
+ * Pagina Musica
+ */
+#pagina_musica #mainbar {
+	width: 500px;
+}
+#pagina_musica #sidebar {
+	width: 448px;
+}
+.playlist {
+	margin: 0;
+	padding: 1em .5em;
+	list-style: none;
+	background: #254fa2;
+	font-size: .8em;
+}
+.playlist > li {
+	margin: 0 0 .7em 0;
+	padding: .3em .5em;
+	background: #e6e6d6;
+}
+.playlist > li > form {
+	display: inline;
+	margin: 0;
+	padding: 0 .3em;
+}
+.playlist > li > form > input {
+	display: inline;
+}
+.playlist > .cancion_actual {
+	background: #e7e7d7 url('/media/img/volumen.png') right center no-repeat;
+	color: black;
 }
