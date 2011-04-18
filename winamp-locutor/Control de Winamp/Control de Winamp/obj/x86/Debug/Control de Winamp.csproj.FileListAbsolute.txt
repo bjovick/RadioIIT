@@ -1,0 +1,10 @@
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\bin\Debug\Control de Winamp.exe
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\bin\Debug\Control de Winamp.pdb
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\Control_de_Winamp.Form1.resources
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\Control_de_Winamp.Properties.Resources.resources
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\Control de Winamp.exe
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\Control de Winamp.pdb
+C:\Documents and Settings\Nena\Desktop\Control de Winamp\Control de Winamp\obj\x86\Debug\Control_de_Winamp.Form2.resources
