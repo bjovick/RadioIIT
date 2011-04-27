@@ -20,9 +20,27 @@ class Model_Horarios extends Model {
 		return $select->execute();
 	}
 
-	public static function leer($id) {
+	/**
+	 * Version similar de navegar pero un poco de control sobre los campos
+	 */
+	public static function seleccionar($filtros, $campos='*') {
+		$select = DB::select($campos)->from(self::$_tabla);
+		foreach ($filtros as $filtro) {
+			$select->where($filtro[0],$filtro[1],$filtro[2]);
+		}
+
+		return $select->execute();
 	}
 
+	public static function leer($idonombre, $campos = '*') {
+		if (is_string($idonombre)) { //es nombre
+			return self::seleccionar(array(array('nombre','=',$idonombre)), $campos);
+		} elseif (is_int($idonombre)) { //es id
+			return self::seleccionar(array(array('id','=',$idonombre)), $campos);
+		}
+
+		return false;
+	}
 
 	public static function editar($id) {
 	}

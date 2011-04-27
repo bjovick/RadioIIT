@@ -5,6 +5,7 @@
  */
 class Sitio {
 	protected static $_tabla = 'configuracion_sitio';
+
 	public static function recaptcha_llave_publica() {
 		return '6LdlccMSAAAAAC9Ub6CnifzcX1Gng8wt4hTid4Ok';
 	}

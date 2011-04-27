@@ -210,8 +210,17 @@ body>header>nav>ul>li>a:hover {
 	display: inline;
 }
 .playlist > .cancion_actual {
-	background: #e7e7d7 url('/media/img/volumen.png') right center no-repeat;
+	background: #e7e7d7 url('/media/img/volumen.png') right center no-repeat;          
 	color: black;
+}
+
+/**
+ * Pagina Cuenta
+ */
+#dashboard, #dashboard li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 /**
@@ -219,6 +228,15 @@ body>header>nav>ul>li>a:hover {
  */
 .float_left {float:left;}
 .float_right {float:right;}
+.clearfix:before,
+.clearfix:after {
+	content: ".";    
+	display: block;    
+	height: 0;    
+	overflow: hidden;	
+}
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;} /* IE < 8 */
 .clear {
 	clear:both;
 	display: block;

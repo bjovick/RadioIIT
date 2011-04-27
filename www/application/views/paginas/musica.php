@@ -37,6 +37,6 @@ if (Auth::esta_auth()) {
 			 ->set('playlist', $playlist_actual)
 				->set('con_cancion_actual', true)
 			 ->set('titulo', 'Tocando: '.(empty($playlist_actual['nombre'])
-																	? $playlist_actual['genero'] : $playlist_actual['nombre']));
+																	? $playlist_actual['generos'] : $playlist_actual['nombre']));
 	?>
 </div>

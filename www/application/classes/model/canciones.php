@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Model_Horarios extends Model {
-	protected static $_tabla = 'horarios';
+class Model_Canciones extends Model {
+	protected static $_tabla = 'canciones';
 
 	/**
 	 * funciones basicas BREAD de almacenamiento presistente
@@ -15,19 +15,35 @@ class Model_Horarios extends Model {
 			$select->where($filtro[0],$filtro[1],$filtro[2]);
 		}
 
-		$select->order_by('nombre','asc');
+		$select->order_by('titulo','asc');
 
 		return $select->execute();
 	}
 
-	public static function seleccionar($filtros, $campos = '*') {
+	/**
+	 * Version similar de navegar pero un poco de control sobre los campos
+	 */
+	public static function seleccionar($filtros, $campos='*') {
+		$select = DB::select($campos)->from(self::$_tabla);
+		foreach ($filtros as $filtro) {
+			$select->where($filtro[0],$filtro[1],$filtro[2]);
+		}
+
+		return $select->execute();
 	}
 
-	public static function leer($idoruta) {
+	public static function leer($idotitulo, $campos = '*') {
+		if (is_string($idotitulo)) { //es titulo 
+			return self::seleccionar(array(array('titulo','=',$idotitulo)), $campos);
+		} elseif (is_int($idotitulo)) { //es id
+			return self::seleccionar(array(array('id','=',$idotitulo)), $campos);
+		}
+
+		return false;
 	}
 
 
-	public static function editar($ido_ruta) {
+	public static function editar($idoruta) {
 	}
 
 	public static function agregar($datos) {
@@ -36,9 +52,9 @@ class Model_Horarios extends Model {
 	}
 
 	public static function eliminar($idoruta) {
-		$filtro = is_int($idnombre)
-						? array('id','=',$idnombre)
-						: array('nombre','=',$idnombre);
+		$filtro = is_int($idoruta)
+						? array('id','=',$idoruta)
+						: array('ruta','=',$idoruta);
 		return (bool) DB::delete($this->_tabla)
 									->where($filtro[0],$filtro[1],$filtro[2])
 									->execute();

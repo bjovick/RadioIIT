@@ -17,9 +17,13 @@ $con_titulo = isset($con_titulo)
 							? false
 							: true;
 $clases = isset($clases) ? $clases : '';
+
+//Kohana::$log->add(Log::DEBUG, 'adentro de view/bloques/playlist');
+
 if (!empty($playlist)
-	 && !empty($playlist['genero'])
+	 && !empty($playlist['generos'])
 	 && !empty($playlist['canciones'])) {
+	//echo '<pre>'.var_export($playlist['canciones'],true).'</pre>';
 	if($con_titulo) {
 ?>
 <h5><?php echo $titulo; ?></h5>
@@ -27,7 +31,9 @@ if (!empty($playlist)
 
 <ul class="playlist<?php echo $clases;?>">
 <?php
-		 //TODO hacer esto con javascript y ajax
+	//Kohana::$log->add(Log::DEBUG, 'ensenando playlist, size '.count($playlist['canciones']));
+	
+	//TODO hacer esto con javascript y ajax
 	foreach($playlist['canciones'] as $c) {
 		$peticion = ($con_peticiones)
 							? View::factory('bloques/pedir_enlinea')->set('id', $c['id'])

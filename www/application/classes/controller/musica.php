@@ -8,38 +8,19 @@ class Controller_Musica extends Controller {
 	}
 
 	public function action_index() {
-		$playlist = array(
-			'nombre'=>'',
-			'genero'=>'Rock',
-			'horario_id'=>1,
-			'canciones'=>array(
-				array(
-					'id' => 1,
-					'titulo' =>'It\'s so easy',
-					'artista'=>'Guns \'N Roses',
-					'duracion' => 123,
-					'actual' => true,
-					'orden' => 1,
-				),
-				array(
-					'id' => 2,
-					'titulo' =>'The Beast and the Harlot',
-					'artista' => 'Avenged Sevenfold',
-					'duracion' => 115,
-					'orden' => 2,
-				),
-				array(
-					'id' => 3,
-					'titulo' =>'Don\'t stop believin',
-					'artista' => 'Journey',
-					'duracion' => 135,
-					'orden' => 3,
-				),
-			)
+		$h = Horarios::actual();
+		$p = Playlist::instancia();
+		$canciones = $p->canciones();
+		$canciones[0]['actual'] = true;
+		$disponibles = $playlist = array(
+			'generos' => $h['generos'],
+			'nombre' => $h['nombre'],
+			'canciones' => $canciones,
 		);
+		$disponibles['canciones'] = $p->disponibles();
 
 		$musica_v = View::factory('paginas/musica')
-			->set('canciones_dispo', $playlist)
+			->set('canciones_dispo', $disponibles)
 			->set('playlist_actual', $playlist);
 
 		$this->_V->set('contenido', $musica_v);
@@ -48,11 +29,25 @@ class Controller_Musica extends Controller {
 
 	public function action_peticion() {
 		//TODO agregar peticion
-		//incrementar el contador de canciones por usuario
-		//redireccionar al referidor
-		$this->response->body('recivido mi compa. <pre>'.var_export($this->request->post(), true).'</pre>');
+		//$this->response->body('recivido mi compa. <pre>'.var_export($this->request->post(), true).'</pre>');
 		
 		if($this->request->method() == Request::POST) {
+			$cancionid = $this->request->post();
+			$cancionid = intval($cancionid['cancion_id']);
+			$msg = '';
+
+			//checar que el usuario no a pasado los limites
+			if(Usuario::peticion_es_valida()) {
+				//la peticion es valida
+				//agregar cancion a la base de datos
+				if(Playlist::agregar_peticion($cancionid)) {
+					$msg .= 'peticion fue agregada.';
+				}
+			} else {
+				//usuario no pasa validacion
+				$msg .= 'muchas peticiones en el lapso permitido';
+			}
+
 		} else {
 		}
 	}

@@ -2,16 +2,46 @@
 
 class Controller_Cuenta extends Controller {
 	protected $_V;
+	protected $_basica_v;
 
 	public function before() {
 		$this->_V = View::factory('plantillas/default');
+		$this->_basica_v = View::factory('paginas/basica');
 	}
 
 	public function action_index() {
-		$this->_V->set('contenido', 'tu cuenta y lo administrativo esta aqui');
+		if (Auth::esta_auth()) {
+			$u = Auth::usuario();
+			$princ = View::factory('paginas/dashboard')
+				->set('es_admin', ($u['rol'] == 'admin'));
+			$aux = HTML::anchor('cuenta/logout', 'Logout');
+		} else {
+			$princ = View::factory('bloques/login');
+			$aux = '';
+		}
+		$this->_basica_v->set('cont_principal', $princ)->set('cont_auxiliar', $aux);
+		$this->_V->set('contenido', $this->_basica_v);
 		$this->response->body($this->_V);
 	}
 
+	public function action_cambiar_contrasena() {
+		//tODO
+		$this->response->body('cambiando contrasena');
+	}
+
+	public function action_eliminar() {
+		//TODO
+		$this->response->body('eliminando cuenta');
+	}
+
+
+	/**
+	 * login, logout y registrase
+	 */
+
+	/**
+	 * Solo usara para procesar el login del usuario
+	 */
 	public function action_login() {
 		$hay_errores = false;
 		$msg = '';
@@ -21,6 +51,7 @@ class Controller_Cuenta extends Controller {
 			$post['usuario'] = filter_var($post['usuario'],
 																		FILTER_SANITIZE_SPECIAL_CHARS | FILTER_SANITIZE_STRING);
 			$post['contrasena'] = filter_var($post['contrasena'], FILTER_SANITIZE_STRING);
+			//Kohana::$log->add(LOG::DEBUG, 'login: got input');
 
 			//preguntamos por usuario
 			$usuario = Model_Usuarios::leer($post['usuario'])->current();
@@ -34,21 +65,25 @@ class Controller_Cuenta extends Controller {
 				$msg .= PHP_EOL.Markdown(Model_Contenidos::leer('login.mal-contrasena')->get('texto_md'));
 				$hay_errores = true;
 			}
+			//Kohana::$log->add(LOG::DEBUG, 'login: checking for input errors');
 
 			if ($hay_errores) { //si hay errores a decirle al usuario
-				$this->_basico_v->set('cont_principal', $msg)
+				//Kohana::$log->add(LOG::DEBUG, 'login: hubo errores, a ensellarlos.');
+				$this->_basica_v->set('cont_principal', $msg)
 												->set('cont_auxiliar', View::factory('bloques/login'));
-				$this->_V->set('contenido', $this->_basico_v);
+				$this->_V->set('contenido', $this->_basica_v);
 				$this->response->body($this->_V);
 			} else { //no hay errores de datos, a identificarlo en el sistema
 				if (Auth::identifica($post['usuario'], $post['contrasena'])) {
+					//Kohana::$log->add(LOG::DEBUG, 'login: autentificado!');
 					//redireccionarlo a donde estaba
-					$this->request->redirect($this->request->referrer());
+					$this->request->redirect('/cuenta');
 				} else { //hubo un error al procesar la identificacion
+					//Kohana::$log->add(LOG::DEBUG, 'login: error al autentificar');
 					$msg .= Markdown(Model_Contenidos::leer('login.error-identificar')->get('texto_md'));
-					$this->_basico_v->set('cont_principal', $msg)
+					$this->_basica_v->set('cont_principal', $msg)
 													->set('cont_auxiliar', View::factory('bloques/login'));
-					$this->_V->set('contenido', $this->_basico_v);
+					$this->_V->set('contenido', $this->_basica_v);
 					$this->response->body($this->_V);
 				}
 			}
