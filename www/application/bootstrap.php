@@ -62,10 +62,15 @@ I18n::lang('en-us');
  * saying "Couldn't find constant Kohana::<INVALID_ENV_NAME>"
  */
 Kohana::$environment = Kohana::DEVELOPMENT;
+error_reporting(E_ALL | E_STRICT);
 if (strpos($_SERVER['HTTP_HOST'], 'radioiit.co.cc') !== false
 	 || strpos($_SERVER['HTTP_HOST'], 'radioiit.tonylara.net') !== false) {
 	Kohana::$environment = Kohana::PRODUCTION;
 	error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+}
+if (strpos($_SERVER['HTTP_HOST'], '11117.a.hostable.me') !== false
+	 || strpos($_SERVER['HTTP_HOST'], '11117.a.hostable.me') !== false) {
+	Kohana::$environment = Kohana::STAGING;
 }
 /*
 if (isset($_SERVER['KOHANA_ENV']))
