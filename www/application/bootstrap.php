@@ -22,7 +22,7 @@ else
  * @see  http://kohanaframework.org/guide/using.configuration
  * @see  http://php.net/timezones
  */
-date_default_timezone_set('America/Chihuahua');
+date_default_timezone_set('America/Denver');
 
 /**
  * Set the default locale.
@@ -49,6 +49,10 @@ spl_autoload_register(array('Kohana', 'auto_load'));
 ini_set('unserialize_callback_func', 'spl_autoload_call');
 
 // -- Configuration and initialization -----------------------------------------
+
+/**
+ * Guardar la zona horaria en el servidor mysql
+ */
 
 /**
  * Set the default language

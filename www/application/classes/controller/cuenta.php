@@ -14,7 +14,7 @@ class Controller_Cuenta extends Controller {
 			$u = Auth::usuario();
 			$princ = View::factory('paginas/dashboard')
 				->set('es_admin', ($u['rol'] == 'admin'));
-			$aux = HTML::anchor('cuenta/logout', 'Logout');
+			$aux = HTML::anchor(URL::site('cuenta/logout'), 'Logout');
 		} else {
 			$princ = View::factory('bloques/login');
 			$aux = '';

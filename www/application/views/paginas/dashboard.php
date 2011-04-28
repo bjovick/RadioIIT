@@ -18,7 +18,15 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 
 			<ul>
 				<?php
-				//TODO: mostrar lista de todos los usuarios
+				//TODO: mostrar lista de todos los horarios 
+				$horarios = Model_Horarios::navegar()->as_array();
+				if (!empty($horarios)) {
+					foreach($horarios as $h){
+					}	
+				}
+				else {
+					echo '<li>No hay horarios</li';
+				}
 				?>
 			</ul>
 		</section>
@@ -28,7 +36,14 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 		<section>
 			<ul>
 				<?php
-				//TODO: mostrar lista de todos los usuarios
+				//TODO: mostrar lista de todas las recomendaciones 
+				if (!empty($recoms)) {
+					foreach($recoms as $r){
+					}	
+				}
+				else {
+					echo '<li>No hay recomendaciones</li';
+				}
 				?>
 			</ul>
 		</section>
@@ -41,7 +56,14 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 			</ul>
 			<ul>
 				<?php
-				//TODO: mostrar lista de todos los usuarios
+				//TODO: mostrar lista de todos las usuarios 
+				if (!empty($usuario)) {
+					foreach($usuario as $usuario){
+					}	
+				}
+				else {
+					echo '<li>No hay recomendaciones</li';
+				}
 				?>
 			</ul>
 		</section>
