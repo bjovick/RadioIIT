@@ -18,24 +18,12 @@ return array
 			 * Ports and sockets may be appended to the hostname.
 			 */
 			'hostname'   => 'localhost',
-			//'database'   => 'a11117ho_radioiit',
-			//'username'   => 'a11117ho_db',
+			//'database'   => 'tonylar1_radioiit',
+			//'username'   => 'tonylar1_dbuser',
 			//'password'   => 'password890',
-			'database'   => Kohana::$environment == Kohana::PRODUCTION
-										? 'tonylar1_radioiit'
-										: (Kohana::$environment == Kohana::STAGING
-											? 'a11117ho_radioiit'
-											: 'radioiit'),
-			'username'   => Kohana::$environment == Kohana::PRODUCTION
-										? 'tonylar1_iitbd'
-										: (Kohana::$environment == Kohana::STAGING
-											? 'a11117ho_db'
-											: 'root'),
-			'password'   => Kohana::$environment == Kohana::PRODUCTION
-										? 'password890'
-										: (Kohana::$environment == Kohana::STAGING
-											? 'password890'
-											: 'r00t'),
+			'database'   => Kohana::$environment == Kohana::PRODUCTION ? 'a11117ho_radioiit' : 'radioiit',
+			'username'   => Kohana::$environment == Kohana::PRODUCTION ? 'a11117ho_db' : 'root',
+			'password'   => Kohana::$environment == Kohana::PRODUCTION ? 'password890' : 'r00t',
 			//'persistent' => FALSE,
 		),
 		'table_prefix' => '',
