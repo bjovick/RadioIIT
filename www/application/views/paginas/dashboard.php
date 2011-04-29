@@ -10,8 +10,8 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 <ul id="dashboard">
 <?php if($es_admin) { ?>
 	<li>
-		<h4>Horarios</h4>
-		<section>
+		<h4><a href="#horarios">Horarios</a></h4>
+		<section id="horarios">
 			<ul class="menu_linear">
 				<li><a href="">Agregar Horario</a></li>
 			</ul>
@@ -32,8 +32,8 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 		</section>
 	</li>
 	<li>
-		<h4>Recomendaciones</h4>
-		<section>
+		<h4><a href="#recomendaciones">Recomendaciones</a></h4>
+		<section id="recomendaciones">
 			<ul>
 				<?php
 				//TODO: mostrar lista de todas las recomendaciones 
@@ -49,8 +49,8 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 		</section>
 	</li>
 	<li>
-		<h4>Usuarios</h4>
-		<section>
+		<h4><a href="#usuarios">Usuarios</a></h4>
+		<section id="usuarios">
 			<ul class="menu_linear">
 				<li><a href="">Agregar Usuario</a></li>
 			</ul>
@@ -70,14 +70,21 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 	</li>
 <?php } ?>
 	<li>
-		<h4>Configuracion</h4>
-		<section>
+		<h4><a class="alternar" href="#configuracion">Configuracion</a></h4>
+		<section id="configuracion">
 			<ul>
-				<li><?php echo HTML::anchor('/cuenta/cambiar-contrasena', 'Cambiar Contrase&ntilde;a'); ?>.</li>
-				<li><?php echo HTML::anchor('/cuenta/eliminar', 'Eliminar mi cuenta'); ?>.</li>
-				<?php if($es_admin) { ?>
-				<li><?php echo HTML::anchor('/musica/sync-librerias', 'Actualizar librerias'); ?>.</li>
-				<?php } ?>
+				<li>
+					<h6><a class="alternar" href="#cambiar_contrasena">Cambiar Contrase&ntilde;a</a></h6>
+					<section id="cambiar_contrasena">
+						<?php echo View::factory('bloques/cambiar_contrasena'); ?>
+					</section>
+				</li>
+				<li><h6><?php echo HTML::anchor(
+					URL::site('/cuenta/eliminar'),
+					'Eliminar mi cuenta',
+					array(
+						'class'=>'asegurarse',
+					)); ?></h6></li>
 			</ul>
 		</section>
 	</li>

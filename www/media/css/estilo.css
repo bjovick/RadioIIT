@@ -169,12 +169,6 @@ body>header>nav>ul>li>a:hover {
 	font-size: 1.4em;
 }
 /**
- * Pagina Cuenta
- */
-#cuenta_page {
-	background-color: #e6e6d6;
-}
-/**
  * Pagina Musica
  */
 #pagina_musica #mainbar {
@@ -217,11 +211,39 @@ body>header>nav>ul>li>a:hover {
 /**
  * Pagina Cuenta
  */
-#dashboard, #dashboard li {
+#pagina_cuenta {
+	background-color: #e6e6d6;
+}
+
+#pagina_cuenta #mainbar {
+	width: 700px;
+}
+#pagina_cuenta #sidebar {
+	width: 248px;
+}
+#dashboard, #dashboard li, #dashboard ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
+#dashboard>li section {
+	display: block;
+	padding: 0 .7em 0;
+}
+#dashboard li>h6+section {
+	background: #f5f5eb;
+}
+#dashboard li>h4+section {
+	background: #eeeedd;
+}
+#dashboard h4>a, #dashboard h6>a {
+	color: inherit;
+}
+#dashboard h4, #dashboard h6 {
+	border-bottom: 2px solid #eeeedd;
+}
+
+
 
 /**
  * Generales

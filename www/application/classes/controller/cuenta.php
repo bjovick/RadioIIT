@@ -5,7 +5,9 @@ class Controller_Cuenta extends Controller {
 	protected $_basica_v;
 
 	public function before() {
-		$this->_V = View::factory('plantillas/default');
+		$this->_V = View::factory('plantillas/default')
+			->set('usarjquery', true)
+			->set('scripts', array('media/js/generales.js', 'media/js/cuenta.js'));
 		$this->_basica_v = View::factory('paginas/basica');
 	}
 
@@ -26,7 +28,14 @@ class Controller_Cuenta extends Controller {
 
 	public function action_cambiar_contrasena() {
 		//tODO
-		$this->response->body('cambiando contrasena');
+		if($this->request->method() == Request::POST) {
+			$post = $this->request->post();
+			$nueva = filter_var($post['nueva_contrasena'], FILTER_SANITIZE_STRING);
+			$repetida = filter_var($post['nueva_contrasena_repetida'], FILTER_SANITIZE_STRING);
+			$this->response->body(Markdown('Contrase&ntilde;a cambiada. (Regresar)['.
+				URL::site($this->request->referrer()).'].'));
+		}
+
 	}
 
 	public function action_eliminar() {
