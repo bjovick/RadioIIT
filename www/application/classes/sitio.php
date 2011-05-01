@@ -14,6 +14,17 @@ class Sitio {
 		return '6LdlccMSAAAAAKvPCnmTrirZBcVOqn6F_yrmC6gJ';
 	}
 
+	/**
+	 * regresa las configuraciones del sitio guardadas en la
+	 * base de datos
+	 */
+	public static function configs() {
+		return DB::select('*')
+			->from(self::$_tabla)
+			->execute()
+			->as_array();
+	}
+
 	public static function config($llave, $valor = null) {
 		if (is_null($valor)) { //quiere saber el valor
 			return DB::select('valor')

@@ -26,6 +26,11 @@ a:hover, a:active {text-decoration: underline;}
 a:visited {color: #254fa2;}
 
 /** html5 **/
+section {
+	display: block;
+	padding: 0;
+	margin: 0;
+}
 
 /**
  * Typography
@@ -226,20 +231,20 @@ body>header>nav>ul>li>a:hover {
 	padding: 0;
 	list-style: none;
 }
+#dashboard li>form {
+	display: inline;
+}
 #dashboard>li section {
 	display: block;
 	padding: 0 .7em 0;
 }
-#dashboard li>h6+section {
-	background: #f5f5eb;
-}
 #dashboard li>h4+section {
 	background: #eeeedd;
 }
-#dashboard h4>a, #dashboard h6>a {
+#dashboard h4>a {
 	color: inherit;
 }
-#dashboard h4, #dashboard h6 {
+#dashboard h4 {
 	border-bottom: 2px solid #eeeedd;
 }
 

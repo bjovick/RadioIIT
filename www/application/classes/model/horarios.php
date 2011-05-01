@@ -11,7 +11,7 @@ class Model_Horarios extends Model {
 		if(!is_null($limite)) {
 			$select->limit($limite);
 		}
-		foreach($filtro as $filtro) {
+		foreach($filtros as $filtro) {
 			$select->where($filtro[0],$filtro[1],$filtro[2]);
 		}
 

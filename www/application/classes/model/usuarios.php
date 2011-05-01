@@ -11,7 +11,7 @@ class Model_Usuarios extends Model {
 		if(!is_null($limite)) {
 			$select->limit($limite);
 		}
-		foreach($filtro as $filtro) {
+		foreach($filtros as $filtro) {
 			$select->where($filtro[0],$filtro[1],$filtro[2]);
 		}
 
@@ -56,7 +56,7 @@ class Model_Usuarios extends Model {
 
 		$res = DB::update(self::$_tabla)
 						->set($delta)
-						->where('usuario','LIKE',$nombre);
+						->where('id','=',$id);
 		
 		return !!$res->execute();
 	}

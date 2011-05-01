@@ -29,11 +29,40 @@ class Controller_Cuenta extends Controller {
 	public function action_cambiar_contrasena() {
 		//tODO
 		if($this->request->method() == Request::POST) {
+			//agarrar datos
 			$post = $this->request->post();
 			$nueva = filter_var($post['nueva_contrasena'], FILTER_SANITIZE_STRING);
 			$repetida = filter_var($post['nueva_contrasena_repetida'], FILTER_SANITIZE_STRING);
-			$this->response->body(Markdown('Contrase&ntilde;a cambiada. (Regresar)['.
-				URL::site($this->request->referrer()).'].'));
+			$hay_errores = false;
+
+			if ($nueva !== $post['nueva_contrasena']
+				|| $repetida !== $post['nueva_contrasena_repetida']) {
+					//caracteres invalidos
+					$msg = Markdown('Contrase&ntilde;a tiene caracteres invalidos.'.
+						'(Trate de nuevo)['.URL::site($this->request->referrer()).'].');
+					$hay_errores = true;
+			}
+
+			if($repetida === $nueva && !$hay_errores) {
+				//todo bien a cambiarla
+				$u = Auth::usuario();
+				$res = Usuarios::editar((int) $u['id'], array('contrasena'=>sha1($nueva)));
+
+				$msg = ($res)
+						 ? 'Contrase&ntilde;a cambiada. (Regresar)['.
+									URL::site($this->request->referrer()).'].'
+						 : 'Hubo un error al cambiar la contrase&ntilde;a. (Trate de nuevo)['.
+									URL::site('cuenta').'].\n\n'.
+									'Si continua teniendo el error, contacte al administrador.';
+
+				$msg = Markdown($msg);
+			}
+
+			$this->_V->set('contenido', $msg);
+			$this->response->body($this->_V);
+		}
+		else {
+			$this->request->redirect($this->request->referrer());
 		}
 
 	}

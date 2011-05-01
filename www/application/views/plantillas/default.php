@@ -74,7 +74,10 @@ $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 	<!-- JAVASCRIPT -->
 	<?php
 	if($usarjquery) {
-		echo '<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>';
+	?>
+		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>-->
+		<script src="/media/js/jquery-1.5.min.js"></script>
+	<?php
 	}
 	foreach($scripts as $archivo) {
 		echo HTML::script($archivo, NULL, TRUE),PHP_EOL;
