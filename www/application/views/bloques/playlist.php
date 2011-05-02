@@ -21,7 +21,6 @@ $clases = isset($clases) ? $clases : '';
 //Kohana::$log->add(Log::DEBUG, 'adentro de view/bloques/playlist');
 
 if (!empty($playlist)
-	 && !empty($playlist['generos'])
 	 && !empty($playlist['canciones'])) {
 	//echo '<pre>'.var_export($playlist['canciones'],true).'</pre>';
 	if($con_titulo) {

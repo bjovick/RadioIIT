@@ -6,6 +6,23 @@ class Controller_Inicio extends Controller {
 		$anuncio = Markdown(Model_Contenidos::leer('inicio.anuncio')->get('texto_md'));
 		$intro = Markdown(Model_Contenidos::leer('inicio.intro')->get('texto_md'));
 		$aux = View::factory('bloques/login');
+		$H = Horarios::actual();
+
+		$topten_general = View::factory('bloques/playlist')
+			->set('titulo', 'Top Diez')
+			->set('playlist', array('canciones' => Canciones::mas_pedidas()));
+		
+		/** le falta checar que exista un horario en este tiempo
+		$topten_horario = View::factory('bloques/playlist')
+			->set('titulo', 'Top Ten de '.
+											(empty($H['nombre'])
+											? implode(', ', explode(',',$H['generos']))
+											: $H['nombre']))
+			->set('playlist', array('canciones' => Horarios::canciones_mas_pedidas()));
+		*/
+		
+		$aux .= PHP_EOL.$topten_general;
+
 		$inicio_v = View::factory('paginas/inicio')
 								->set('anuncio', $anuncio)
 								->set('intro', $intro)

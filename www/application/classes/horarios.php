@@ -44,6 +44,16 @@ class Horarios {
 		return $tiempos;
 	}
 
+	public static function canciones_mas_pedidas($limite = 10) {
+		$h = self::actual();
+		$generos = explode(',',$h['generos']);
+
+		return DB::select('*')->from('canciones')
+			->where('genero','IN',DB::expr('(\''.implode('\',\'', $generos).'\')'))
+			->order_by('cantidad_pedidas', 'desc')
+			->limit($limite)->execute();
+	}
+
 	/**
 	 * toda las canciones que caen en el horario
 	 * $id => id del horario si es null usa el horario actual
