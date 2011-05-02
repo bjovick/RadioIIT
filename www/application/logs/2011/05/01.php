@@ -44,3 +44,7 @@
 2011-05-01 22:09:09 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('Rock') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304309349 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
 2011-05-01 22:09:29 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('Rock') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304309369 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
 2011-05-01 22:10:55 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('Rock') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304309455 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
+2011-05-01 22:33:06 --- ERROR: ErrorException [ 8 ]: Undefined variable: delta ~ APPPATH/classes/controller/admin.php [ 14 ]
+2011-05-01 22:35:09 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: index.php/cuenta ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-05-01 22:35:50 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: index.php/cuenta ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-05-01 22:36:17 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: index.php/cuenta ~ SYSPATH/classes/kohana/request.php [ 743 ]

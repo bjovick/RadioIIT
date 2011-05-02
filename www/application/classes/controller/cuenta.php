@@ -27,7 +27,6 @@ class Controller_Cuenta extends Controller {
 	}
 
 	public function action_cambiar_contrasena() {
-		//tODO
 		if($this->request->method() == Request::POST) {
 			//agarrar datos
 			$post = $this->request->post();

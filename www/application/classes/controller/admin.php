@@ -9,10 +9,13 @@ class Controller_Admin extends Controller {
 
 	public function action_modificar_sitio_configs() {
 		if($this->request->method() == Request::POST) {
-			$post = $this->request->post();
+			$post = filter_var_array($this->request->post(), FILTER_SANITIZE_STRING);
+			
+			foreach($post as $llave => $valor) {
+				Sitio::config($llave, $valor);
+			}
 		}
-		else {
-			$this->request->redirect($this->request->referrer());
-		}
+
+		$this->request->redirect('/cuenta#configuracion');
 	}
 }

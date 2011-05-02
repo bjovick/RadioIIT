@@ -6,7 +6,7 @@
 	?>
 	<p>
 		<label><?php echo ucwords(str_replace('_',' ',$c['llave'])); ?>:</label>
-		<input type="text" value="<?php echo $c['valor']; ?>" />
+		<input type="text" name="<?php echo $c['llave']; ?>" value="<?php echo $c['valor']; ?>" />
 	</p>
 	<?php } ?>
 	<p>
