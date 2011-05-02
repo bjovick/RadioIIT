@@ -29,26 +29,38 @@ class Controller_Musica extends Controller {
 
 	public function action_peticion() {
 		//TODO agregar peticion
-		//$this->response->body('recivido mi compa. <pre>'.var_export($this->request->post(), true).'</pre>');
 		
 		if($this->request->method() == Request::POST) {
 			$cancionid = $this->request->post();
 			$cancionid = intval($cancionid['cancion_id']);
 			$msg = '';
+			$p = Playlist::instancia();
 
 			//checar que el usuario no a pasado los limites
 			if(Usuario::peticion_es_valida()) {
 				//la peticion es valida
 				//agregar cancion a la base de datos
-				if(Playlist::agregar_peticion($cancionid)) {
-					$msg .= 'peticion fue agregada.';
+				if($p->agregar_peticion($cancionid)) {
+					$msg .= 'La peticion fue agregada.';
+				}
+				else {
+					$msg .= 'Hubo un error en la peticion.
+										Trata de nuevo. Si el error persiste, contacta al administrador.';
 				}
 			} else {
 				//usuario no pasa validacion
-				$msg .= 'muchas peticiones en el lapso permitido';
+				$msg .= 'Has sobrepasado tu limite de peticiones ('.
+					Sitio::config('peticiones_por_usuario').') por '.
+					Fecha::duracion_nat(intval(Sitio::config('lapso_segs_peticiones_limite'))).'.';
 			}
 
+			$p = View::factory('paginas/basica')
+				->set('cont_principal', Markdown($msg))
+				->set('cont_auxiliar', '');
+			$this->response->body($this->_V->set('contenido',$p));
+
 		} else {
+			$this->request->redirect($this->request->referrer());
 		}
 	}
 	public function action_recomendar() {
@@ -81,7 +93,7 @@ class Controller_Musica extends Controller {
 			$p = View::factory('paginas/basica')
 				->set('cont_principal', Markdown($msg))
 				->set('cont_auxiliar', '');
-			$this->response->body($this->_V->set('content', $p));
+			$this->response->body($this->_V->set('contenido', $p));
 		} else {
 			$this->request->redirect($this->request->referrer());
 		}

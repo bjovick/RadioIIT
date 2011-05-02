@@ -148,4 +148,30 @@ class Fecha {
 	public static function formato($ts_fecha) {
 		return date('Y.m.d g:ia', is_string($ts_fecha) ? strtotime($ts_fecha) : $ts_fecha);
 	}
+
+	public static function duracion_nat($segundos) {
+		if($segundos < Date::MINUTE) {
+			$lapso = $segundos.' segundos';
+		}
+		elseif($segundos == Date::MINUTE) {
+			$lapso = '1 minuto';
+		}
+		elseif($segundos < Date::HOUR) {
+			$lapso = ($segundos / Date::MINUTE).' minutos';
+		}
+		elseif($segundos == Date::HOUR) {
+			$lapso = '1 hora';
+		}
+		elseif($segundos < Date::DAY) {
+			$lapso = ($segundos / Date::HOUR).' horas';
+		}
+		elseif($segundos == Date::DAY) {
+			$lapso = '1 d&iacute;a';
+		}
+		else {
+			$lapso = ($segundos / Date::DAY).' d&iacute;as';
+		}
+
+		return $lapso;
+	}
 }

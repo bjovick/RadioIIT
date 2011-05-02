@@ -22,7 +22,7 @@ class Horarios {
 			array('tiempo_final', '>=', $tiempo)
 		);
 
-		return  Model_Horarios::seleccionar($filtros)->current();
+		return Model_Horarios::seleccionar($filtros)->current();
 	}
 
 	/**

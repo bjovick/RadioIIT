@@ -66,6 +66,8 @@ class Playlist {
 			//solo las que no se han tocado en el lapso minimo (30mins)
 			->where($lapso,'>=',intval(Sitio::config('lapso_segs_peticiones_limite')));
 
+		//Kohana::$log->add(Log::DEBUG, 'Playlist::disponible sql: '.$select);
+
 		return $select->execute()->as_array();
 	}
 
@@ -82,12 +84,16 @@ class Playlist {
 	 * agrega la cancion pedida a la lista
 	 */
 	public function agregar_peticion($cancionid) {
-		//agregar cancion de forma atomica
-		$sub = DB::select(array(DB::expr('orden + 1'), 'siguiente'))
-			->from('playlist_actual')
-			->order_by('orden', 'desc')
-			->limit(1);
-		$insert = DB::insert('playlist_actual');
+		//TODO agregar cancion de forma atomica
+		$sub = DB::select(DB::expr($cancionid), DB::expr('(max(`orden`) + 1)'))
+			->from('playlist_actual');
+		$insert = DB::insert('playlist_actual')
+			->columns(array('cancion_idfk','orden'))
+			->select($sub);
+
+		//Kohana::$log->add(Log::DEBUG, 'playlist->agregar_peticion sql: '.$insert);
+		
+		return !!$insert->execute();
 	}
 
 }
