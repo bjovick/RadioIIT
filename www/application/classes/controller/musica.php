@@ -28,8 +28,6 @@ class Controller_Musica extends Controller {
 	}
 
 	public function action_peticion() {
-		//TODO agregar peticion
-		
 		if($this->request->method() == Request::POST) {
 			$cancionid = $this->request->post();
 			$cancionid = intval($cancionid['cancion_id']);
@@ -64,9 +62,6 @@ class Controller_Musica extends Controller {
 		}
 	}
 	public function action_recomendar() {
-		//TODO
-		//$this->response->body('recomendado. <pre>'.var_export($this->request->post(), true).'</pre>');
-		
 		if($this->request->method() == Request::POST) {
 			$post = $this->request->post();
 			$titulo = filter_var($post['titulo'], FILTER_SANITIZE_STRING);
@@ -78,11 +73,11 @@ class Controller_Musica extends Controller {
 				$msg = 'El titulo o/y el artista estan vacios.
 					Se necesitan los dos para mandar una recomendacion.';
 			} else {
-				//si existen, a mandar la recomendacion
-				$res = Model_Recomendaciones::agregar(array(
-					'titulo' => $titulo,
-					'artista' => $artista,
-				));
+				//si existen, a mandar la recomendacion en email
+				$res = mail(Sitio::config('email_admin'),
+										'Recomiendan una cancion desde el sitio RadioIIT',
+										'Recomiendan \''.$post['titulo'].'\' de \''.$post['artista'].'\'.',
+										'From: '.Sitio::config('email_admin'));
 
 				$msg = $res
 						 ? 'La recomendacion fue enviada.'

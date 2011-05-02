@@ -71,7 +71,7 @@ class Playlist {
 			//solo las que no se han tocado en el lapso minimo (30mins)
 			->and_where($lapso,'>=',intval(Sitio::config('lapso_segs_peticiones_limite')));
 
-		Kohana::$log->add(Log::DEBUG, 'Playlist::disponible sql: '.$select);
+		//Kohana::$log->add(Log::DEBUG, 'Playlist::disponible sql: '.$select);
 
 		return $select->execute()->as_array();
 	}
