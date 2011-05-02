@@ -60,13 +60,18 @@ class Playlist {
 		$select = DB::select('*')
 			->from('canciones')
 			//solo las del genero
-			->where('genero', 'IN', $in_generos)
+			->where_open()
+				->or_where('genero', 'IN', $in_generos)
+				//y las que esten nulo o que digan unkown
+				->or_where('genero', 'IS', DB::expr('NULL'))
+				->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''))
+			->where_close()
 			//que no esten en la playlist
-			->where('id', 'NOT IN', $lista_ids)
+			->and_where('id', 'NOT IN', $lista_ids)
 			//solo las que no se han tocado en el lapso minimo (30mins)
-			->where($lapso,'>=',intval(Sitio::config('lapso_segs_peticiones_limite')));
+			->and_where($lapso,'>=',intval(Sitio::config('lapso_segs_peticiones_limite')));
 
-		//Kohana::$log->add(Log::DEBUG, 'Playlist::disponible sql: '.$select);
+		Kohana::$log->add(Log::DEBUG, 'Playlist::disponible sql: '.$select);
 
 		return $select->execute()->as_array();
 	}
