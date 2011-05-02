@@ -74,11 +74,17 @@ class Controller_Cuenta extends Controller {
 
 	public function action_eliminar() {
 		$u = Auth::usuario();
-		$res = Model_Usuarios::eliminar((int) $u['id']);
-		$msg = $res 
-				 ? 'Tu cuenta ha sido eliminada permanentemente.'
-				 : 'Un error ocurrio al tratar de eliminar tu cuenta.
-						Contacte al administrador si continua teniando problemas.';
+		$admins = Model_Usuarios::seleccionar(array('rol','=','admin'))->count();
+		if($u['rol'] == 'admin' && $admins > 1) {
+			$res = Model_Usuarios::eliminar((int) $u['id']);
+			$msg = $res 
+					 ? 'Tu cuenta ha sido eliminada permanentemente.'
+					 : 'Un error ocurrio al tratar de eliminar tu cuenta.
+							Contacte al administrador si continua teniando problemas.';
+		}
+		else {
+			$msg = 'No se puede borrar tu cuenta porque eres el unico admin que existe.';
+		}
 		
 		$this->_basica_v->set('cont_principal', Markdown($msg))
 			->set('cont_auxiliar', '');
