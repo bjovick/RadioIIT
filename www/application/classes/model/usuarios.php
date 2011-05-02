@@ -83,7 +83,7 @@ class Model_Usuarios extends Model {
 		$filtro = is_int($idnombre)
 						? array('id','=',$idnombre)
 						: array('nombre','=',$idnombre);
-		return (bool) DB::delete($this->_tabla)
+		return (bool) DB::delete(self::$_tabla)
 									->where($filtro[0],$filtro[1],$filtro[2])
 									->execute();
 	}

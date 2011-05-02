@@ -34,3 +34,5 @@
 2011-05-01 19:50:17 --- DEBUG: playlist->agregar_peticion sql: INSERT INTO `playlist_actual` (`cancion_idfk`, `orden`) SELECT `78`, (max(`orden`) + 1) FROM `playlist_actual`
 2011-05-01 19:51:08 --- DEBUG: playlist->agregar_peticion sql: INSERT INTO `playlist_actual` (`cancion_idfk`, `orden`) SELECT 79, (max(`orden`) + 1) FROM `playlist_actual`
 2011-05-01 19:52:02 --- DEBUG: playlist->agregar_peticion sql: INSERT INTO `playlist_actual` (`cancion_idfk`, `orden`) SELECT 113, (max(`orden`) + 1) FROM `playlist_actual`
+2011-05-01 20:57:58 --- ERROR: ErrorException [ 1 ]: Using $this when not in object context ~ APPPATH/classes/model/usuarios.php [ 86 ]
+2011-05-01 21:12:02 --- ERROR: ErrorException [ 1 ]: Class 'Usuarios' not found ~ APPPATH/classes/controller/cuenta.php [ 56 ]

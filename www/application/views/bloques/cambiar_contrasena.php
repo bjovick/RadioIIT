@@ -7,6 +7,10 @@ $accion = isset($accion) ? $accion : URL::site('/cuenta/cambiar_contrasena');
 ?>
 <form name="cambiar_contrasena" action="<?php echo $accion; ?>" method="POST">
 	<p>
+		<label>Contrase&ntilde;a actual:</label>
+		<input type="password" name="contrasena_actual" />
+	</p>
+	<p>
 		<label>Nueva contrase&ntilde;a:</label>
 		<input type="password" name="nueva_contrasena" />
 	</p>

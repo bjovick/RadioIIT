@@ -31,34 +31,39 @@ class Controller_Cuenta extends Controller {
 		if($this->request->method() == Request::POST) {
 			//agarrar datos
 			$post = $this->request->post();
+			$actual = filter_var($post['contrasena_actual'], FILTER_SANITIZE_STRING);
 			$nueva = filter_var($post['nueva_contrasena'], FILTER_SANITIZE_STRING);
 			$repetida = filter_var($post['nueva_contrasena_repetida'], FILTER_SANITIZE_STRING);
 			$hay_errores = false;
+			$u = Auth::usuario();
+			
+			if (sha1($actual) !== $u['contrasena']) {
+				$msg = 'La contrase&ntilde;a que pusiste como actual no es la misma.
+					[Trate de nuevo]('.$this->request->referrer().').';
+				$hay_errores = true;
+			}
 
 			if ($nueva !== $post['nueva_contrasena']
 				|| $repetida !== $post['nueva_contrasena_repetida']) {
 					//caracteres invalidos
-					$msg = Markdown('Contrase&ntilde;a tiene caracteres invalidos.'.
-						'(Trate de nuevo)['.URL::site($this->request->referrer()).'].');
+					$msg = 'Contrase&ntilde;a tiene caracteres invalidos.'.
+						'[Trate de nuevo]('.$this->request->referrer().').';
 					$hay_errores = true;
 			}
 
 			if($repetida === $nueva && !$hay_errores) {
-				//todo bien a cambiarla
-				$u = Auth::usuario();
-				$res = Usuarios::editar((int) $u['id'], array('contrasena'=>sha1($nueva)));
+				//bien a cambiarla
+				$res = Model_Usuarios::editar((int) $u['id'], array('contrasena'=>sha1($nueva)));
 
 				$msg = ($res)
-						 ? 'Contrase&ntilde;a cambiada. (Regresar)['.
-									URL::site($this->request->referrer()).'].'
-						 : 'Hubo un error al cambiar la contrase&ntilde;a. (Trate de nuevo)['.
-									URL::site('cuenta').'].\n\n'.
+						 ? 'Contrase&ntilde;a cambiada. [Regresar]('.
+									$this->request->referrer().').'
+						 : 'Hubo un error al cambiar la contrase&ntilde;a. [Trate de nuevo]('.
+									URL::site('cuenta').').\n\n'.
 									'Si continua teniendo el error, contacte al administrador.';
-
-				$msg = Markdown($msg);
 			}
 
-			$this->_V->set('contenido', $msg);
+			$this->_V->set('contenido', Markdown($msg));
 			$this->response->body($this->_V);
 		}
 		else {
@@ -68,8 +73,17 @@ class Controller_Cuenta extends Controller {
 	}
 
 	public function action_eliminar() {
-		//TODO
-		$this->response->body('eliminando cuenta');
+		$u = Auth::usuario();
+		$res = Model_Usuarios::eliminar((int) $u['id']);
+		$msg = $res 
+				 ? 'Tu cuenta ha sido eliminada permanentemente.'
+				 : 'Un error ocurrio al tratar de eliminar tu cuenta.
+						Contacte al administrador si continua teniando problemas.';
+		
+		$this->_basica_v->set('cont_principal', Markdown($msg))
+			->set('cont_auxiliar', '');
+			
+		$this->response->body($this->_V->set('contenido', $this->_basica_v));
 	}
 
 
