@@ -8,7 +8,7 @@ class Fecha {
     $ts_local = is_null($ts_local) ? time() : (int) $ts_local;
  
 		//determinar la diferencia en segundos
-    $offset = abs($local_timestamp - $timestamp);
+    $offset = abs($ts_local - $timestamp);
  
     if ($offset <= Date::MINUTE)
     {
@@ -108,11 +108,12 @@ class Fecha {
 	 * lo demas se pone como fecha normal
 	 */
 	public static function lapso_corto_nat($timestamp, $ts_local = null) {
-	    $ts_local = is_null($ts_local) ? time() : (int) $ts_local;
+		$ts_local = is_null($ts_local) ? time() : (int) $ts_local;
  
 		//determinar la diferencia en segundos
-    $offset = abs($local_timestamp - $timestamp);
+    $offset = abs($ts_local - $timestamp);
 		$pura_fecha = false;
+		
  
     if ($offset <= Date::MINUTE)
     {
@@ -133,22 +134,18 @@ class Fecha {
     else
     {
 				$pura_fecha = true;
-        $lapso = self::fecha($timestamp);
+        $lapso = self::formato($timestamp);
     }
  
     if (!$pura_fecha)
     {
-				$lapso = (($timestamp <= $ts_local) ? 'hace ' : 'en ').$lapso
+				$lapso = (($timestamp <= $ts_local) ? 'hace ' : 'en ').$lapso;
     }
-
+		
 		return $lapso;
 	}
 
-	public static function fecha($ts_fecha) {
-		if(is_string($ts_fecha)) { //es una fecha
-			$ts_fecha = strtotime($ts_fecha);
-		}
-		
-		return is_integer($ts_fecha) ? date("Y.m.d g:ia",strtotime($ts_fecha)) : $ts_fecha;
+	public static function formato($ts_fecha) {
+		return date('Y.m.d g:ia', is_string($ts_fecha) ? strtotime($ts_fecha) : $ts_fecha);
 	}
 }

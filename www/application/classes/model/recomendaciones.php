@@ -42,10 +42,23 @@ class Model_Recomendaciones extends Model {
 		return false;
 	}
 
-	public static function editar($id) {
+	public static function editar($id, array $datos) {
 	}
 
 	public static function agregar($datos) {
+		//valores basicos
+		if (empty($datos['titulo']) || empty($datos['artista'])) {
+			return false;
+		}
+		$u = Auth::usuario();
+		$datos['usuario_idfk'] = $u['id'];
+		$datos['pedida_en'] = DB::expr('NOW()');
+
+		$insert = DB::insert(self::$_tabla)
+							->columns(array_keys($datos))
+							->values(array_values($datos));
+
+		return !!$insert->execute();
 	}
 
 	public static function eliminar($id) {

@@ -60,3 +60,4 @@ class Usuario {
 
 		return false;
 	}
+}

@@ -52,10 +52,38 @@ class Controller_Musica extends Controller {
 		}
 	}
 	public function action_recomendar() {
-		$this->response->body('recomendado. <pre>'.var_export($this->request->post(), true).'</pre>');
+		//TODO
+		//$this->response->body('recomendado. <pre>'.var_export($this->request->post(), true).'</pre>');
 		
 		if($this->request->method() == Request::POST) {
+			$post = $this->request->post();
+			$titulo = filter_var($post['titulo'], FILTER_SANITIZE_STRING);
+			$artista = filter_var($post['artista'], FILTER_SANITIZE_STRING);
+			$msg = '';
+
+			if(empty($titulo) || empty($artista)) {
+				//no se envio nada, a decirle al usuario
+				$msg = 'El titulo o/y el artista estan vacios.
+					Se necesitan los dos para mandar una recomendacion.';
+			} else {
+				//si existen, a mandar la recomendacion
+				$res = Model_Recomendaciones::agregar(array(
+					'titulo' => $titulo,
+					'artista' => $artista,
+				));
+
+				$msg = $res
+						 ? 'La recomendacion fue enviada.'
+						 : 'Hubo un problema al enviar la recomendacion. Trate de nuevo.
+								Si el problema persiste contacte al administrador.';
+			}
+
+			$p = View::factory('paginas/basica')
+				->set('cont_principal', Markdown($msg))
+				->set('cont_auxiliar', '');
+			$this->response->body($this->_V->set('content', $p));
 		} else {
+			$this->request->redirect($this->request->referrer());
 		}
 	}
 }

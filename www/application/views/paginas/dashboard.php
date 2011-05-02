@@ -48,17 +48,19 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 		<section id="recomendaciones">
 			<ul>
 				<?php
-				//TODO: mostrar lista de todas las recomendaciones 
 				$recoms = Model_Recomendaciones::navegar()->as_array();
 
 				if (!empty($recoms)) {
 					echo '<li><strong>Artista &mdash; Titulo &mdash; Usuario &mdash; Pedida En</strong></li>'.PHP_EOL;
 					foreach($recoms as $r){
-						$usuario = Usuario::leer($r['usuario_idfk'])->get('usuario');
-						echo '<li>'.$r['artista'].
-									' &mdash; '.$r['titulo'].
-									' &mdash; '.$usuario.
-									' &mdash; '.Fecha::lapso_corto_nat($r['pedida_en']).'</li>'.PHP_EOL;
+						$usuario = Model_Usuarios::leer((int) $r['usuario_idfk'])->get('usuario');
+						//$fecha = Fecha::lapso_corto_nat($r['pedida_en']);
+						$fecha = Fecha::formato($r['pedida_en']);
+						echo '<li>'.$r['artista'];
+						echo ' &mdash; '.$r['titulo'];
+						echo ' &mdash; '.$usuario;
+						echo ' &mdash; <samp>'.$fecha.'</samp></li>'.PHP_EOL;
+									//' &mdash; '.$r['pedida_en'].'</li>'.PHP_EOL;
 					}	
 				}
 				else {
