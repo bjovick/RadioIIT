@@ -8,6 +8,7 @@
 <form name="eliminar_form" action="<?php echo $accion; ?>" method="POST">
 	<input type="hidden" name="id" value="<?php echo $id; ?>" />
 	<?php echo Form::image(null,null,array('src'=>'media/img/basura.png',
-																				 'alt'=>'Eliminar')); ?>
+																				 'alt'=>'Eliminar',
+																				 'class'=>'asegurarse')); ?>
 </form>
 

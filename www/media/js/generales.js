@@ -1,7 +1,7 @@
 (function($) {
 $(document).ready(function () {
 	//pregunta por confirmacion antes de seguir el link
-	$('a.asegurarse').click(function (e) {
+	$('.asegurarse').click(function (e) {
 		var res = confirm($(this).attr('rel') || 'Estas seguro?');
 		if (res) {
 			return true;

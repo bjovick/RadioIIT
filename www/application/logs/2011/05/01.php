@@ -48,3 +48,5 @@
 2011-05-01 22:35:09 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: index.php/cuenta ~ SYSPATH/classes/kohana/request.php [ 743 ]
 2011-05-01 22:35:50 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: index.php/cuenta ~ SYSPATH/classes/kohana/request.php [ 743 ]
 2011-05-01 22:36:17 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: index.php/cuenta ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-05-01 22:50:23 --- ERROR: ErrorException [ 1 ]: Call to undefined method Request::medthod() ~ APPPATH/classes/controller/admin.php [ 23 ]
+2011-05-01 23:40:44 --- ERROR: ErrorException [ 2 ]: Missing argument 1 for Controller_Admin::action_modificar_usuario() ~ APPPATH/classes/controller/admin.php [ 35 ]

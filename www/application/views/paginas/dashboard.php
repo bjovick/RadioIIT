@@ -13,7 +13,7 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 		<h4><a class="alternar" href="#horarios">Horarios</a></h4>
 		<section id="horarios">
 			<ul class="menu_linear">
-				<li><a href="">Agregar Horario</a></li>
+				<li><a href="<?php echo URL::site('/admin/agregar_horario'); ?>">Agregar Horario</a></li>
 			</ul>
 
 			<ul>
@@ -43,6 +43,7 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 			</ul>
 		</section>
 	</li>
+	<?php /* No hay recomendaciones, se mandan al email
 	<li>
 		<h4><a class="alternar" href="#recomendaciones">Recomendaciones</a></h4>
 		<section id="recomendaciones">
@@ -70,11 +71,12 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 			</ul>
 		</section>
 	</li>
+	*/ ?>
 	<li>
 		<h4><a class="alternar" href="#usuarios">Usuarios</a></h4>
 		<section id="usuarios">
 			<ul class="menu_linear">
-				<li><a href="">Agregar Usuario</a></li>
+				<li><a href="<?php echo URL::site('/admin/agregar_usuario'); ?>">Agregar Usuario</a></li>
 			</ul>
 			<ul>
 				<?php

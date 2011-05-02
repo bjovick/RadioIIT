@@ -49,7 +49,6 @@ class Model_Usuarios extends Model {
 		$cont = self::leer($id)->current();
 		$nombre = $cont['usuario'];
 		$delta = array_diff($cambios, $cont);
-		unset($delta['usuario']);
 		if (empty($delta)) {
 			return true;
 		}
@@ -83,6 +82,7 @@ class Model_Usuarios extends Model {
 		$filtro = is_int($idnombre)
 						? array('id','=',$idnombre)
 						: array('nombre','=',$idnombre);
+		//$filtro = array(is_int($idnombre) ? 'id' : 'nombre', '=', $idnombre);
 		return (bool) DB::delete(self::$_tabla)
 									->where($filtro[0],$filtro[1],$filtro[2])
 									->execute();
