@@ -11,7 +11,8 @@ class Controller_Admin extends Controller {
 		if($this->request->method() == Request::POST) {
 			$post = filter_var_array($this->request->post(), FILTER_SANITIZE_STRING);
 			$post['email_admin'] = filter_var($post['email_admin'], FILTER_SANITIZE_EMAIL);
-			
+
+			//echo '<pre>'.var_export($post,true).'</pre>';
 			foreach($post as $llave => $valor) {
 				Sitio::config($llave, $valor);
 			}
