@@ -61,11 +61,13 @@ class Playlist {
 			->from('canciones')
 			//solo las del genero
 			->where_open()
-				->or_where('genero', 'IN', $in_generos)
-				//y las que esten nulo o que digan unkown
-				->or_where('genero', 'IS', DB::expr('NULL'))
-				->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''))
-			->where_close()
+				->or_where('genero', 'IN', $in_generos);
+		//y las que esten nulo o que digan unkown si el admin lo permite
+			if(Sitio::config('_tocar_canciones_sin_genero')=='true') {
+				$select->or_where('genero', 'IS', DB::expr('NULL'))
+						->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
+			}
+		$select->where_close()
 			//que no esten en la playlist
 			->and_where('id', 'NOT IN', $lista_ids)
 			//solo las que no se han tocado en el lapso minimo (30mins)

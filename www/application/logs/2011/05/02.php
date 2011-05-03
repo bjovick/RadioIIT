@@ -12,3 +12,4 @@
 2011-05-02 15:25:27 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304371527 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
 2011-05-02 15:25:51 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304371551 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
 2011-05-02 15:25:59 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304371559 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
+2011-05-02 20:05:30 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected T_PUBLIC ~ APPPATH/classes/controller/admin.php [ 25 ]
