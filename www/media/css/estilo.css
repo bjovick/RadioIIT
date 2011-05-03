@@ -19,7 +19,11 @@ html,body,table,td {
 html {
 	overflow-y: scroll;
 }
-ul, ol, li { list-style-position: inside; }
+ul, ol, li {
+	list-style-position: inside;
+	margin: 0;
+	padding: .4em;
+}
 /** links **/
 a, a:link {color: #254fa2; text-decoration: none;}
 a:hover, a:active {text-decoration: underline;}

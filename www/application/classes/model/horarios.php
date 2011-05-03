@@ -15,7 +15,7 @@ class Model_Horarios extends Model {
 			$select->where($filtro[0],$filtro[1],$filtro[2]);
 		}
 
-		$select->order_by('nombre','asc');
+		$select->order_by('nombre','asc')->order_by('dia','asc');
 
 		return $select->execute();
 	}
@@ -42,18 +42,36 @@ class Model_Horarios extends Model {
 		return false;
 	}
 
-	public static function editar($id) {
+	public static function editar($id, array $cambios) {
+		$h = self::leer($id)->current();
+		$delta = array_diff($cambios, $h);
+		if (empty($delta)) {
+			return true;
+		}
+
+		$res = DB::update(self::$_tabla)
+						->set($delta)
+						->where('id','=',$id);
+		
+		return !!$res->execute();
 	}
 
 	public static function agregar($datos) {
+		//valores basicos
+		if (empty($datos['generos']) || empty($datos['dia'])) {
+			return false;
+		}
+
+		$insert = DB::insert(self::$_tabla)
+							->columns(array_keys($datos))
+							->values(array_values($datos));
+
+		return !!$insert->execute();
 	}
 
 	public static function eliminar($id) {
-		$filtro = is_int($idnombre)
-						? array('id','=',$idnombre)
-						: array('nombre','=',$idnombre);
-		return (bool) DB::delete($this->_tabla)
-									->where($filtro[0],$filtro[1],$filtro[2])
+		return (bool) DB::delete(self::$_tabla)
+									->where('id','=',(int) $id)
 									->execute();
 	}
 }

@@ -46,11 +46,14 @@ class Controller_Admin extends Controller {
 			if(!Model_Usuarios::eliminar((int) $post['id'])) {
 				$this->_V->set('cotenido', Markdown('Un error ocurrio al tratar de eliminar el usuario.'));
 				$this->response->body($this->_V);
-				return;
+			}
+			else {
+				$this->request->redirect('/cuenta#usuarios');
 			}
 		}
-
-		$this->request->redirect('/cuenta#usuarios');
+		else {
+			$this->request->redirect('/cuenta#usuarios');
+		}
 	}
 
 	public function action_modificar_usuario($cambios = null) {
@@ -107,48 +110,108 @@ class Controller_Admin extends Controller {
 			if(!Model_Horarios::eliminar((int) $post['id'])) {
 				$this->_V->set('cotenido', Markdown('Un error ocurrio al tratar de eliminar el horario.'));
 				$this->response->body($this->_V);
-				return;
+			}
+			else {
+				$this->request->redirect('/cuenta#horarios');
 			}
 		}
-
-		$this->request->redirect('/cuenta#horarios');
+		else {
+			$this->request->redirect('/cuenta#horarios');
+		}
 	}
 
-	public function action_modificar_horarios($cambios) {
+	public function action_modificar_horario($cambios = null) {
 		if($this->request->method() == Request::POST) {
 			$post = filter_var_array($this->request->post(), FILTER_SANITIZE_STRING);
 			if(is_null($cambios)) {//pidieron el formulario para editar
-				$this->_V->set('contenido', View::factory('bloques/modificar_horario')
-																		->set('id', (int) $post['id']));
-				$this->response->body($this->_V);
+				$horarios = '<h4>Horarios existentes</h4>'.PHP_EOL.'<ul>'.PHP_EOL;
+				foreach(Model_Horarios::navegar()->as_array() as $hor) {
+					$horarios .= '<li>'.$hor['dia'].': '.
+												Fecha::hora_nat($hor['tiempo_inicial']).' &ndash; '.
+												Fecha::hora_nat($hor['tiempo_final']).'</li>'.PHP_EOL;
+				}
+				$horarios .= '</ul>';
+				$basica = View::factory('paginas/basica')
+					->set('cont_principal', View::factory('bloques/modificar_horario')->set('id',(int) $post['id']))
+					->set('cont_auxiliar', $horarios);
+				$this->_V->set('contenido', $basica)
+					->set('usarjquery', true)
+					->set('scripts', array('media/js/generales.js'));
 			}
 			else { //mandaron cambios
-				$usu = Model_Horarios::leer((int) $post['id'])->current();
-				$deltas = array();
+				$hor = Model_Horarios::leer((int) $post['id'])->current();
+				$gs = ($post['generos'] == array('')) ? array() : $post['generos'];
+				if(!empty($gs)) {
+					$gs = array_values(array_flip(array_flip($post['generos'])));
+				}
+				$post['generos'] = implode(',',$gs);
 
-				if($post['usuario'] !== $usu['usuario']) {
-					$deltas['usuario'] = $post['usuario'];
+				$deltas = array_diff($post,$hor);
+				$msg = '';
+
+				//asegurarse que no tengan conflicto de horario
+				if(Horarios::conflicta_con($post['dia'],$post['tiempo_inicial'],$post['tiempo_final'])) {
+					$msg.= 'El los cambios de horario conflicta con otro horario.';
+				}
+				else {
+					if(!empty($deltas)) {
+						if(Model_Horarios::editar((int) $post['id'], $deltas)) {
+							$this->request->redirect('/cuenta#horarios');
+						}
+						else {
+							$msg.= 'Hubo un problema al editar el horario. Si el problema existe contacte al administrador.';
+						}						
+					}
+					else {
+						$msg.= 'No hay cambios que hacer.';
+					}
 				}
 
-				if (!empty($post['nueva_contrasena'])
-					 && !empty($post['nueva_contrasena_repetida'])
-					 && strlen($post['nueva_contrasena']) === strlen($post['nueva_contrasena_respendida'])
-					 && strlen($post['nueva_contrasena']) > 5) {
-					$deltas['contrasena'] = $post['nueva_contrasena'];
-				}
-
-				if ($post['rol'] !== $usu['rol']) {
-					$deltas['rol'] = $post['rol'];
-				}
-
-
-				if(!empty($deltas)) {
-					Model_Usuarios::editar((int) $post['id'], $deltas);
-				}
+				$msg = Markdown($msg);
+				$msg .= PHP_EOL.'nuevos: <pre>'.var_export($post,true).'</pre>'.PHP_EOL;
+				$msg .= PHP_EOL.'actual: <pre>'.var_export($hor,true).'</pre>'.PHP_EOL;
+				$msg .= PHP_EOL.'deltas: <pre>'.var_export($deltas,true).'</pre>'.PHP_EOL;
+				$this->_V->set('contenido',$msg);
 			}
 
+			$this->response->body($this->_V);
 		}
+		else {
+			$this->request->redirect('/cuenta#horarios');
+		}
+	}
+
+	public function action_agregar_horario() {
+		if($this->request->method() == Request::POST) {
+			$post = filter_var_array($this->request->post(), FILTER_SANITIZE_STRING);
+			$gs = ($post['generos'] == array('')) ? array() : $post['generos'];
+			if(!empty($gs)) {
+				$gs = array_values(array_flip(array_flip($post['generos'])));
+			}
+			$post['generos'] = implode(',',$gs);
+
+			//asegurarse que no conflicte con otro
+			
+			$res = Model_Horarios::agregar($post);
 		
-		$this->request->redirect('/cuenta#horarios');
+			$this->request->redirect('/cuenta#horarios');
+			//echo '<pre>'.var_export($post,true).'</pre>';
+		}
+		else {
+			$horarios = '<h4>Horarios existentes</h4>'.PHP_EOL.'<ul>'.PHP_EOL;
+			foreach(Model_Horarios::navegar()->as_array() as $hor) {
+				$horarios .= '<li>'.$hor['dia'].': '.
+											Fecha::hora_nat($hor['tiempo_inicial']).' &ndash; '.
+											Fecha::hora_nat($hor['tiempo_final']).'</li>'.PHP_EOL;
+			}
+			$horarios .= '</ul>';
+			$basica = View::factory('paginas/basica')
+				->set('cont_principal', View::factory('bloques/agregar_horario'))
+				->set('cont_auxiliar', $horarios);
+			$this->_V->set('contenido', $basica)
+				->set('usarjquery', true)
+				->set('scripts', array('media/js/generales.js'));
+			$this->response->body($this->_V);
+		}
 	}
 }

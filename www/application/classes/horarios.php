@@ -32,15 +32,15 @@ class Horarios {
 	 * sean numericas y mas especificas y se usa el primero de 
 	 * enero del 2000 como dia base. dia escojido al azar
 	 */
-	public static function intervalo_de_tiempos() {
+	public static function intervalos_de_tiempo() {
 		$t = $t_inicio = strtotime('2000-1-1 00:00:00');
-		$t_final = strtotime('2000-1-1 :59:59');
+		$t_final = strtotime('2000-1-1 23:59:59');
 		$tiempos = array($t);
 		while($t < $t_final) {
 			$t += 15 * Date::MINUTE;
 			$tiempos[] = $t;
 		}
-		$tiempos[] = $t_final;
+		$tiempos[(count($tiempos)-1)] = $t_final;
 		return $tiempos;
 	}
 
@@ -65,10 +65,10 @@ class Horarios {
 	}
 
 	/**
-	 * checa si el horario que le pasan superposiciona con alguno en
+	 * checa si el el dia y las horas que le pasan conflictan con alguno en
 	 * la base de datos.
 	 */
-	public static function se_superposiciona($dia,$t_inicial,$t_final) {
+	public static function conflicta_con($dia,$t_inicial,$t_final) {
 		//TODO
 		return false;
 	}

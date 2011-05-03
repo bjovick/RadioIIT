@@ -149,6 +149,11 @@ class Fecha {
 		return date('Y.m.d g:ia', is_string($ts_fecha) ? strtotime($ts_fecha) : $ts_fecha);
 	}
 
+	public static function hora_nat($h) {
+		$h = (is_string($h) && strlen($h) == 8) ? strtotime('2000-1-1 '.$h) : $h;
+		return date('h:ia', $h);
+	}
+	
 	public static function duracion_nat($segundos) {
 		if($segundos < Date::MINUTE) {
 			$lapso = $segundos.' segundos';
