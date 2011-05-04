@@ -54,3 +54,17 @@
 2011-05-03 21:04:19 --- DEBUG: horarios conflictos sql: SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` <= 'tiempo_final' AND `18:00:00` >= 'tiempo_inicial')
 2011-05-03 21:04:19 --- ERROR: Database_Exception [ 0 ]: [1054] Unknown column '08:15:00' in 'where clause' ( SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` = 'tiempo_inicial') ) ~ MODPATH/database/classes/kohana/database/mysql.php [ 181 ]
 2011-05-03 21:04:25 --- DEBUG: horarios conflictos sql: SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`tiempo_final` >= '08:15:00' AND `tiempo_inicial` <= '18:00:00')
+2011-05-03 23:47:24 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('Indie','Alternative Rock')) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304488044 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
+2011-05-03 23:47:24 --- DEBUG: paticion.desc :##Peticiones##
+
+Puedes hacer peticiones que seran agregadas a la lista de reproduccion de acuerdo al orden que fueron recibidas. Hay un limite de 3 por cada ::lapso:: minutos.
+
+Las canciones disponibles para pedir son estas:
+
+2011-05-03 23:47:24 --- ERROR: ErrorException [ 8 ]: Undefined variable: lapso ~ APPPATH/views/paginas/musica.php [ 22 ]
+2011-05-03 23:48:26 --- DEBUG: Playlist::disponible sql: SELECT * FROM `canciones` WHERE (`genero` IN ('Indie','Alternative Rock')) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304488106 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
+2011-05-03 23:48:26 --- DEBUG: paticion.desc :##Peticiones##
+
+Puedes hacer peticiones que seran agregadas a la lista de reproduccion de acuerdo al orden que fueron recibidas. Hay un limite de 3 por cada ::lapso:: minutos.
+
+Las canciones disponibles para pedir son estas:
