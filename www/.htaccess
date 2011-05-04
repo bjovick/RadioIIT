@@ -1,11 +1,13 @@
 # Turn on URL rewriting
 RewriteEngine On
+RewriteRule \.git - [F,L]
 
 # Installation directory
 #RewriteBase /
 
 # Protect hidden files from being viewed
 <Files .*>
+	Options Indexes FollowSymLinks MultiViews
 	Order Deny,Allow
 	Deny From All
 </Files>
