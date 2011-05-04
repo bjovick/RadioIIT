@@ -46,3 +46,11 @@
 2011-05-03 15:11:41 --- DEBUG: ensenando formulario de: id,x,y | 10,6,18
 2011-05-03 15:11:56 --- DEBUG: ensenando formulario de: id,x,y | 10,14,17
 2011-05-03 15:12:38 --- DEBUG: ensenando formulario de: id,x,y | 7,10,16
+2011-05-03 20:58:28 --- ERROR: ErrorException [ 8 ]: Undefined property: Database_Query_Builder_Select::$where ~ APPPATH/classes/horarios.php [ 77 ]
+2011-05-03 20:58:47 --- DEBUG: horarios conflictos sql: SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` <= 'tiempo_final' AND `18:00:00` >= 'tiempo_inicial')
+2011-05-03 20:58:47 --- ERROR: Database_Exception [ 0 ]: [1054] Unknown column '08:15:00' in 'where clause' ( SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` = 'tiempo_inicial') ) ~ MODPATH/database/classes/kohana/database/mysql.php [ 181 ]
+2011-05-03 21:04:17 --- DEBUG: horarios conflictos sql: SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` <= 'tiempo_final' AND `18:00:00` >= 'tiempo_inicial')
+2011-05-03 21:04:17 --- ERROR: Database_Exception [ 0 ]: [1054] Unknown column '08:15:00' in 'where clause' ( SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` = 'tiempo_inicial') ) ~ MODPATH/database/classes/kohana/database/mysql.php [ 181 ]
+2011-05-03 21:04:19 --- DEBUG: horarios conflictos sql: SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` <= 'tiempo_final' AND `18:00:00` >= 'tiempo_inicial')
+2011-05-03 21:04:19 --- ERROR: Database_Exception [ 0 ]: [1054] Unknown column '08:15:00' in 'where clause' ( SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`08:15:00` = 'tiempo_inicial') ) ~ MODPATH/database/classes/kohana/database/mysql.php [ 181 ]
+2011-05-03 21:04:25 --- DEBUG: horarios conflictos sql: SELECT `id` FROM `horarios` WHERE `dia` = 'jueves' AND (`tiempo_final` >= '08:15:00' AND `tiempo_inicial` <= '18:00:00')

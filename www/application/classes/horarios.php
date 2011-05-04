@@ -69,7 +69,20 @@ class Horarios {
 	 * la base de datos.
 	 */
 	public static function conflicta_con($dia,$t_inicial,$t_final) {
-		//TODO
-		return false;
+		$culpables = DB::select('id')->from('horarios')
+			->where('dia','=',$dia)
+			->where_open()
+				->where('tiempo_final', '>=', $t_inicial)
+				->and_where('tiempo_inicial', '<=', $t_final)
+			->where_close();
+		/*
+		SELECT id FROM horarios
+		WHERE dia='jueves'
+		AND ('08:15:00' <= tiempo_final AND '19:00:00' >= tiempo_inicial)
+		 */
+
+		//Kohana::$log->add(Log::DEBUG, 'horarios conflictos sql: '.$culpables);
+
+		return $culpables->execute()->count() > 0;
 	}
 }

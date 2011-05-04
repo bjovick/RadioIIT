@@ -40,12 +40,12 @@ $intervalos = Horarios::intervalos_de_tiempo();
 		<label>D&iacute;a: </label>
 		<select name="dia">
 			<option value="lunes"<?php echo ($h['dia']=='lunes')?'selected':''; ?>>Lunes</option>
-			<option value="martes"<?php echo ($h['dia']=='martes')?'selected':''; ?>>Martes<option>
-			<option value="miercoles"<?php echo ($h['dia']=='miercoles')?'selected':''; ?>>Miercoles<option>
-			<option value="jueves"<?php echo ($h['dia']=='')?'jueves':''; ?>>Jueves<option>
-			<option value="viernes"<?php echo ($h['dia']=='')?'viernes':''; ?>>Viernes<option>
-			<option value="sabado"<?php echo ($h['dia']=='')?'sabado':''; ?>>Sabado<option>
-			<option value="domingo"<?php echo ($h['dia']=='')?'domingo':''; ?>>Domingo<option>
+			<option value="martes"<?php echo ($h['dia']=='martes')?'selected':''; ?>>Martes</option>
+			<option value="miercoles"<?php echo ($h['dia']=='miercoles')?'selected':''; ?>>Miercoles</option>
+			<option value="jueves"<?php echo ($h['dia']=='')?'jueves':''; ?>>Jueves</option>
+			<option value="viernes"<?php echo ($h['dia']=='')?'viernes':''; ?>>Viernes</option>
+			<option value="sabado"<?php echo ($h['dia']=='')?'sabado':''; ?>>Sabado</option>
+			<option value="domingo"<?php echo ($h['dia']=='')?'domingo':''; ?>>Domingo</option>
 		</select>
 	</p>
 	<p>
