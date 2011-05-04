@@ -17,7 +17,9 @@ if (Auth::esta_auth()) {
 		//ensenar la lista dispoible de canciones
 		$desc = Model_Contenidos::leer('peticion.descripcion')->get('texto_md');
 		$desc = str_replace('::num_pet::',Sitio::config('peticiones_por_usuario'),$desc);
-		$desc = str_replace('::lapso::',Sitio::config('lapso_peticiones_limite'),$desc);
+		//$lapso = ((int) Sitio::config('lapso_segs_peticiones_limite')) / Date::MINUTE;
+		Kohana::$log->add(Log::DEBUG, 'paticion.desc :'.$desc);
+		$desc = str_replace('::lapso::',"$lapso",$desc);
 		echo Markdown($desc),PHP_EOL,
 				 View::factory('bloques/playlist')
 					->set('con_peticiones', true)
