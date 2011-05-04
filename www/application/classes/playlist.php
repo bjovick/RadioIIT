@@ -94,11 +94,14 @@ class Playlist {
 	 * agrega la cancion pedida a la lista
 	 */
 	public function agregar_peticion($cancionid) {
-		//TODO agregar cancion de forma atomica
-		$sub = DB::select(DB::expr($cancionid), DB::expr('(max(`orden`) + 1)'))
+		$u = Auth::usuario();
+		$sub = DB::select(DB::expr($cancionid),
+			DB::expr('(max(`orden`) + 1)'),
+			DB::expr('NOW()'),
+			DB::expr($u['id']))
 			->from('playlist_actual');
-		$insert = DB::insert('playlist_actual')
-			->columns(array('cancion_idfk','orden'))
+		$insert = DB::insert('peticiones')
+			->columns(array('cancion_idfk','orden','fecha_pedida','usuario_idfk'))
 			->select($sub);
 
 		//Kohana::$log->add(Log::DEBUG, 'playlist->agregar_peticion sql: '.$insert);
