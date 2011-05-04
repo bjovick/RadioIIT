@@ -44,10 +44,10 @@ $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 	<header>
 		<nav>
 			<ul>
-			<li><a href="<?php echo URL::base();?>">Inicio</a></li>
-				<li><a href="<?php echo URL::site('acerca');?>">Quienes Somos</a></li>
-				<li><a href="<?php echo URL::site('musica');?>">Musica</a></li>
-				<li><a href="<?php echo URL::site('cuenta');?>">Tu Cuenta</a></li>
+			<li><a href="<?php echo URL::base();?>"<?php echo ($pagina=='inicio')?' class="actual"':'';?>>Inicio</a></li>
+				<li><a href="<?php echo URL::site('acerca');?>"<?php echo ($pagina=='acerca')?' class="actual"':'';?>>Quienes Somos</a></li>
+				<li><a href="<?php echo URL::site('musica');?>"<?php echo ($pagina=='musica')?' class="actual"':'';?>>Musica</a></li>
+				<li><a href="<?php echo URL::site('cuenta');?>"<?php echo ($pagina=='cuenta')?' class="actual"':'';?>>Tu Cuenta</a></li>
 			</ul>
 		</nav>
 		<h1><em>Radio</em>IIT<small>ingenium radio</small></h1>

@@ -163,11 +163,14 @@ body>header>nav>ul>li>a:active {
 	text-decoration: none;
 	font-weight: bold;
 	color: #595959;
-	padding: 1.5em 1em;
+	padding: 1.6em 1em;
 	line-height: 70px;
 }
 body>header>nav>ul>li>a:hover {
 	background: #f5f5eb;
+}
+body>header>nav>ul>li>a.actual {
+	background: #ebe9d8;
 }
  
 /**
@@ -220,10 +223,6 @@ body>header>nav>ul>li>a:hover {
 /**
  * Pagina Cuenta
  */
-#pagina_cuenta {
-	background-color: #e6e6d6;
-}
-
 #pagina_cuenta #mainbar {
 	width: 700px;
 }
