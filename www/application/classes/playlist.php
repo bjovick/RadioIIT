@@ -56,6 +56,8 @@ class Playlist {
 		$in_generos = DB::expr('(\''.implode('\',\'',self::$_horario['generos']).'\')');
 		//query de id de canciones en playlist
 		$lista_ids = DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')');
+		//query de las canciones en peticiones
+		$peticiones_ids = DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')');
 
 		$select = DB::select('*')
 			->from('canciones')
@@ -68,12 +70,13 @@ class Playlist {
 					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
 		}
 		$select->where_close()
-			//que no esten en la playlist
+			//que no esten en la playlist o peticiones
 			->and_where('id', 'NOT IN', $lista_ids)
+			->and_where('id', 'NOT IN', $peticiones_ids)
 			//solo las que no se han tocado en el lapso minimo (30mins)
 			->and_where($lapso,'>=',intval(Sitio::config('lapso_segs_peticiones_limite')));
 
-		//Kohana::$log->add(Log::DEBUG, 'Playlist::disponible sql: '.$select);
+		Kohana::$log->add(Log::DEBUG, 'Playlist::disponible sql: '.$select);
 
 		return $select->execute()->as_array();
 	}
