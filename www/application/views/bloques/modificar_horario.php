@@ -41,10 +41,10 @@ $intervalos = Horarios::intervalos_de_tiempo();
 			<option value="lunes"<?php echo ($h['dia']=='lunes')?'selected':''; ?>>Lunes</option>
 			<option value="martes"<?php echo ($h['dia']=='martes')?'selected':''; ?>>Martes</option>
 			<option value="miercoles"<?php echo ($h['dia']=='miercoles')?'selected':''; ?>>Miercoles</option>
-			<option value="jueves"<?php echo ($h['dia']=='')?'jueves':''; ?>>Jueves</option>
-			<option value="viernes"<?php echo ($h['dia']=='')?'viernes':''; ?>>Viernes</option>
-			<option value="sabado"<?php echo ($h['dia']=='')?'sabado':''; ?>>Sabado</option>
-			<option value="domingo"<?php echo ($h['dia']=='')?'domingo':''; ?>>Domingo</option>
+			<option value="jueves"<?php echo ($h['dia']=='jueves')?'selected':''; ?>>Jueves</option>
+			<option value="viernes"<?php echo ($h['dia']=='viernes')?'selected':''; ?>>Viernes</option>
+			<option value="sabado"<?php echo ($h['dia']=='sabado')?'selected':''; ?>>Sabado</option>
+			<option value="domingo"<?php echo ($h['dia']=='domingo')?'selected':''; ?>>Domingo</option>
 		</select>
 	</p>
 	<p>
