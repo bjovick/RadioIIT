@@ -9,11 +9,6 @@
 <div id="mainbar">
 	<?php
 if (Auth::esta_auth()) {
-		//ensenar el formulario de recomendacion
-		echo Markdown(Model_Contenidos::leer('recomendaciones.desc')
-			->get('texto_md')),PHP_EOL,
-				View::factory('bloques/recomendar_form');
-
 		//ensenar la lista dispoible de canciones
 		$desc = Model_Contenidos::leer('peticion.descripcion')->get('texto_md');
 		$desc = str_replace('::num_pet::',Sitio::config('peticiones_por_usuario'),$desc);
@@ -39,5 +34,14 @@ if (Auth::esta_auth()) {
 				->set('con_cancion_actual', true)
 			 ->set('titulo', 'Tocando: '.(empty($playlist_actual['nombre'])
 																	? $playlist_actual['generos'] : $playlist_actual['nombre']));
+	echo View::factory('bloques/playlist')
+		->set('titulo', 'Top Diez')
+		->set('playlist', array('canciones' => Canciones::mas_pedidas()));
+	if(Auth::esta_auth()) {
+		//ensenar el formulario de recomendacion
+		echo Markdown(Model_Contenidos::leer('recomendaciones.desc')
+			->get('texto_md')),PHP_EOL,
+				View::factory('bloques/recomendar_form');
+	}	
 	?>
 </div>
