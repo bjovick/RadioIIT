@@ -4,7 +4,7 @@
  * Handles HTTP errors and the like, which are not catched
  * by the application
  */
-class ControladorErrores {
+class ReguladorErrores {
 	private $_V;
 	public $response;
 

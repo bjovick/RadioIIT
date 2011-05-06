@@ -137,7 +137,7 @@ Route::set('default', '(<controller>(/<action>(/<mas>)))', array('mas'=>'.*'))
 
 /** HTTP Exceptions **/
 if (Kohana::$environment == Kohana::PRODUCTION) {
-	set_exception_handler(array(new ControladorErrores(),'gestionar'));
+	set_exception_handler(array(new ReguladorErrores(),'gestionar'));
 }
 
 /** Include vendor libraries that are constantly used **/
