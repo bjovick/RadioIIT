@@ -108,7 +108,6 @@ class Controller_Cuenta extends Controller {
 			$post['usuario'] = filter_var($post['usuario'],
 																		FILTER_SANITIZE_SPECIAL_CHARS | FILTER_SANITIZE_STRING);
 			$post['contrasena'] = filter_var($post['contrasena'], FILTER_SANITIZE_STRING);
-			//Kohana::$log->add(LOG::DEBUG, 'login: got input');
 
 			//preguntamos por usuario
 			$usuario = Model_Usuarios::leer($post['usuario'])->current();
@@ -122,21 +121,17 @@ class Controller_Cuenta extends Controller {
 				$msg .= PHP_EOL.Markdown(Model_Contenidos::leer('login.mal-contrasena')->get('texto_md'));
 				$hay_errores = true;
 			}
-			//Kohana::$log->add(LOG::DEBUG, 'login: checking for input errors');
 
 			if ($hay_errores) { //si hay errores a decirle al usuario
-				//Kohana::$log->add(LOG::DEBUG, 'login: hubo errores, a ensellarlos.');
 				$this->_basica_v->set('cont_principal', $msg)
 												->set('cont_auxiliar', View::factory('bloques/login'));
 				$this->_V->set('contenido', $this->_basica_v);
 				$this->response->body($this->_V);
 			} else { //no hay errores de datos, a identificarlo en el sistema
 				if (Auth::identifica($post['usuario'], $post['contrasena'])) {
-					//Kohana::$log->add(LOG::DEBUG, 'login: autentificado!');
 					//redireccionarlo a donde estaba
 					$this->request->redirect('/cuenta');
 				} else { //hubo un error al procesar la identificacion
-					//Kohana::$log->add(LOG::DEBUG, 'login: error al autentificar');
 					$msg .= Markdown(Model_Contenidos::leer('login.error-identificar')->get('texto_md'));
 					$this->_basica_v->set('cont_principal', $msg)
 													->set('cont_auxiliar', View::factory('bloques/login'));

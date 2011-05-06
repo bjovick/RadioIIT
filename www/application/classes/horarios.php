@@ -81,8 +81,6 @@ class Horarios {
 		AND ('08:15:00' <= tiempo_final AND '19:00:00' >= tiempo_inicial)
 		 */
 
-		//Kohana::$log->add(Log::DEBUG, 'horarios conflictos sql: '.$culpables);
-
 		return $culpables->execute()->count() > 0;
 	}
 }

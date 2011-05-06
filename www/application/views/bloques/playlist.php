@@ -18,11 +18,8 @@ $con_titulo = isset($con_titulo)
 							: true;
 $clases = isset($clases) ? $clases : '';
 
-//Kohana::$log->add(Log::DEBUG, 'adentro de view/bloques/playlist');
-
 if (!empty($playlist)
 	 && !empty($playlist['canciones'])) {
-	//echo '<pre>'.var_export($playlist['canciones'],true).'</pre>';
 	if($con_titulo) {
 ?>
 <h5><?php echo $titulo; ?></h5>
@@ -30,7 +27,6 @@ if (!empty($playlist)
 
 <ul class="playlist<?php echo $clases;?>">
 <?php
-	//Kohana::$log->add(Log::DEBUG, 'ensenando playlist, size '.count($playlist['canciones']));
 	
 	//TODO hacer esto con javascript y ajax
 	foreach($playlist['canciones'] as $c) {

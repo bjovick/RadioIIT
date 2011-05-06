@@ -7,7 +7,6 @@
 $accion = isset($accion)? $accion : URL::site('admin/modificar_horario/'.$id);
 $h = Model_Horarios::leer($id)->current();
 $h['generos'] = explode(',',$h['generos']);
-//echo '<pre>'.var_export($h,true).'</pre>'.PHP_EOL;
 $generos = array();
 $tmp = DB::select('genero')->distinct(true)
 	->from('canciones')->execute()->as_array();

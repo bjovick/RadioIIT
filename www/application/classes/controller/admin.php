@@ -12,7 +12,6 @@ class Controller_Admin extends Controller {
 			$post = filter_var_array($this->request->post(), FILTER_SANITIZE_STRING);
 			$post['email_admin'] = filter_var($post['email_admin'], FILTER_SANITIZE_EMAIL);
 
-			//echo '<pre>'.var_export($post,true).'</pre>';
 			foreach($post as $llave => $valor) {
 				Sitio::config($llave, $valor);
 			}
@@ -89,14 +88,6 @@ class Controller_Admin extends Controller {
 				}
 
 				$this->request->redirect('/cuenta#usuarios');
-				/** Depuracion
-				echo '<pre>'.
-					'usu: '.var_export($usu, true).PHP_EOL.
-					'post: '.var_export($post, true).PHP_EOL.
-					'deltas: ['.var_export($res,true).'] '.var_export($deltas, true).PHP_EOL.
-					'nuevo: '.var_export(Model_Usuarios::leer((int) $post['id'])->current(), true).PHP_EOL.
-					'</pre>';
-				*/
 			}
 		}
 		else {
@@ -168,9 +159,6 @@ class Controller_Admin extends Controller {
 				}
 
 				$msg = Markdown($msg);
-				$msg .= PHP_EOL.'nuevos: <pre>'.var_export($post,true).'</pre>'.PHP_EOL;
-				$msg .= PHP_EOL.'actual: <pre>'.var_export($hor,true).'</pre>'.PHP_EOL;
-				$msg .= PHP_EOL.'deltas: <pre>'.var_export($deltas,true).'</pre>'.PHP_EOL;
 				$this->_V->set('contenido',$msg);
 			}
 
@@ -195,7 +183,6 @@ class Controller_Admin extends Controller {
 			$res = Model_Horarios::agregar($post);
 		
 			$this->request->redirect('/cuenta#horarios');
-			//echo '<pre>'.var_export($post,true).'</pre>';
 		}
 		else {
 			$horarios = '<h4>Horarios existentes</h4>'.PHP_EOL.'<ul>'.PHP_EOL;
