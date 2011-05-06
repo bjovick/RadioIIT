@@ -35,10 +35,14 @@ class Playlist {
 		self::$_canciones = DB::select('*')
 			->from('canciones')
 			->join(array($sub, 'playlist'), 'INNER')
-			->on('canciones.id', '=', 'playlist.cancion_idfk')
-			->execute()->as_array();
+			->on('canciones.id', '=', 'playlist.cancion_idfk');
 
-		return self::$_canciones;
+		$limite = (int) Sitio::config('cantidad_de_items_por_lista');
+		if($limite > 0) {
+			self::$_canciones->limit($limite);
+		}
+
+		return self::$_canciones->execute()->as_array();
 	}
 
 	/**
@@ -65,7 +69,7 @@ class Playlist {
 			->where_open()
 				->or_where('genero', 'IN', $in_generos);
 		//y las que esten nulo o que digan unkown si el admin lo permite
-		if(Sitio::config('_tocar_canciones_sin_genero')=='true') {
+		if(Sitio::config('tocar_canciones_sin_genero')=='true') {
 			$select->or_where('genero', 'IS', DB::expr('NULL'))
 					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
 		}
@@ -75,6 +79,13 @@ class Playlist {
 			->and_where('id', 'NOT IN', $peticiones_ids)
 			//solo las que no se han tocado en el lapso minimo (30mins)
 			->and_where($lapso,'>=',intval(Sitio::config('lapso_segs_peticiones_limite')));
+
+		$limite = (int) Sitio::config('cantidad_de_items_por_lista');
+		if($limite > 0) {
+			$select->limit($limite);
+		}
+
+		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
 		return $select->execute()->as_array();
 	}

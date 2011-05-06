@@ -43,36 +43,7 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 			</ul>
 		</section>
 	</li>
-	<?php /* No hay recomendaciones, se mandan al email
-	<li>
-		<h4><a class="alternar" href="#recomendaciones">Recomendaciones</a></h4>
-		<section id="recomendaciones">
-			<ul>
-				<?php
-				$recoms = Model_Recomendaciones::navegar()->as_array();
-
-				if (!empty($recoms)) {
-					echo '<li><strong>Artista &mdash; Titulo &mdash; Usuario &mdash; Pedida En</strong></li>'.PHP_EOL;
-					foreach($recoms as $r){
-						$usuario = Model_Usuarios::leer((int) $r['usuario_idfk'])->get('usuario');
-						//$fecha = Fecha::lapso_corto_nat($r['pedida_en']);
-						$fecha = Fecha::formato($r['pedida_en']);
-						echo '<li>'.$r['artista'];
-						echo ' &mdash; '.$r['titulo'];
-						echo ' &mdash; '.$usuario;
-						echo ' &mdash; <samp>'.$fecha.'</samp></li>'.PHP_EOL;
-									//' &mdash; '.$r['pedida_en'].'</li>'.PHP_EOL;
-					}	
-				}
-				else {
-					echo '<li>No hay recomendaciones</li>';
-				}
-				?>
-			</ul>
-		</section>
-	</li>
-	*/ ?>
-	<li>
+		<li>
 		<h4><a class="alternar" href="#usuarios">Usuarios</a></h4>
 		<section id="usuarios">
 			<ul class="menu_linear">
