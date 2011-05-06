@@ -55,26 +55,19 @@ class Horarios {
 	}
 
 	/**
-	 * toda las canciones que caen en el horario
-	 * $id => id del horario si es null usa el horario actual
-	 * $sin_pasadas => boolean de si filtra las canciones que no se pueden tocar pedir porque acaban 
-	 * de tocarse.
-	 */
-	public static function canciones($id = null, $sin_pasadas = false) {
-		//TODO
-	}
-
-	/**
 	 * checa si el el dia y las horas que le pasan conflictan con alguno en
 	 * la base de datos.
 	 */
-	public static function conflicta_con($dia,$t_inicial,$t_final) {
+	public static function conflicta_con($dia,$t_inicial,$t_final, array $excepciones = array()) {
 		$culpables = DB::select('id')->from('horarios')
 			->where('dia','=',$dia)
 			->where_open()
 				->where('tiempo_final', '>=', $t_inicial)
 				->and_where('tiempo_inicial', '<=', $t_final)
 			->where_close();
+		if(!empty($excepciones)) {
+			$culpables->where('id','NOT IN', DB::expr('('.implode(',',$excepciones).')'));
+		}
 		/*
 		SELECT id FROM horarios
 		WHERE dia='jueves'

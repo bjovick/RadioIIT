@@ -141,7 +141,10 @@ class Controller_Admin extends Controller {
 				$msg = '';
 
 				//asegurarse que no tengan conflicto de horario
-				if(Horarios::conflicta_con($post['dia'],$post['tiempo_inicial'],$post['tiempo_final'])) {
+				if(Horarios::conflicta_con($post['dia'],
+																	 $post['tiempo_inicial'],
+																	 $post['tiempo_final'],
+																	 array($post['id']))) {
 					$msg.= 'El los cambios de horario conflicta con otro horario.';
 				}
 				else {

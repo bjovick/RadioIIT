@@ -18,8 +18,6 @@ class Controller_Musica extends Controller {
 			'canciones' => $canciones,
 		);
 		$disponibles['canciones'] = $p->disponibles();
-		//depurando la funcion
-		Horarios::conflicta_con('jueves','08:15:00','18:00:00');
 
 		$musica_v = View::factory('paginas/musica')
 			->set('canciones_dispo', $disponibles)
