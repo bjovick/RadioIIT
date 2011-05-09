@@ -45,7 +45,7 @@ $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 		<nav>
 			<ul>
 			<li><a href="<?php echo URL::base();?>"<?php echo ($pagina=='inicio')?' class="actual"':'';?>>Inicio</a></li>
-				<li><a href="<?php echo URL::site('acerca');?>"<?php echo ($pagina=='acerca')?' class="actual"':'';?>>&iquest;Qui&eacute;nes Somos</a></li>
+				<li><a href="<?php echo URL::site('acerca');?>"<?php echo ($pagina=='acerca')?' class="actual"':'';?>>&iquest;Qui&eacute;nes Somos?</a></li>
 				<li><a href="<?php echo URL::site('musica');?>"<?php echo ($pagina=='musica')?' class="actual"':'';?>>M&uacute;sica</a></li>
 				<li><a href="<?php echo URL::site('cuenta');?>"<?php echo ($pagina=='cuenta')?' class="actual"':'';?>>Tu Cuenta</a></li>
 			</ul>
