@@ -1,0 +1,4 @@
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
+
+2011-05-09 15:54:41 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('rock') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304978080 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 LIMIT 10
+2011-05-09 15:58:13 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('rock') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304978293 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 LIMIT 10
