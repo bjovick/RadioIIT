@@ -12,9 +12,10 @@ $auxiliar = isset($auxiliar) ? $auxiliar : '';
 	<?php
 	echo HTML::image('media/img/RadioIITlogo.jpg',
 										array('alt'=>'RadioIIT',
-													'class'=>'central'));
-	?>
-		<div><?php echo $anuncio; ?></div>
+													'class'=>'float_left',
+									));
+	echo $anuncio; ?>
+	<br class="clear" />
 	<h1>Programaci&oacute;n Musical V&iacute;a Web</h1>
 	<?php echo $intro; ?>
 </div>
