@@ -8,8 +8,6 @@ class Controller_Inicio extends Controller {
 		$aux = View::factory('bloques/login');
 		$H = Horarios::actual();
 
-		$aux .= PHP_EOL.$topten_general;
-
 		$inicio_v = View::factory('paginas/inicio')
 								->set('anuncio', $anuncio)
 								->set('intro', $intro)

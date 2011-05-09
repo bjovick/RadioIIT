@@ -2,3 +2,5 @@
 
 2011-05-09 15:54:41 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('rock') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304978080 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 LIMIT 10
 2011-05-09 15:58:13 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('rock') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304978293 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 LIMIT 10
+2011-05-09 16:07:21 --- ERROR: ErrorException [ 8 ]: Undefined variable: topten_general ~ APPPATH/classes/controller/inicio.php [ 11 ]
+2011-05-09 16:07:21 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]

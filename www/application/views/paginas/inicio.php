@@ -14,8 +14,8 @@ $auxiliar = isset($auxiliar) ? $auxiliar : '';
 										array('alt'=>'RadioIIT',
 													'class'=>'central'));
 	?>
-		<div class="anuncio"><?php echo $anuncio; ?></strong></div>
-	<h2>Programaci&oacute;n Musical V&iacute;a Web</h2>
+		<div><?php echo $anuncio; ?></div>
+	<h1>Programaci&oacute;n Musical V&iacute;a Web</h1>
 	<?php echo $intro; ?>
 </div>
 <div id="sidebar">
