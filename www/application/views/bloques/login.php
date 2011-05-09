@@ -9,6 +9,7 @@ if (Auth::esta_auth()) {
 	$msg = Model_Contenidos::leer('inicio.identificado')->get('texto_md');
 	$msg = str_replace('::usuario::',$u['usuario'],
 										 str_replace('::link::', URL::site('cuenta'), $msg));
+	$msg .= ' | [Logout]('.URL::site('cuenta/logout').')';
 	echo Markdown($msg);
 } else {
 ?>
