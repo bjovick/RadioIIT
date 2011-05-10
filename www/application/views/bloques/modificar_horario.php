@@ -74,5 +74,6 @@ $intervalos = Horarios::intervalos_de_tiempo();
 	<input type="hidden" name="id" value="<?php echo $id; ?>" />
 	<p>
 		<input type="submit" value="Guardar Cambios" />
+		<?php echo HTML::anchor(URL::site('/cuenta#horarios'), 'Cancelar'); ?>
 	</p>
 </form>

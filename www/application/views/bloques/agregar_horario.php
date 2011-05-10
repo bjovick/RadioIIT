@@ -36,6 +36,7 @@ $intervalos = Horarios::intervalos_de_tiempo();
 	<p>
 		<label>D&iacute;a: </label>
 		<select name="dia">
+			<option value=""></option>
 			<option value="lunes">Lunes</option>
 			<option value="martes">Martes</option>
 			<option value="miercoles">Miercoles</option>
@@ -67,5 +68,6 @@ $intervalos = Horarios::intervalos_de_tiempo();
 	</p>
 	<p>
 		<input type="submit" value="Guardar Cambios" />
+		<?php echo HTML::anchor(URL::site('/cuenta#horarios'), 'Cancelar'); ?>
 	</p>
 </form>

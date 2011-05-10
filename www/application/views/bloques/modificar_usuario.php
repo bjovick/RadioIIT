@@ -38,5 +38,6 @@ $usuario = ($modificar == true) ? Model_Usuarios::leer($id)->current() : null;
 	</p>
 	<p>
 		<input type="submit" value="Guardar Cambios" />
+		<?php echo HTML::anchor(URL::site('/cuenta#usuarios'), 'Cancelar'); ?>
 	</p>
 </form>

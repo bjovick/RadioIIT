@@ -166,7 +166,7 @@ class Controller_Admin extends Controller {
 						}						
 					}
 					else {
-						$msg.= 'No hay cambios que hacer.';
+						$this->request->redirect('/cuenta#horarios');
 					}
 				}
 
@@ -191,8 +191,12 @@ class Controller_Admin extends Controller {
 			$post['generos'] = implode(',',$gs);
 
 			//asegurarse que no conflicte con otro
-			
-			$res = Model_Horarios::agregar($post);
+			if (!empty($post['generos'])
+				 && !empty($post['dia'])
+				 && !empty($post['tiempo_inicial'])
+				 && !empty($post['tiempo_final'])) {
+				$res = Model_Horarios::agregar($post);
+			}
 		
 			$this->request->redirect('/cuenta#horarios');
 		}
