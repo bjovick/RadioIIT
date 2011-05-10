@@ -24,7 +24,7 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 				$eli_form = View::factory('bloques/eliminar_enlinea')
 					->set('accion', URL::site('admin/eliminar_horario'));
 				if (!empty($horarios)) {
-					echo '<li><strong>Nombre &mdash; Generos &mdash; el D&iacute;a de Tiempo Inicial a Tiempo Final</strong></li>'.PHP_EOL;
+					echo '<li><strong>Nombre &mdash; G&eacute;neros &mdash; el D&iacute;a de Tiempo Inicial a Tiempo Final</strong></li>'.PHP_EOL;
 					foreach($horarios as $h){
 						$mod_form->set('id', $h['id']);
 						$eli_form->set('id', $h['id']);
@@ -75,7 +75,7 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 		</section>
 	</li>
 	<li>
-		<h4><a class="alternar" href="#configuracion">Configuracion</a></h4>
+		<h4><a class="alternar" href="#configuracion">Configuraci&oacute;n</a></h4>
 		<section id="configuracion">
 			<?php
 			echo View::factory('bloques/config_sitio_form');
