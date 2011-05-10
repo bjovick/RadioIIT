@@ -5,7 +5,7 @@
 	foreach($configs as $c) {
 	?>
 	<p>
-		<label><?php echo ucwords(trim(str_replace('_',' ',$c['llave']))); ?>:</label>
+		<label><?php echo ucfirst(trim(str_replace('_',' ',$c['llave']))); ?>:</label>
 		<?php
 		if($c['tipo']=='boolean') { //significa que es un booleano entonces usamos dropdown
 		?>	
