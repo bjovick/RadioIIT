@@ -61,7 +61,7 @@ class Playlist {
 		//query de id de canciones en playlist
 		$lista_ids = DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')');
 		//query de las canciones en peticiones
-		$peticiones_ids = DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')');
+		$peticiones_ids = DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')');
 
 		$select = DB::select('*')
 			->from('canciones')
@@ -80,11 +80,6 @@ class Playlist {
 			//solo las que no se han tocado en el lapso minimo (30mins)
 			->and_where($lapso,'>=',
 					intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
-
-		$limite = (int) Sitio::config('no._de_canciones_a_mostrar_en_las_listas');
-		if($limite > 0) {
-			$select->limit($limite);
-		}
 
 		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
