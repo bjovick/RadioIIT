@@ -66,8 +66,11 @@ class Playlist {
 		$select = DB::select('*')
 			->from('canciones')
 			//solo las del genero
-			->where_open()
-				->or_where('genero', 'IN', $in_generos);
+			->where_open();
+		foreach(self::$_horario['generos'] as $hor) {
+			$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
+		}
+		//$select->or_where('genero','IN',$in_generos);
 		//y las que esten nulo o que digan unkown si el admin lo permite
 		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
 			$select->or_where('genero', 'IS', DB::expr('NULL'))
