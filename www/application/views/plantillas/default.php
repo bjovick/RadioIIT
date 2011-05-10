@@ -30,6 +30,8 @@ $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 <!DOCTYPE html>
 <html lang="es-mx" id="<?php echo 'pagina_',$pagina; ?>">
 <head>
+	<meta charset="uft-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title><?php echo $titulo ?></title>
 	<link rel="shortcut icon" href="/media/img/favicon.ico" />
 	<?php
