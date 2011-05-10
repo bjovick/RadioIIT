@@ -25,19 +25,27 @@ class Controller_Admin extends Controller {
 		if($this->request->method() == Request::POST) {
 			$post = filter_var_array($this->request->post(), FILTER_SANITIZE_STRING);	
 			$post['usuario'] = filter_var($post['usuario'], FILTER_SANITIZE_SPECIAL_CHARS);
-			
-			$res = Model_Usuarios::agregar(array(
-				'usuario' => $post['usuario'],
-				'contrasena' => sha1($post['nueva_contrasena']),
-				'rol' => empty($post['rol']) ? 'normal' : $post['rol'],
-			));
-		
-			$this->request->redirect('/cuenta#usuarios');
-		}
 
-		$this->_V->set('contenido', View::factory('bloques/modificar_usuario')
-				->set('modificar', false)->set('accion', URL::site('/admin/agregar_usuario')));
-		$this->response->body($this->_V);
+			if(count(Model_Usuarios::leer($post['usuario'])) == 0) {
+				$res = Model_Usuarios::agregar(array(
+					'usuario' => $post['usuario'],
+					'contrasena' => sha1($post['nueva_contrasena']),
+					'rol' => empty($post['rol']) ? 'normal' : $post['rol'],
+				));
+
+				$this->request->redirect('/cuenta#usuarios');
+			}
+			else {
+				$v = View::factory('plantillas/default')
+					->set('contenido', Markdown('El usuario ya existe'));
+				$this->response->body($v);
+			}
+		}
+		else {
+			$this->_V->set('contenido', View::factory('bloques/modificar_usuario')
+					->set('modificar', false)->set('accion', URL::site('/admin/agregar_usuario')));
+			$this->response->body($this->_V);
+		}
 	}
 
 	public function action_eliminar_usuario() {

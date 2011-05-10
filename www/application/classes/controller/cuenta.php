@@ -160,6 +160,11 @@ class Controller_Cuenta extends Controller {
 			$post['recaptcha_response_field'] = filter_var($post['recaptcha_response_field'],
 																											FILTER_SANITIZE_STRING);
 					
+			//usuario ya existe
+			if(count(Model_Usuarios::leer($post['usuario'])) > 0) {
+				$msg .= $mini_msg->set('contenido', 'Ese usuario ya existe.');
+				$hay_errores = true;
+			}
 			//datos son validos
 			if(strlen($post['usuario']) < 4 || empty($post['usuario'])) {
 				$msg .= $mini_msg->set('contenido', 'Usuario necesita tener por lo menos 4 caracteres.');
