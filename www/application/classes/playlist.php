@@ -37,7 +37,7 @@ class Playlist {
 			->join(array($sub, 'playlist'), 'INNER')
 			->on('canciones.id', '=', 'playlist.cancion_idfk');
 
-		$limite = (int) Sitio::config('cantidad_de_items_por_lista');
+		$limite = (int) Sitio::config('no._de_canciones_a_mostrar_en_las_listas');
 		if($limite > 0) {
 			self::$_canciones->limit($limite);
 		}
@@ -69,7 +69,7 @@ class Playlist {
 			->where_open()
 				->or_where('genero', 'IN', $in_generos);
 		//y las que esten nulo o que digan unkown si el admin lo permite
-		if(Sitio::config('tocar_canciones_sin_genero')=='true') {
+		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
 			$select->or_where('genero', 'IS', DB::expr('NULL'))
 					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
 		}
@@ -78,9 +78,10 @@ class Playlist {
 			->and_where('id', 'NOT IN', $lista_ids)
 			->and_where('id', 'NOT IN', $peticiones_ids)
 			//solo las que no se han tocado en el lapso minimo (30mins)
-			->and_where($lapso,'>=',intval(Sitio::config('lapso_segs_peticiones_limite')));
+			->and_where($lapso,'>=',
+					intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
 
-		$limite = (int) Sitio::config('cantidad_de_items_por_lista');
+		$limite = (int) Sitio::config('no._de_canciones_a_mostrar_en_las_listas');
 		if($limite > 0) {
 			$select->limit($limite);
 		}

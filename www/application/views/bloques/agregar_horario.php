@@ -30,8 +30,8 @@ $intervalos = Horarios::intervalos_de_tiempo();
 			?>
 			</select>
 		</div>
-		<small><a href="#generos" class="agregar_set">agregar un genero m&aacute;s</a> |
-		<a href="#generos" class="eliminar_set">eliminar un genero</a></small>
+		<small><a href="#generos" class="agregar_set">agregar un g&eacute;nero m&aacute;s</a> |
+		<a href="#generos" class="eliminar_set">eliminar un g&eacute;nero</a></small>
 	</p>
 	<p>
 		<label>D&iacute;a: </label>

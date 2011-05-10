@@ -48,8 +48,8 @@ class Controller_Musica extends Controller {
 			} else {
 				//usuario no pasa validacion
 				$msg .= 'Has sobrepasado tu limite de peticiones ('.
-					Sitio::config('peticiones_por_usuario').') por '.
-					Fecha::duracion_nat(intval(Sitio::config('lapso_segs_peticiones_limite'))).'.';
+					Sitio::config('no._de_peticiones_permitidas_por_usuario').') por '.
+					Fecha::duracion_nat(intval(Sitio::config('limite_de_tiempo_para_no._de_peticiones_(segs)'))).'.';
 			}
 
 			$p = View::factory('paginas/basica')
@@ -74,15 +74,22 @@ class Controller_Musica extends Controller {
 					Se necesitan los dos para mandar una recomendacion.';
 			} else {
 				//si existen, a mandar la recomendacion en email
-				$res = mail(Sitio::config('email_admin'),
-										'Recomiendan una cancion desde el sitio RadioIIT',
-										'Recomiendan \''.$post['titulo'].'\' de \''.$post['artista'].'\'.',
-										'From: '.Sitio::config('email_admin'));
+				if(Usuario::recomendacion_es_valida()) {
+					$res = mail(Sitio::config('email_para_recibir_recomendaciones'),
+											'Recomiendan una cancion desde el sitio RadioIIT',
+											'Recomiendan \''.$post['titulo'].'\' de \''.$post['artista'].'\'.',
+											'From: '.Sitio::config('email_para_recibir_recomendaciones'));
+					$msg = $res
+							 ? 'La recomendacion fue enviada.'
+							 : 'Hubo un problema al enviar la recomendacion. Trate de nuevo.
+									Si el problema persiste contacte al administrador.';
+				} else {
+					$msg .= 'Has sobrepasado tu limite de recomendaciones ('.
+						Sitio::config('no._de_recomendaciones_permitidas_por_usuario').') por '.
+						Fecha::duracion_nat(intval(Sitio::config('limite_de_tiempo_para_no._de_recomendaciones_(segs)'))).'.';
+			
+				}
 
-				$msg = $res
-						 ? 'La recomendacion fue enviada.'
-						 : 'Hubo un problema al enviar la recomendacion. Trate de nuevo.
-								Si el problema persiste contacte al administrador.';
 			}
 
 			$p = View::factory('paginas/basica')

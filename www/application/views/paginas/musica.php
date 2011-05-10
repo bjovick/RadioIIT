@@ -11,8 +11,8 @@
 if (Auth::esta_auth()) {
 		//ensenar la lista dispoible de canciones
 		$desc = Model_Contenidos::leer('peticion.descripcion')->get('texto_md');
-		$desc = str_replace('::num_pet::',Sitio::config('peticiones_por_usuario'),$desc);
-		$lapso = ((int) Sitio::config('lapso_segs_peticiones_limite')) / Date::MINUTE;
+		$desc = str_replace('::num_pet::',Sitio::config('no._de_peticiones_permitidas_por_usuario'),$desc);
+		$lapso = ((int) Sitio::config('limite_de_tiempo_para_no._de_peticiones_(segs)')) / Date::MINUTE;
 		$desc = str_replace('::lapso::',"$lapso",$desc);
 		echo Markdown($desc),PHP_EOL,
 				 View::factory('bloques/playlist')
