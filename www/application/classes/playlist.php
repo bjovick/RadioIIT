@@ -84,7 +84,7 @@ class Playlist {
 			->and_where($lapso,'>=',
 					intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
 
-		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
+		//Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
 		return $select->execute()->as_array();
 	}

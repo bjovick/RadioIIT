@@ -67,6 +67,7 @@ class Controller_Musica extends Controller {
 			$titulo = filter_var($post['titulo'], FILTER_SANITIZE_STRING);
 			$artista = filter_var($post['artista'], FILTER_SANITIZE_STRING);
 			$msg = '';
+			$u = Auth::usuario();
 
 			if(empty($titulo) || empty($artista)) {
 				//no se envio nada, a decirle al usuario
@@ -76,7 +77,7 @@ class Controller_Musica extends Controller {
 				//si existen, a mandar la recomendacion en email
 				if(Usuario::recomendacion_es_valida()) {
 					$res = mail(Sitio::config('email_para_recibir_recomendaciones'),
-											'Recomiendan una cancion desde el sitio RadioIIT',
+											'El usuario '.$u['usuario'].' recomienda una cancion desde el sitio RadioIIT',
 											'Recomiendan \''.$post['titulo'].'\' de \''.$post['artista'].'\'.',
 											'From: '.Sitio::config('email_para_recibir_recomendaciones'));
 					$msg = $res
