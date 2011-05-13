@@ -3,6 +3,9 @@
 	$configs = Sitio::configs();
 	
 	foreach($configs as $c) {
+		if($c['configurable'] == 'false') {
+			continue;
+		}
 	?>
 	<p>
 		<label><?php echo ucfirst(trim(str_replace('_',' ',$c['llave']))); ?>:</label>
