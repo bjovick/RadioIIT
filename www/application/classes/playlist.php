@@ -103,14 +103,9 @@ class Playlist {
 	 */
 	public function agregar_peticion($cancionid) {
 		$u = Auth::usuario();
-		$sub = DB::select(DB::expr($cancionid),
-			DB::expr('(max(`orden`) + 1)'),
-			DB::expr('NOW()'),
-			DB::expr($u['id']))
-			->from('playlist_actual');
 		$insert = DB::insert('peticiones')
-			->columns(array('cancion_idfk','orden','fecha_pedida','usuario_idfk'))
-			->select($sub);
+			->columns(array('cancion_idfk','fecha_pedida','usuario_idfk'))
+			->values(array($cancionid,DB::expr('NOW()'),$u['id']));
 		
 		return !!$insert->execute();
 	}
