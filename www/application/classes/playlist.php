@@ -19,7 +19,8 @@ class Playlist {
 
 	private function __construct() {
 		self::$_horario = Horarios::actual();
-		self::$_horario['generos'] = explode(',',self::$_horario['generos']);
+		$tmp = explode(',',self::$_horario['generos']);
+		self::$_horario['generos'] = ($tmp[0] == '') ? array() : $tmp;
 		self::$_canciones = $this->canciones();
 	}
 	private function __clone() {}
@@ -63,8 +64,25 @@ class Playlist {
 		//query de las canciones en peticiones
 		$peticiones_ids = DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')');
 
-		$select = DB::select('*')
-			->from('canciones')
+		$select = DB::select('*')->from('canciones');
+			//solo las del genero
+		foreach(self::$_horario['generos'] as $hor) {
+			$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
+		}
+		//y las que esten nulo o que digan unkown si el admin lo permite
+		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
+			$select->or_where('genero', 'IS', DB::expr('NULL'))
+					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
+		}
+		//que no esten en la playlist o peticiones
+		$select->and_where('id', 'NOT IN', $lista_ids)
+			->and_where('id', 'NOT IN', $peticiones_ids)
+			//solo las que no se han tocado en el lapso minimo (30mins)
+			->and_where($lapso,'>=',
+				intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
+		
+		/*
+		$select = DB::select('*')->from('canciones');
 			//solo las del genero
 			->where_open();
 		foreach(self::$_horario['generos'] as $hor) {
@@ -82,11 +100,13 @@ class Playlist {
 			->and_where('id', 'NOT IN', $peticiones_ids)
 			//solo las que no se han tocado en el lapso minimo (30mins)
 			->and_where($lapso,'>=',
-					intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
+				intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
+		 */
 
 		//Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
-		return $select->execute()->as_array();
+		$result = $select->execute()->as_array();
+		return ($result[0] == '') ? array() : $result;
 	}
 
 	/**
