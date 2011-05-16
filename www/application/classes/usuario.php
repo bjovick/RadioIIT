@@ -22,7 +22,7 @@ class Usuario {
 			DB::update('usuarios')
 				->set(array(
 					'peticiones' => 1,
-					'primer_peticion_en' => "'".Fecha::a_bd($ts)."'",
+					'primer_peticion_en' => Fecha::a_bd($ts),
 				))
 				->where('id','=',$u['id'])
 				->execute();
@@ -47,7 +47,7 @@ class Usuario {
 			DB::update('usuarios')
 				->set(array(
 					'peticiones' => DB::expr('`peticiones` + 1'),
-					'primer_peticion_en' => "'".Fecha::a_bd($ts)."'",
+					'primer_peticion_en' => Fecha::a_bd($ts),
 				))
 				->where('id','=',$u['id'])
 				->execute();
