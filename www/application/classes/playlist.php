@@ -57,53 +57,29 @@ class Playlist {
 		$t = time();
 		//lapso de cancion de ultima vez tocada
 		$lapso = DB::expr('('.$t.' - UNIX_TIMESTAMP(`ultima_tocada`))');
-		//necesita se una exprecion, si no no acepta '
-		$in_generos = DB::expr('(\''.implode('\',\'',self::$_horario['generos']).'\')');
-		//query de id de canciones en playlist
-		$lista_ids = DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')');
-		//query de las canciones en peticiones
-		$peticiones_ids = DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')');
 
 		$select = DB::select('*')->from('canciones');
 			//solo las del genero
-		foreach(self::$_horario['generos'] as $hor) {
-			$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
+		if(!empty(self::$_horario['generos'])) {
+			$select->where_open();
+			foreach(self::$_horario['generos'] as $hor) {
+				$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
+			}
 		}
 		//y las que esten nulo o que digan unkown si el admin lo permite
 		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
 			$select->or_where('genero', 'IS', DB::expr('NULL'))
 					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
 		}
+		$select->where_close();
 		//que no esten en la playlist o peticiones
-		$select->and_where('id', 'NOT IN', $lista_ids)
-			->and_where('id', 'NOT IN', $peticiones_ids)
+		$select->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')'))
+			->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')'))
 			//solo las que no se han tocado en el lapso minimo (30mins)
 			->and_where($lapso,'>=',
 				intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
 		
-		/*
-		$select = DB::select('*')->from('canciones');
-			//solo las del genero
-			->where_open();
-		foreach(self::$_horario['generos'] as $hor) {
-			$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
-		}
-		//$select->or_where('genero','IN',$in_generos);
-		//y las que esten nulo o que digan unkown si el admin lo permite
-		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
-			$select->or_where('genero', 'IS', DB::expr('NULL'))
-					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
-		}
-		$select->where_close()
-			//que no esten en la playlist o peticiones
-			->and_where('id', 'NOT IN', $lista_ids)
-			->and_where('id', 'NOT IN', $peticiones_ids)
-			//solo las que no se han tocado en el lapso minimo (30mins)
-			->and_where($lapso,'>=',
-				intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
-		 */
-
-		//Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
+		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
 		$result = $select->execute()->as_array();
 		return ($result[0] == '') ? array() : $result;
