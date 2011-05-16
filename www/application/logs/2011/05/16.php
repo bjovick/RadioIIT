@@ -99,3 +99,5 @@
 2011-05-16 16:13:20 --- ERROR: Database_Exception [ 0 ]: [1064] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND `id` NOT IN (SELECT `cancion_idfk` FROM `peticiones`) AND `id` NOT IN (SEL' at line 1 ( SELECT * FROM `canciones` WHERE `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `peticiones`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND ((1305584000 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 OR `ultima_tocada` IS NULL) ) ~ MODPATH/database/classes/kohana/database/mysql.php [ 181 ]
 2011-05-16 16:13:20 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
 2011-05-16 16:15:02 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones`
+2011-05-16 16:18:33 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones`
+2011-05-16 16:18:35 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones`
