@@ -59,13 +59,14 @@ class Playlist {
 		$lapso = DB::expr('('.$t.' - UNIX_TIMESTAMP(`ultima_tocada`))');
 
 		$select = DB::select('*')->from('canciones');
-			//solo las del genero
+		//solo las del genero
 		if(!empty(self::$_horario['generos'])) {
 			$select->where_open();
 			foreach(self::$_horario['generos'] as $hor) {
 				$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
 			}
 		}
+
 		//y las que esten nulo o que digan unkown si el admin lo permite
 		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
 			$select->or_where('genero', 'IS', DB::expr('NULL'))
@@ -76,8 +77,11 @@ class Playlist {
 		$select->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')'))
 			->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')'))
 			//solo las que no se han tocado en el lapso minimo (30mins)
-			->and_where($lapso,'>=',
-				intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')));
+			->and_where_open()
+			->or_where($lapso,'>=',
+				intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')))
+			->or_where('ultima_tocada', 'IS', DB::expr('NULL'))
+			->and_where_close();
 		
 		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
