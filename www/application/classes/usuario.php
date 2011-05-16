@@ -21,7 +21,7 @@ class Usuario {
 			//actualizar el campo primer_peticione_en a NOW()
 			DB::update('usuarios')
 				->set(array(
-					'peticiones' => DB::expr('`peticiones` + 1'),
+					'peticiones' => 1,
 					'primer_peticion_en' => DB::expr('NOW()'),
 				))
 				->where('id','=',$u['id'])
@@ -46,7 +46,7 @@ class Usuario {
 			//re reinicia la cantidad a 1 y el primer_peticion_en a NOW()
 			DB::update('usuarios')
 				->set(array(
-					'peticiones' => 1,
+					'peticiones' => DB::expr('`peticiones` + 1'),
 					'primer_peticion_en' => DB::expr('NOW()'),
 				))
 				->where('id','=',$u['id'])
