@@ -73,7 +73,7 @@ class Controller_Cuenta extends Controller {
 
 	public function action_eliminar() {
 		$u = Auth::usuario();
-		$admins = Model_Usuarios::seleccionar(array('rol','=','admin'))->count();
+		$admins = Model_Usuarios::seleccionar(array(array('rol','=','admin')))->count();
 		if($u['rol'] == 'admin' && $admins > 1) {
 			$res = Model_Usuarios::eliminar((int) $u['id']);
 			$msg = $res 

@@ -18,9 +18,13 @@ class Playlist {
 	}
 
 	private function __construct() {
-		self::$_horario = Horarios::actual();
-		$tmp = explode(',',self::$_horario['generos']);
-		self::$_horario['generos'] = ($tmp[0] == '') ? array() : $tmp;
+		$h = Horarios::actual();
+		$h = ($h === false) ? array() : $h;
+		if(array_key_exists('generos', $h)) {
+			$tmp = explode(',', $h['generos']);
+			$h['generos'] = ($tmp[0] == '') ? array() : $tmp;
+		}
+		self::$_horario = $h;
 		self::$_canciones = $this->canciones();
 	}
 	private function __clone() {}
@@ -53,35 +57,39 @@ class Playlist {
 	 *						 - las que estan en el playlist
 	 */
 	public function disponibles() {
-		//capturando el tiempo
-		$t = time();
-		//lapso de cancion de ultima vez tocada
-		$lapso = DB::expr('('.$t.' - UNIX_TIMESTAMP(`ultima_tocada`))');
-
 		$select = DB::select('*')->from('canciones');
-		//solo las del genero
-		if(!empty(self::$_horario['generos'])) {
-			$select->where_open();
-			foreach(self::$_horario['generos'] as $hor) {
-				$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
-			}
-		}
 
-		//y las que esten nulo o que digan unkown si el admin lo permite
-		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
-			$select->or_where('genero', 'IS', DB::expr('NULL'))
-					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
+		//solamente filtrar si hay horarios
+		if(!empty(self::$_horario)) {
+			//capturando el tiempo
+			$t = time();
+			//lapso de cancion de ultima vez tocada
+			$lapso = DB::expr('('.$t.' - UNIX_TIMESTAMP(`ultima_tocada`))');
+
+			//solo las del genero
+			if(!empty(self::$_horario['generos'])) {
+				$select->where_open();
+				foreach(self::$_horario['generos'] as $hor) {
+					$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
+				}
+			}
+
+			//y las que esten nulo o que digan unkown si el admin lo permite
+			if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
+				$select->or_where('genero', 'IS', DB::expr('NULL'))
+						->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
+			}
+			$select->where_close();
+			//que no esten en la playlist o peticiones
+			$select->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')'))
+				->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')'))
+				//solo las que no se han tocado en el lapso minimo (30mins)
+				->and_where_open()
+				->or_where($lapso,'>=',
+					intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')))
+				->or_where('ultima_tocada', 'IS', DB::expr('NULL'))
+				->and_where_close();
 		}
-		$select->where_close();
-		//que no esten en la playlist o peticiones
-		$select->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')'))
-			->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('playlist_actual').')'))
-			//solo las que no se han tocado en el lapso minimo (30mins)
-			->and_where_open()
-			->or_where($lapso,'>=',
-				intval(Sitio::config('limite_de_tiempo_para_reproducir_la_misma_cancion_(segs)')))
-			->or_where('ultima_tocada', 'IS', DB::expr('NULL'))
-			->and_where_close();
 		
 		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
