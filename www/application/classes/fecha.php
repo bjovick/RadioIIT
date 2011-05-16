@@ -153,6 +153,10 @@ class Fecha {
 		$h = (is_string($h) && strlen($h) == 8) ? strtotime('2000-1-1 '.$h) : $h;
 		return date('h:ia', $h);
 	}
+
+	public static function a_bd($ts) {
+		return date('Y-m-d H:i:s', $ts);
+	}
 	
 	public static function duracion_nat($segundos) {
 		if($segundos < Date::MINUTE) {
