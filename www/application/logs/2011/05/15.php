@@ -1,0 +1,5 @@
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
+
+2011-05-15 20:36:32 --- ERROR: ErrorException [ 8 ]: Undefined index: artista ~ APPPATH/views/bloques/playlist.php [ 39 ]
+2011-05-15 20:49:16 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` LIKE '%%' OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `peticiones`) AND (1305514156 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
+2011-05-15 20:54:46 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` LIKE '%%' OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `peticiones`) AND (1305514486 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800

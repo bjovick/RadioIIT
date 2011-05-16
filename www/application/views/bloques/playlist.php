@@ -28,15 +28,19 @@ if (!empty($playlist)
 <ul class="playlist<?php echo $clases;?>">
 <?php
 	
-	//TODO hacer esto con javascript y ajax
+		//TODO hacer esto con javascript y ajax
 	foreach($playlist['canciones'] as $c) {
-		$peticion = ($con_peticiones)
-							? View::factory('bloques/pedir_enlinea')->set('id', $c['id'])
-							: '';
-		$clase = (isset($c['actual']) && $con_cancion_actual)
-							? ' class="cancion_actual"'
-							: '';
-		echo '<li'.$clase.'>'.$peticion.$c['artista'].' - '.$c['titulo'].'</li>';
+		if (!empty($c['id'])
+			 && !empty($c['artista'])
+			 && !empty($c['titulo'])) {
+			$peticion = ($con_peticiones)
+								? View::factory('bloques/pedir_enlinea')->set('id', $c['id'])
+								: '';
+			$clase = (isset($c['actual']) && $con_cancion_actual)
+								? ' class="cancion_actual"'
+								: '';
+			echo '<li'.$clase.'>'.$peticion.$c['artista'].' - '.$c['titulo'].'</li>';
+		}
 	}
 ?>
 </ul>
