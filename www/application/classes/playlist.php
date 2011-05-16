@@ -105,7 +105,7 @@ class Playlist {
 		$u = Auth::usuario();
 		$insert = DB::insert('peticiones')
 			->columns(array('cancion_idfk','fecha_pedida','usuario_idfk'))
-			->values(array($cancionid, "'".Fecha::a_bd(time())."'", $u['id']));
+			->values(array($cancionid, Fecha::a_bd(time()), $u['id']));
 		
 		return !!$insert->execute();
 	}

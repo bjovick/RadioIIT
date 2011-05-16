@@ -73,7 +73,7 @@ class Usuario {
 			DB::update('usuarios')
 				->set(array(
 					'recomendaciones' => DB::expr('`recomendaciones` + 1'),
-					'primer_recomend_en' => "'".Fecha::a_bd($ts)."'",
+					'primer_recomend_en' => Fecha::a_bd($ts),
 				))
 				->where('id','=',$u['id'])
 				->execute();
@@ -94,7 +94,7 @@ class Usuario {
 			DB::update('usuarios')
 				->set(array(
 					'recomendaciones' => 1,
-					'primer_recomend_en' => "'".Fecha::a_bd($ts)."'",
+					'primer_recomend_en' => Fecha::a_bd($ts),
 				))
 				->where('id','=',$u['id'])
 				->execute();

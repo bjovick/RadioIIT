@@ -52,7 +52,7 @@ class Model_Recomendaciones extends Model {
 		}
 		$u = Auth::usuario();
 		$datos['usuario_idfk'] = $u['id'];
-		$datos['pedida_en'] = "'".Fecha::a_bd(time())."'";
+		$datos['pedida_en'] = Fecha::a_bd(time());
 
 		$insert = DB::insert(self::$_tabla)
 							->columns(array_keys($datos))
