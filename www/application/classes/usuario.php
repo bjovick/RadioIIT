@@ -23,8 +23,8 @@ class Usuario {
 			//TODO usar el Model de Usuarios
 			DB::update('usuarios')
 				->set(array(
-					'peticiones' => DB::expr('peticiones + 1'),
-					'primer_peticion_en' => 'NOW()',
+					'peticiones' => DB::expr('`peticiones` + 1'),
+					'primer_peticion_en' => DB::expr('NOW()'),
 				))
 				->where('id','=',$u['id'])
 				->execute();
@@ -38,7 +38,7 @@ class Usuario {
 			//TODO usar el Model de Usuarios
 			DB::update('usuarios')
 				->set(array(
-					'peticiones' => DB::expr('peticiones + 1'),
+					'peticiones' => DB::expr('`peticiones` + 1'),
 				))
 				->where('id','=',$u['id'])
 				->execute();
@@ -51,7 +51,7 @@ class Usuario {
 			DB::update('usuarios')
 				->set(array(
 					'peticiones' => 1,
-					'primer_peticion_en' => 'NOW()',
+					'primer_peticion_en' => DB::expr('NOW()'),
 				))
 				->where('id','=',$u['id'])
 				->execute();
@@ -69,46 +69,36 @@ class Usuario {
 		$u = Auth::usuario();
 		$l_lapso = intval(Sitio::config('limite_de_tiempo_para_no._de_recomendaciones_(segs)'));
 		$l_cantidad = intval(Sitio::config('no._de_recomendaciones_permitidas_por_usuario'));
-		$peticiones = intval($u['peticiones']);
-		$primer_pet = strtotime($u['primer_peticion_en']);
+		$recomends = intval($u['recomendaciones']);
+		$primer_rec = strtotime($u['primer_recomend_en']);
 
 		//
-		if ($primer_pet === false || $peticiones === 0) {
-			//nunca se ha pedido cancion
-			//incrementar numero de peticiones en la bd
-			//actualizar el campo primer_peticione_en a NOW()
-			//TODO usar el Model de Usuarios
+		if ($primer_rec === false || $recomends === 0) {
 			DB::update('usuarios')
 				->set(array(
-					'peticiones' => DB::expr('peticiones + 1'),
-					'primer_peticion_en' => 'NOW()',
+					'recomendaciones' => DB::expr('`recomendaciones` + 1'),
+					'primer_recomend_en' => DB::expr('NOW()'),
 				))
 				->where('id','=',$u['id'])
 				->execute();
 			return true;
 		}
 
-		$lapso = $ts - $primer_pet;
-		if ($lapso < $l_lapso && $peticiones < $l_cantidad) {
-			//esta entre el parametro de lapso y cantidad
-			//incrementar el numero de peticiones
-			//TODO usar el Model de Usuarios
+		$lapso = $ts - $primer_rec;
+		if ($lapso < $l_lapso && $recomends < $l_cantidad) {
 			DB::update('usuarios')
 				->set(array(
-					'peticiones' => DB::expr('peticiones + 1'),
+					'recomendaciones' => DB::expr('`recomendaciones` + 1'),
 				))
 				->where('id','=',$u['id'])
 				->execute();
 			return true;
 		}
-		if($lapso >= $l_lapso && $peticiones < $l_cantidad) {
-			//se paso del tiempo pero no se paso las peticiones
-			//re reinicia la cantidad a 1 y el primer_peticion_en a NOW()
-			//TODO usar el Model de Usuarios
+		if($lapso >= $l_lapso && $recomends < $l_cantidad) {
 			DB::update('usuarios')
 				->set(array(
-					'peticiones' => 1,
-					'primer_peticion_en' => 'NOW()',
+					'recomendaciones' => 1,
+					'primer_recomend_en' => DB::expr('NOW()'),
 				))
 				->where('id','=',$u['id'])
 				->execute();
