@@ -43,15 +43,15 @@ $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 	?>
 </head>
 <body>
-	<header>
-		<nav>
+	<div id="header">
+		<div>
 			<ul>
 			<li><a href="<?php echo URL::base();?>"<?php echo ($pagina=='inicio')?' class="actual"':'';?>>Inicio</a></li>
 				<li><a href="<?php echo URL::site('acerca');?>"<?php echo ($pagina=='acerca')?' class="actual"':'';?>>&iquest;Qui&eacute;nes Somos?</a></li>
 				<li><a href="<?php echo URL::site('musica');?>"<?php echo ($pagina=='musica')?' class="actual"':'';?>>M&uacute;sica</a></li>
 				<li><a href="<?php echo URL::site('cuenta');?>"<?php echo ($pagina=='cuenta')?' class="actual"':'';?>>Tu Cuenta</a></li>
 			</ul>
-		</nav>
+		</div>
 		<h1><em>Radio</em>IIT<small>ingenium radio</small></h1>
 		<ul id="social_links">
 			<li>
@@ -64,7 +64,7 @@ $pagina = isset($pagina) ? $pagina : Request::current()->controller();
 				<a href="http://myspace.com/iitradio" target="_blank" alt="Siguenos en myspace" >
 					<img src="/media/img/myspace_icon.png"/></a></li>
 		</ul>
-	</header>
+	</div>
 	<div id="main">
 		<?php echo $contenido; ?>
 		<br class="clear" />
