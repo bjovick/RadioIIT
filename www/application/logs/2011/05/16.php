@@ -101,3 +101,4 @@
 2011-05-16 16:15:02 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones`
 2011-05-16 16:18:33 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones`
 2011-05-16 16:18:35 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones`
+2011-05-16 20:10:14 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones`
