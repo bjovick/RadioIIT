@@ -1,0 +1,11 @@
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
+
+2011-05-06 09:00:20 --- ERROR: ErrorException [ 8 ]: Undefined variable: exceptiones ~ APPPATH/classes/horarios.php [ 69 ]
+2011-05-06 09:00:21 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-05-06 10:42:42 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('')) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304700162 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
+2011-05-06 10:44:52 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304700292 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800
+2011-05-06 11:06:40 --- ERROR: ErrorException [ 4 ]: syntax error, unexpected '}' ~ APPPATH/classes/playlist.php [ 82 ]
+2011-05-06 11:06:40 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH/classes/kohana/request.php [ 743 ]
+2011-05-06 11:06:49 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('')) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304701609 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 LIMIT 10
+2011-05-06 11:07:38 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304701658 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 LIMIT 10
+2011-05-06 11:09:58 --- DEBUG: playlist->disponibles sql: SELECT * FROM `canciones` WHERE (`genero` IN ('') OR `genero` IS NULL OR `genero` LIKE '%unkown%') AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND `id` NOT IN (SELECT `cancion_idfk` FROM `playlist_actual`) AND (1304701798 - UNIX_TIMESTAMP(`ultima_tocada`)) >= 1800 LIMIT 10

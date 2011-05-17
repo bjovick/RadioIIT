@@ -1,0 +1,351 @@
+/**
+ * Colors
+ * white: #ffffff
+ * basic gray: #eeeedd
+ * dark gray: #595959
+ * medium gray: #e7e7d7
+ * medium darker gray: #e6e6d6
+ * light gray: #f5f5eb
+ * light blue: #76A0B0
+ * medium blue: #254fa2
+ */
+
+/**
+ * Browsers Setup
+ */
+html,body,table,td {
+	color:#595959;
+}
+html {
+	overflow-y: scroll;
+}
+ul, ol, li {
+	list-style-position: inside;
+	margin: 0;
+	padding: .4em;
+}
+/** links **/
+a, a:link {color: #254fa2; text-decoration: none;}
+a:hover, a:active {text-decoration: underline;}
+a:visited {color: #254fa2;}
+
+/** html5 **/
+section {
+	display: block;
+	padding: 0;
+	margin: 0;
+}
+
+/**
+ * Typography
+ */
+html,body,table,th,td {
+	font: normal 16px/1.6em Arial, Helvetica, Lucida Sans Unicode, Lucida Grande, sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size: 2.2em;
+	line-height: 1.4em;
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+}
+h2 {font-size: 2em;}
+h3 {font-size: 1.8em;}
+h4 {font-size: 1.6em;}
+h5 {font-size: 1.4em;}
+h6 {font-size: 1.2em;}
+p {margin: 0px; padding: .4em;}
+
+/**
+ * Layout
+ */
+html {
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #eeeedd url('/media/img/header_bg.gif') top center repeat-x;
+}
+body {
+	width: 970px;
+	margin: 0 auto;
+	padding: 0;
+}
+#header {
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0 2em;
+	height: 200px;
+}
+#header>h1 {
+	margin: .6em 0 0;
+	font-size: 3.8em;
+	line-height: 1em;
+	letter-spacing: -3px;
+	font-weight: normal;
+	position: relative;
+}
+#header>h1>em {
+	font-style: normal;
+	color: #76A0B0;
+}
+#header>h1>small{
+	letter-spacing: normal;
+	font-size: .2em;
+	position: absolute;
+	top: -3em;
+	left: 14em;
+}
+
+/*
+body>header {
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0 2em;
+	height: 200px;
+}
+body>header>h1 {
+	margin: .6em 0 0;
+	font-size: 3.8em;
+	line-height: 1em;
+	letter-spacing: -3px;
+	font-weight: normal;
+	position: relative;
+}
+body>header>h1>em {
+	font-style: normal;
+	color: #76A0B0;
+}
+body>header>h1>small{
+	letter-spacing: normal;
+	font-size: .2em;
+	position: absolute;
+	top: -3em;
+	left: 14em;
+}
+/*body>header>ul#social_links*/
+#social_links {
+	display: block;
+	position: absolute;
+	top: 170px;
+	right: 0;
+	list-style: none;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+}
+#social_links>li {
+	display: inline;
+	margin: 0;
+	padding: 1em .4em;
+}
+/*body>div#main*/
+#main {
+	background: #f5f5eb;
+	border: 1px solid #e7e7d7;
+	padding: 1em 0;
+}
+/*body>div#main>#mainbar*/
+#mainbar {
+	width: 600px;
+	margin: 0 10px;
+	float: left;
+}
+/*body>div#main>#sidebar*/
+#sidebar {
+	width: 348px;
+	float: right;
+}
+body>footer {
+	display: block;
+	padding: 1em .5em;
+	clear: both;
+}
+
+/**
+ * Menu
+ */
+/*
+body>header>nav {
+	display: block;
+	margin: 0 0 1em;
+	padding: 0;
+}
+body>header>nav>ul {
+	display: block;
+	height: 83px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+body>header>nav>ul>li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+body>header>nav>ul>li>a, body>header>nav>ul>li>a:link,
+body>header>nav>ul>li>a:hover, body>header>nav>ul>li>a:visited,
+body>header>nav>ul>li>a:active {
+	text-decoration: none;
+	font-weight: bold;
+	color: #595959;
+	padding: 1.6em 1em;
+	line-height: 70px;
+}
+body>header>nav>ul>li>a:hover {
+	background: #f5f5eb;
+}
+body>header>nav>ul>li>a.actual {
+	background: #ebe9d8;
+}
+*/
+#header>div {
+	display: block;
+	margin: 0 0 1em;
+	padding: 0;
+}
+#header>div>ul {
+	display: block;
+	height: 83px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#header>div>ul>li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#header>div>ul>li>a, #header>div>ul>li>a:link,
+#header>div>ul>li>a:hover, #header>div>ul>li>a:visited,
+#header>div>ul>li>a:active {
+	text-decoration: none;
+	font-weight: bold;
+	color: #595959;
+	padding: 1.6em 1em;
+	line-height: 70px;
+}
+#header>div>ul>li>a:hover {
+	background: #f5f5eb;
+}
+#header>div>ul>li>a.actual {
+	background: #ebe9d8;
+}
+ 
+/**
+ * Pagina Inicio
+ */
+.anuncio {
+	color:  #76A0B0;
+	font-size: 1.4em;
+}
+/**
+ * Pagina Musica
+ */
+#pagina_musica #mainbar {
+	width: 500px;
+}
+#pagina_musica #sidebar {
+	width: 448px;
+}
+.playlist {
+	margin: 0 .5em;
+	padding: 1em .5em;
+	list-style: none;
+	background: #76A0B0;
+	font-size: .8em;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.playlist > li {
+	margin: 0 0 .7em 0;
+	padding: .3em .5em;
+	background: #e6e6d6;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.playlist > li > form {
+	display: inline;
+	margin: 0;
+	padding: 0 .3em;
+}
+.playlist > li > form > input {
+	display: inline;
+}
+.playlist > .cancion_actual {
+	background: #e7e7d7 url('/media/img/volumen.png') right center no-repeat;          
+	color: black;
+}
+
+/**
+ * Pagina Cuenta
+ */
+#pagina_cuenta #mainbar {
+	width: 700px;
+}
+#pagina_cuenta #sidebar {
+	width: 248px;
+}
+#dashboard, #dashboard li, #dashboard ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#dashboard li>form {
+	display: inline;
+}
+#dashboard>li section {
+	display: block;
+	padding: 0 .7em 0;
+}
+#dashboard li>h4+section {
+	background: #eeeedd;
+}
+#dashboard h4>a {
+	color: inherit;
+}
+#dashboard h4 {
+	border-bottom: 2px solid #eeeedd;
+}
+
+
+/**
+ * Generales
+ */
+.float_left {float:left;}
+.float_right {float:right;}
+.clearfix:before,
+.clearfix:after {
+	content: ".";    
+	display: block;    
+	height: 0;    
+	overflow: hidden;	
+}
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;} /* IE < 8 */
+.clear {
+	clear:both;
+	display: block;
+	height:0;
+	margin:0;
+	padding:0;
+}
+.error_msg {
+	display: block;
+	border: 1px dashed #f00;
+	color: #FF1E00;
+}
+.central {
+	display: block;
+	margin: 0 auto;
+}
+.resalte_azul {
+	background: #254fa2;
+}
+
