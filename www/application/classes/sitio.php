@@ -33,8 +33,9 @@ class Sitio {
 							->execute()
 							->get('valor');
 		} else { //quiere guardar el valor en esa llave
-			$llave_existe = (count(DB::select('llave')->from(self::$_tabla)
-															->where('llave','=',$llave)->execute()) > 0);
+			$llave_existe = DB::select('llave')->from(self::$_tabla)
+				->where('llave','=',$llave)->execute()->as_array();
+			$llave_existe = (count($llave_existe) > 0);
 			if ($llave_existe) { //actualizar en vez de agregar
 				return !!DB::update(self::$_tabla)
 								->set(array('llave'=>$llave,'valor'=>$valor))
