@@ -14,6 +14,7 @@ class Usuario {
 		$l_cantidad = intval(Sitio::config('no_de_peticiones_permitidas_por_usuario'));
 		$peticiones = intval($u['peticiones']);
 		$primer_pet = strtotime($u['primer_peticion_en']);
+		$lapso = $ts - $primer_pet;
 
 		if (($primer_pet === false || $peticiones === 0)
 			 || ($lapso >= $l_lapso && $peticiones == $l_cantidad)) {
@@ -30,7 +31,6 @@ class Usuario {
 			return true;
 		}
 
-		$lapso = $ts - $primer_pet;
 		if ($lapso < $l_lapso && $peticiones < $l_cantidad) {
 			//esta entre el parametro de lapso y cantidad
 			//incrementar el numero de peticiones

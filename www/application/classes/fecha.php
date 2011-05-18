@@ -166,19 +166,19 @@ class Fecha {
 			$lapso = '1 minuto';
 		}
 		elseif($segundos < Date::HOUR) {
-			$lapso = ($segundos / Date::MINUTE).' minutos';
+			$lapso = intval(($segundos / Date::MINUTE)).' minutos';
 		}
 		elseif($segundos == Date::HOUR) {
 			$lapso = '1 hora';
 		}
 		elseif($segundos < Date::DAY) {
-			$lapso = ($segundos / Date::HOUR).' horas';
+			$lapso = intval($segundos / Date::HOUR).' horas';
 		}
 		elseif($segundos == Date::DAY) {
 			$lapso = '1 d&iacute;a';
 		}
 		else {
-			$lapso = ($segundos / Date::DAY).' d&iacute;as';
+			$lapso = intval($segundos / Date::DAY).' d&iacute;as';
 		}
 
 		return $lapso;

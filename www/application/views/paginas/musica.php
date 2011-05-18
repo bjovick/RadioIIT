@@ -13,7 +13,7 @@ if (Auth::esta_auth()) {
 		if(Sitio::config('de_vacas') == 'false') {
 			$desc = Model_Contenidos::leer('peticion.descripcion')->get('texto_md');
 			$desc = str_replace('::num_pet::',Sitio::config('no_de_peticiones_permitidas_por_usuario'),$desc);
-			$lapso = ((int) Sitio::config('limite_de_tiempo_para_no_de_peticiones_(segs)')) / Date::MINUTE;
+			$lapso = intval(((int) Sitio::config('limite_de_tiempo_para_no_de_peticiones_(segs)')) / Date::MINUTE);
 			$desc = str_replace('::lapso::',"$lapso",$desc);
 			echo Markdown($desc),PHP_EOL,
 					 View::factory('bloques/playlist')
