@@ -193,6 +193,10 @@ class Controller_Cuenta extends Controller {
 
 			if(!$hay_errores) {
 				if(Auth::registrar($post['usuario'], $post['contrasena'])) {
+					//logearlo y redireccionarlo a la cuenta
+					if (Auth::identifica($post['usuario'], $post['contrasena'])) {
+						$this->request->redirect('/cuenta');
+					}
 					$msg .= $mini_msg->set('contenido','Usuario '.$post['usuario'].' fue registrado.')
 									->set('clase','nada');
 				} else {
