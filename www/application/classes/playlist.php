@@ -42,7 +42,7 @@ class Playlist {
 			->join(array($sub, 'playlist'), 'INNER')
 			->on('canciones.id', '=', 'playlist.cancion_idfk');
 
-		$limite = (int) Sitio::config('no._de_canciones_a_mostrar_en_las_listas');
+		$limite = (int) Sitio::config('no_de_canciones_a_mostrar_en_las_listas');
 		if($limite > 0) {
 			self::$_canciones->limit($limite);
 		}

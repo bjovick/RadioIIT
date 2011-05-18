@@ -48,8 +48,8 @@ class Controller_Musica extends Controller {
 			} else {
 				//usuario no pasa validacion
 				$msg .= 'Has sobrepasado tu limite de peticiones ('.
-					Sitio::config('no._de_peticiones_permitidas_por_usuario').') por '.
-					Fecha::duracion_nat(intval(Sitio::config('limite_de_tiempo_para_no._de_peticiones_(segs)'))).'.';
+					Sitio::config('no_de_peticiones_permitidas_por_usuario').') por '.
+					Fecha::duracion_nat(intval(Sitio::config('limite_de_tiempo_para_no_de_peticiones_(segs)'))).'.';
 			}
 
 			$p = View::factory('paginas/basica')
@@ -86,8 +86,8 @@ class Controller_Musica extends Controller {
 									Si el problema persiste contacte al administrador.';
 				} else {
 					$msg .= 'Has sobrepasado tu limite de recomendaciones ('.
-						Sitio::config('no._de_recomendaciones_permitidas_por_usuario').') por '.
-						Fecha::duracion_nat(intval(Sitio::config('limite_de_tiempo_para_no._de_recomendaciones_(segs)'))).'.';
+						Sitio::config('no_de_recomendaciones_permitidas_por_usuario').') por '.
+						Fecha::duracion_nat(intval(Sitio::config('limite_de_tiempo_para_no_de_recomendaciones_(segs)'))).'.';
 			
 				}
 

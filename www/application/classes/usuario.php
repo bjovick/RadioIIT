@@ -10,8 +10,8 @@ class Usuario {
 	public static function peticion_es_valida() {
 		$ts = time();
 		$u = Auth::usuario();
-		$l_lapso = intval(Sitio::config('limite_de_tiempo_para_no._de_peticiones_(segs)'));
-		$l_cantidad = intval(Sitio::config('no._de_peticiones_permitidas_por_usuario'));
+		$l_lapso = intval(Sitio::config('limite_de_tiempo_para_no_de_peticiones_(segs)'));
+		$l_cantidad = intval(Sitio::config('no_de_peticiones_permitidas_por_usuario'));
 		$peticiones = intval($u['peticiones']);
 		$primer_pet = strtotime($u['primer_peticion_en']);
 
@@ -63,8 +63,8 @@ class Usuario {
 	public static function recomendacion_es_valida() {
 		$ts = time();
 		$u = Auth::usuario();
-		$l_lapso = intval(Sitio::config('limite_de_tiempo_para_no._de_recomendaciones_(segs)'));
-		$l_cantidad = intval(Sitio::config('no._de_recomendaciones_permitidas_por_usuario'));
+		$l_lapso = intval(Sitio::config('limite_de_tiempo_para_no_de_recomendaciones_(segs)'));
+		$l_cantidad = intval(Sitio::config('no_de_recomendaciones_permitidas_por_usuario'));
 		$recomends = intval($u['recomendaciones']);
 		$primer_rec = strtotime($u['primer_recomend_en']);
 

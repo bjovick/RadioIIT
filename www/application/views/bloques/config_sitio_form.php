@@ -22,7 +22,7 @@
 		?>
 		<input type="text" name="<?php echo $c['llave']; ?>" value="<?php echo $c['valor']; ?>" />
 		<?php } 
-		if($c['llave'] == 'no._de_canciones_a_mostrar_en_las_listas') {
+		if($c['llave'] == 'no_de_canciones_a_mostrar_en_las_listas') {
 			//un comentario
 		?>
 		<small>Con valor 0 no hay limite</small>
