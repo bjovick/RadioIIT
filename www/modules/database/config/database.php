@@ -18,8 +18,8 @@ return array
 			 * Ports and sockets may be appended to the hostname.
 			 */
 			'hostname'   => 'localhost',
-			//'database'   => 'tonylar1_radioiit',
-			//'username'   => 'tonylar1_dbuser',
+			//'database'   => 'a11117ho_radioiit',
+			//'username'   => 'a11117ho_db',
 			//'password'   => 'password890',
 			'database'   => Kohana::$environment == Kohana::PRODUCTION ? 'a11117ho_radioiit' : 'radioiit',
 			'username'   => Kohana::$environment == Kohana::PRODUCTION ? 'a11117ho_db' : 'root',

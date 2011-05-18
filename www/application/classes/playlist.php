@@ -64,11 +64,11 @@ class Playlist {
 		//lapso de cancion de ultima vez tocada
 		$lapso = DB::expr('('.$t.' - UNIX_TIMESTAMP(`ultima_tocada`))');
 
+		$select->where_open();
 		//solamente filtrar si hay horarios
 		if(!empty(self::$_horario)) {
 			//solo las del genero
 			if(!empty(self::$_horario['generos'])) {
-				$select->where_open();
 				foreach(self::$_horario['generos'] as $hor) {
 					$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
 				}
