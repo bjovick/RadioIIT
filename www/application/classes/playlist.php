@@ -63,25 +63,29 @@ class Playlist {
 		$t = time();
 		//lapso de cancion de ultima vez tocada
 		$lapso = DB::expr('('.$t.' - UNIX_TIMESTAMP(`ultima_tocada`))');
+		$permitir_nulls = (Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true');
 
-		$select->where_open();
-		//solamente filtrar si hay horarios
-		if(!empty(self::$_horario)) {
-			//solo las del genero
-			if(!empty(self::$_horario['generos'])) {
-				foreach(self::$_horario['generos'] as $hor) {
-					$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
+		//para evitar where_open y where_close vacios
+		if($permitir_nulls && !empty(self::$_horario)) {
+			$select->where_open();
+			//solamente filtrar si hay horarios
+			if(!empty(self::$_horario)) {
+				//solo las del genero
+				if(!empty(self::$_horario['generos'])) {
+					foreach(self::$_horario['generos'] as $hor) {
+						$select->or_where('genero', 'LIKE', DB::expr('\'%'.$hor.'%\''));
+					}
 				}
+
 			}
 
+			//y las que esten nulo o que digan unkown si el admin lo permite
+			if($permitir_nulls) {
+				$select->or_where('genero', 'IS', DB::expr('NULL'))
+						->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
+			}
+			$select->where_close();
 		}
-
-		//y las que esten nulo o que digan unkown si el admin lo permite
-		if(Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true') {
-			$select->or_where('genero', 'IS', DB::expr('NULL'))
-					->or_where('genero', 'LIKE', DB::expr('\'%unkown%\''));
-		}
-		$select->where_close();
 
 		//que no esten en la playlist o peticiones
 		$select->and_where('id', 'NOT IN', DB::expr('('.DB::select('cancion_idfk')->from('peticiones').')'))
