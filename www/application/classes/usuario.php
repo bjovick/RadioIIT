@@ -17,7 +17,7 @@ class Usuario {
 		$lapso = $ts - $primer_pet;
 
 		if (($primer_pet === false || $peticiones === 0)
-			 || ($lapso >= $l_lapso && $peticiones == $l_cantidad)) {
+			 || ($lapso >= $l_lapso && $peticiones >= $l_cantidad)) {
 			//nunca se ha pedido cancion
 			//incrementar numero de peticiones en la bd
 			//actualizar el campo primer_peticione_en a este instante
