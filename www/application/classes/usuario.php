@@ -15,7 +15,8 @@ class Usuario {
 		$peticiones = intval($u['peticiones']);
 		$primer_pet = strtotime($u['primer_peticion_en']);
 
-		if ($primer_pet === false || $peticiones === 0) {
+		if (($primer_pet === false || $peticiones === 0)
+			 || ($lapso >= $l_lapso && $peticiones == $l_cantidad)) {
 			//nunca se ha pedido cancion
 			//incrementar numero de peticiones en la bd
 			//actualizar el campo primer_peticione_en a este instante
