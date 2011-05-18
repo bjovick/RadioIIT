@@ -68,9 +68,10 @@ class Usuario {
 		$l_cantidad = intval(Sitio::config('no_de_recomendaciones_permitidas_por_usuario'));
 		$recomends = intval($u['recomendaciones']);
 		$primer_rec = strtotime($u['primer_recomend_en']);
-
-		//
-		if ($primer_rec === false || $recomends === 0) {
+		$lapso = $ts - $primer_rec;
+			
+		if (($primer_rec === false || $recomends === 0)
+			 || ($lapso >= $l_lapso && $recomends >= $l_cantidad))	 {
 			DB::update('usuarios')
 				->set(array(
 					'recomendaciones' => DB::expr('`recomendaciones` + 1'),
@@ -81,7 +82,6 @@ class Usuario {
 			return true;
 		}
 
-		$lapso = $ts - $primer_rec;
 		if ($lapso < $l_lapso && $recomends < $l_cantidad) {
 			DB::update('usuarios')
 				->set(array(
