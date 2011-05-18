@@ -54,7 +54,7 @@ $intervalos = Horarios::intervalos_de_tiempo();
 		foreach($intervalos as $t) {
 			$seg = date('H:i:s', $t);
 			echo '<option value="'.$seg.'"'.
-				(($seg == $h['tiempo_inicial'])?' selected':'').'>'.$seg.'</option>'.PHP_EOL;
+				(($seg == $h['tiempo_inicial'])?' selected':'').'>'.Fecha::hora_nat($t).'</option>'.PHP_EOL;
 		}
 		?>
 		</select>
@@ -66,7 +66,7 @@ $intervalos = Horarios::intervalos_de_tiempo();
 		foreach($intervalos as $t) {
 			$seg = date('H:i:s', $t);
 			echo '<option value="'.$seg.'"'.
-				(($seg == $h['tiempo_final'])?' selected':'').'>'.$seg.'</option>'.PHP_EOL;
+				(($seg == $h['tiempo_final'])?' selected':'').'>'.Fecha::hora_nat($t).'</option>'.PHP_EOL;
 		}
 		?>
 		</select>

@@ -32,8 +32,8 @@ $es_admin = isset($es_admin) ? $es_admin : false;
 									(empty($h['nombre'])?'<em>Sin nombre</em>':$h['nombre']).
 									' &mdash; '.implode(', ', explode(',', $h['generos'])).
 									' &mdash; el '.ucwords($h['dia']).
-									' de <samp>'.$h['tiempo_inicial'].'</samp>'.
-									' a <samp>'.$h['tiempo_final'].'</samp></li>'.PHP_EOL;
+									' de <samp>'.Fecha::hora_nat($h['tiempo_inicial']).'</samp>'.
+									' a <samp>'.Fecha::hora_nat($h['tiempo_final']).'</samp></li>'.PHP_EOL;
 					}	
 				}
 				else {

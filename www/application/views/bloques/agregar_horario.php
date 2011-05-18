@@ -51,7 +51,7 @@ $intervalos = Horarios::intervalos_de_tiempo();
 		<select name="tiempo_inicial">
 		<?php
 		foreach($intervalos as $t) {
-			echo '<option value="'.date('H:i:s', $t).'">'.date('h:ia',$t).'</option>'.PHP_EOL;
+			echo '<option value="'.date('H:i:s', $t).'">'.Fecha::hora_nat($t).'</option>'.PHP_EOL;
 		}
 		?>
 		</select>
@@ -61,7 +61,7 @@ $intervalos = Horarios::intervalos_de_tiempo();
 		<select name="tiempo_final">
 		<?php
 		foreach($intervalos as $t) {
-			echo '<option value="'.date('H:i:s', $t).'">'.date('h:ia',$t).'</option>'.PHP_EOL;
+			echo '<option value="'.date('H:i:s', $t).'">'.Fecha::hora_nat($t).'</option>'.PHP_EOL;
 		}
 		?>
 		</select>
