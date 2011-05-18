@@ -91,7 +91,7 @@ class Playlist {
 				->and_where_close();
 		}
 		
-		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
+		//Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
 		$result = $select->execute()->as_array();
 		return ($result[0] == '') ? array() : $result;
