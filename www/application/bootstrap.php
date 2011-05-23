@@ -51,10 +51,6 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
 // -- Configuration and initialization -----------------------------------------
 
 /**
- * Guardar la zona horaria en el servidor mysql
- */
-
-/**
  * Set the default language
  */
 I18n::lang('en-us');
