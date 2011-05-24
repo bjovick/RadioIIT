@@ -23,10 +23,13 @@ class Auth {
 					: null;
 	}
 
-	public static function identifica($usuario, $contra) {
+	public static function identifica($usuario, $contra, $con_encripto = FALSE) {
 		$u = Model_Usuarios::leer($usuario);
 
-		if (count($u) == 1 && $u->get('contrasena') === sha1($contra)) { //a crear la sesion
+		//si la contrasena ya viene encriptada
+		$contra = ($con_encripto === TRUE) ? $contra : sha1($contra);
+
+		if (count($u) == 1 && $u->get('contrasena') === $contra) { //a crear la sesion
 			$u = $u->current();
 			//la id de la session
 			$sid = sha1($u['id'].time().$u['usuario'].time().$usuario['contrasena'].time());
@@ -77,14 +80,13 @@ Para terminar tu registro, dale click al link para verificar tu email.
 [::link::](::link::)
 email;
 
-			$msg = Markdown(str_replace('::link::', URL::base('http')'/cuenta/validar/'.$u['id'], $msg));
+			$msg = Markdown(str_replace('::link::', URL::base('http').'cuenta/validar/'.$u['id'], $msg));
 			$de = Sitio::config('email_para_recibir_recomendaciones');
 			$headers = "From: ".$de."\r\n";
 			$headers .= "Reply-To: ".$de."\r\n";
-			$headers .= "Return-Path: ".$de."\r\n";
 			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";	
 
-			return mail($email, $de, 'Validar registro a RadioIIT', $msg);
+			return mail($email, 'Validar registro a RadioIIT', $msg, $headers);
 		}
 
 		return false;

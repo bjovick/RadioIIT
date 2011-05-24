@@ -122,6 +122,11 @@ class Controller_Cuenta extends Controller {
 				$hay_errores = true;
 			}
 
+			if($usuario['validado'] == 'false') {
+				$msg .= PHP_EOL.Markdown('Este usuario existe pero no ha sido validado todav&iacute;a. Checa tu correo con el link de validaci&oacute;n');
+				$hay_errores = true;
+			}
+
 			if ($hay_errores) { //si hay errores a decirle al usuario
 				$this->_basica_v->set('cont_principal', $msg)
 												->set('cont_auxiliar', View::factory('bloques/login'));
@@ -210,11 +215,7 @@ class Controller_Cuenta extends Controller {
 			if(!$hay_errores) {
 				unset($post['contrasena_repetida']);
 				if(Auth::registrar($post['usuario'], $post['contrasena'], $post['email'])) {
-					//logearlo y redireccionarlo a la cuenta
-					if (Auth::identifica($post['usuario'], $post['contrasena'])) {
-						$this->request->redirect('/cuenta');
-					}
-					$msg .= $mini_msg->set('contenido','Usuario '.$post['usuario'].' fue registrado.')
+					$msg .= $mini_msg->set('contenido','Ahora solo necesitas checar el tu correo para validarlo.')
 									->set('clase','nada');
 				} else {
 					$msg .= $mini_msg->set('contenido','Usuario '.$post['usuario'].' ya existe. Trate de nuevo.');
@@ -231,6 +232,19 @@ class Controller_Cuenta extends Controller {
 		$basico_v->set('cont_principal', $msg);
 		$this->_V->set('contenido', $basico_v);
 		$this->response->body($this->_V);
+	}
+
+	public function action_validar($id) {
+		if (is_numeric($id)) {
+			$id = (int) $id;
+			$u = Model_Usuarios::leer($id)->current();
+
+			if($u['validado'] == 'false') {
+				Model_Usuarios::editar($id, array('validado'=>'true'));
+				Auth::identifica($u['usuario'], $u['contrasena'], true);
+			}
+		}
+		$this->request->redirect('/cuenta');
 	}
 
 	public function action_logout() {
