@@ -209,7 +209,7 @@ class Controller_Cuenta extends Controller {
 
 			if(!$hay_errores) {
 				unset($post['contrasena_repetida']);
-				if(Auth::registrar($post['usuario'], $post['contrasena'])) {
+				if(Auth::registrar($post['usuario'], $post['contrasena'], $post['email'])) {
 					//logearlo y redireccionarlo a la cuenta
 					if (Auth::identifica($post['usuario'], $post['contrasena'])) {
 						$this->request->redirect('/cuenta');

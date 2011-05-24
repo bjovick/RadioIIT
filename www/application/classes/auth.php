@@ -67,7 +67,7 @@ class Auth {
 		);
 		$creado = (count($u) > 0) ? false : Model_Usuarios::agregar($datos);
 		if($creado) {
-			$u = Model_Usuarios::leer($usuario);
+			$u = Model_Usuarios::leer($usuario)->current();
 			//a mandarle el email de validacion
 			$msg = <<<email
 ###Bienvenido a RadioIIT.
@@ -77,13 +77,14 @@ Para terminar tu registro, dale click al link para verificar tu email.
 [::link::](::link::)
 email;
 
-			$msg = Markdown(str_replace('::link::', URL::site('/cuenta/validar/'.$u['id']), $msg));
-
-			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$msg = Markdown(str_replace('::link::', URL::base('http')'/cuenta/validar/'.$u['id'], $msg));
+			$de = Sitio::config('email_para_recibir_recomendaciones');
+			$headers = "From: ".$de."\r\n";
+			$headers .= "Reply-To: ".$de."\r\n";
+			$headers .= "Return-Path: ".$de."\r\n";
 			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";	
 
-			return mail($email, Sitio::config('email_para_recibir_recomendaciones'),
-									'Validar registro a RadioIIT', $msg);
+			return mail($email, $de, 'Validar registro a RadioIIT', $msg);
 		}
 
 		return false;
