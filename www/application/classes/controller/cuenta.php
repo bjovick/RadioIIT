@@ -186,7 +186,7 @@ class Controller_Cuenta extends Controller {
 				$msg .= $mini_msg->set('contenido', 'El email no es valido');
 				$hay_errores = true;
 			}
-			if(count(Model_Usuarios::seleccionar(array(array('email','=',$post['email'])))) > 0 {
+			if(count(Model_Usuarios::seleccionar(array(array('email','=',$post['email'])))) > 0) {
 				$msg .= $mini_msg->set('contenido', 'Ese usuario ya existe con el mismo email.');
 				$hay_errores = true;
 			}
