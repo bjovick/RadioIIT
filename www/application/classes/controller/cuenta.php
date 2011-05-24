@@ -192,7 +192,7 @@ class Controller_Cuenta extends Controller {
 				$hay_errores = true;
 			}
 			if(count(Model_Usuarios::seleccionar(array(array('email','=',$post['email'])))) > 0) {
-				$msg .= $mini_msg->set('contenido', 'Ese usuario ya existe con el mismo email.');
+				$msg .= $mini_msg->set('contenido', 'Ya se encuentra registado este email.');
 				$hay_errores = true;
 			}
 			if (!isset($post['recaptcha_response_field'])
@@ -215,7 +215,7 @@ class Controller_Cuenta extends Controller {
 			if(!$hay_errores) {
 				unset($post['contrasena_repetida']);
 				if(Auth::registrar($post['usuario'], $post['contrasena'], $post['email'])) {
-					$msg .= $mini_msg->set('contenido','Ahora solo necesitas checar el tu correo para validarlo.')
+					$msg .= $mini_msg->set('contenido','Ahora s&oacute;lo necesitas entrar a tu correo para validar tu cuenta.')
 									->set('clase','nada');
 				} else {
 					$msg .= $mini_msg->set('contenido','Usuario '.$post['usuario'].' ya existe. Trate de nuevo.');
