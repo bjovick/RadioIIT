@@ -156,7 +156,9 @@ class Controller_Cuenta extends Controller {
 			$post['usuario'] = filter_var($post['usuario'],
 																		FILTER_SANITIZE_SPECIAL_CHARS
 																		|FILTER_SANITIZE_STRING);
+			$post['email'] = filter_var($post['email'], FILTER_SANITIZE_EMAIL);
 			$post['contrasena'] = filter_var($post['contrasena'], FILTER_SANITIZE_STRING);
+			$post['contrasena_repetida'] = filter_var($post['contrasena_repetida'], FILTER_SANITIZE_STRING);
 			$post['recaptcha_response_field'] = filter_var($post['recaptcha_response_field'],
 																											FILTER_SANITIZE_STRING);
 					
@@ -165,13 +167,27 @@ class Controller_Cuenta extends Controller {
 				$msg .= $mini_msg->set('contenido', 'Ese usuario ya existe.');
 				$hay_errores = true;
 			}
-			//datos son validos
+			//el nombre del usuario tiene que tener 4 caracteres de perdida
 			if(strlen($post['usuario']) < 4 || empty($post['usuario'])) {
 				$msg .= $mini_msg->set('contenido', 'Usuario necesita tener por lo menos 4 caracteres.');
 				$hay_errores = true;
 			}
-			if(strlen($post['contrasena']) < 6 || empty($post['contrasena'])) {
+			//las contrasenas tienen que ser iguales
+			if($post['contrasena'] !== $post['contrasena_repetida']) {
+				$msg .= $mini_msg->set('contenido', 'La contrase&ntilde;as no coinciden.');
+				$hay_errores = true;
+			}
+			//la contrasena de perdida de 6 caracteres
+			if(empty($post['contrasena']) || strlen($post['contrasena']) < 6) {
 				$msg .= $mini_msg->set('contenido', 'La contrase&ntilde;a necesita por lo menos tener 6 caracteres');
+				$hay_errores = true;
+			}
+			if(filter_var($post['email'], FILTER_VALIDATE_EMAIL) === FALSE) {
+				$msg .= $mini_msg->set('contenido', 'El email no es valido');
+				$hay_errores = true;
+			}
+			if(count(Model_Usuarios::seleccionar(array(array('email','=',$post['email'])))) > 0 {
+				$msg .= $mini_msg->set('contenido', 'Ese usuario ya existe con el mismo email.');
 				$hay_errores = true;
 			}
 			if (!isset($post['recaptcha_response_field'])
@@ -192,6 +208,7 @@ class Controller_Cuenta extends Controller {
 			}
 
 			if(!$hay_errores) {
+				unset($post['contrasena_repetida']);
 				if(Auth::registrar($post['usuario'], $post['contrasena'])) {
 					//logearlo y redireccionarlo a la cuenta
 					if (Auth::identifica($post['usuario'], $post['contrasena'])) {

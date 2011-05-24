@@ -57,14 +57,35 @@ class Auth {
 		return true;
 	}
 
-	public static function registrar($usuario, $contra, $rol = 'normal') {
+	public static function registrar($usuario, $contra, $email = '', $rol = 'normal') {
 		$u = Model_Usuarios::leer($usuario);
 		$datos = array(
 			'usuario'=>$usuario,
 			'contrasena'=>sha1($contra),
+			'email'=>$email,
 			'rol'=>$rol,
 		);
+		$creado = (count($u) > 0) ? false : Model_Usuarios::agregar($datos);
+		if($creado) {
+			$u = Model_Usuarios::leer($usuario);
+			//a mandarle el email de validacion
+			$msg = <<<email
+###Bienvenido a RadioIIT.
 
-		return (count($u) > 0) ? false : Model_Usuarios::agregar($datos);
+Para terminar tu registro, dale click al link para verificar tu email.
+
+[::link::](::link::)
+email;
+
+			$msg = Markdown(str_replace('::link::', URL::site('/cuenta/validar/'.$u['id']), $msg));
+
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";	
+
+			return mail($email, Sitio::config('email_para_recibir_recomendaciones'),
+									'Validar registro a RadioIIT', $msg);
+		}
+
+		return false;
 	}
 }

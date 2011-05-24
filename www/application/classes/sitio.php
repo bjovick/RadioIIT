@@ -48,18 +48,18 @@ class Sitio {
 			for($n=0; $n<$total; $n++) {
 				//si se puede abrir el socket
 				$num_error = 0;
-				$error_s 0;
+				$error_s = 0;
 				$sock = @fsockopen($remitentes[$n], 25, $num_error, $error_s, $esperar_tcp);
 				if($sock) {
 					$respuesta = fread($sock, 8192);
 					stream_set_timeout($sock, $esperar_tcp);
 					$meta = stream_get_meta_data($sock);
-					$cmds = array {
+					$cmds = array (
 						'HELLO radioiit.co.cc',
 						'MAIL FROM: <'.Sitio::config('email_para_recibir_recomendaciones').'>',
 						'RCPT TO: <'.$email.'>',
 						'QUIT',
-					};
+					);
 
 					//si no hubo conneccion, break
 					if(!$meta['timed_out'] && !preg_match('/^2\d\d[ -]/', $respuesta)) {
@@ -70,7 +70,7 @@ class Sitio {
 					foreach($cmds as $cmd) {
 						fputs($sock, "$cmd\r\n");
 						$respuesta = fread($sock, 4096);
-						if(!meta['timed_out'] && preg_match('/^d\d\d[ -]/', $respuesta)) {
+						if(!$meta['timed_out'] && preg_match('/^d\d\d[ -]/', $respuesta)) {
 							$error = true;
 							break 2;
 						}
