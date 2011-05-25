@@ -66,7 +66,7 @@ class Playlist {
 		$permitir_nulls = (Sitio::config('permitir_mostrar_canciones_sin_genero_en_peticiones')=='true');
 
 		//para evitar where_open y where_close vacios
-		if($permitir_nulls && !empty(self::$_horario)) {
+		if($permitir_nulls || !empty(self::$_horario)) {
 			$select->where_open();
 			//solamente filtrar si hay horarios
 			if(!empty(self::$_horario)) {
@@ -97,7 +97,7 @@ class Playlist {
 			->or_where('ultima_tocada', 'IS', DB::expr('NULL'))
 			->and_where_close();
 		
-		//Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
+		Kohana::$log->add(Log::DEBUG, 'playlist->disponibles sql: '.$select);
 
 		$result = $select->execute()->as_array();
 		return ($result[0] == '') ? array() : $result;
